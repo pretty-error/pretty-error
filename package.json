@@ -1,0 +1,19 @@
+{
+  "name": "",
+  "type": "module",
+  "scripts": {
+    "test": "bun test",
+    "lint": "oxlint",
+    "format": "oxfmt",
+    "build": "tsdown",
+    "prepublishOnly": "bun run build"
+  },
+  "devDependencies": {
+    "@gameroman/config": "^0.0.6",
+    "oxfmt": "^0.44.0",
+    "oxlint": "^1.59.0",
+    "oxlint-tsgolint": "^0.20.0",
+    "tsdown": "^0.21.7",
+    "typescript": "^6.0.2"
+  }
+}
