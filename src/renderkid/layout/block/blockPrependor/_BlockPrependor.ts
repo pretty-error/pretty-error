@@ -20,7 +20,6 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
-
 const _BlockPrependor = /*#__PURE__*/ (function () {
   function _BlockPrependor(_config) {
     _classCallCheck(this, _BlockPrependor);

@@ -20,11 +20,10 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
-import * as tools from "../tools";
+import { getCols, cloneAndMergeDeep } from "../tools";
 import SpecialString from "./SpecialString";
 
-const terminalWidth = tools.getCols();
-const cloneAndMergeDeep = tools.cloneAndMergeDeep;
+const terminalWidth = getCols();
 
 const default__ = function () {
   let self;

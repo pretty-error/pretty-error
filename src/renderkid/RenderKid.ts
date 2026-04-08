@@ -20,21 +20,19 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
-import blockStyleApplier from "./renderKid/styleApplier/block";
-import inlineStyleApplier from "./renderKid/styleApplier/inline";
-
-const cloneAndMergeDeep = tools.cloneAndMergeDeep;
-
 import { stripVTControlCharacters as stripAnsi } from "node:util";
 
 import { isPlainObject } from "#utils";
 
 import AnsiPainter from "./AnsiPainter";
 import Layout from "./Layout";
+import blockStyleApplier from "./renderKid/styleApplier/block";
+import inlineStyleApplier from "./renderKid/styleApplier/inline";
 import Styles from "./renderKid/Styles";
+import { getCols, cloneAndMergeDeep } from "./tools";
 import * as tools from "./tools";
 
-const terminalWidth = tools.getCols();
+const terminalWidth = getCols();
 
 const RenderKid = function () {
   let self;

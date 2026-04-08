@@ -25,12 +25,9 @@ function _createClass(Constructor, protoProps, staticProps) {
 let i, len, prop, ref;
 
 import Block from "./layout/Block";
-import * as tools from "./tools";
-
-const cloneAndMergeDeep = tools.cloneAndMergeDeep;
-
 import SpecialString from "./layout/SpecialString";
-const terminalWidth = tools.getCols();
+import { getCols, cloneAndMergeDeep } from "./tools";
+const terminalWidth = getCols();
 
 const Layout = function () {
   let self;
