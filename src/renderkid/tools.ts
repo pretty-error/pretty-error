@@ -32,9 +32,9 @@ function cloneAndMergeDeep(base, toAppend) {
 
 function toDom(subject) {
   if (typeof subject === "string") {
-    return self.stringToDom(subject);
+    return stringToDom(subject);
   } else if (isPlainObject(subject)) {
-    return self.objectToDom(subject);
+    return objectToDom(subject);
   } else {
     throw Error("tools.toDom() only supports strings and objects");
   }
@@ -55,7 +55,7 @@ function _fixQuotesInDom(input) {
     for (j = 0, len = input.length; j < len; j++) {
       node = input[j];
 
-      self._fixQuotesInDom(node);
+      _fixQuotesInDom(node);
     }
 
     return input;
@@ -64,9 +64,9 @@ function _fixQuotesInDom(input) {
   node = input;
 
   if (node.type === "text") {
-    return (node.data = self._quoteNodeText(node.data));
+    return (node.data = _quoteNodeText(node.data));
   } else {
-    return self._fixQuotesInDom(node.children);
+    return _fixQuotesInDom(node.children);
   }
 }
 
@@ -77,7 +77,7 @@ function objectToDom(o) {
     }
   }
 
-  return self._fixQuotesInDom(_objectToDom(o));
+  return _fixQuotesInDom(_objectToDom(o));
 }
 
 function quote(str) {
@@ -125,28 +125,12 @@ function getCols() {
   }
 }
 
-const self = {
-  repeatString,
-  cloneAndMergeDeep,
-  toDom,
-  stringToDom,
-  _fixQuotesInDom,
-  objectToDom,
-  quote,
-  _quoteNodeText,
-  getCols,
-};
-
-export default self;
-
 export {
   repeatString,
   cloneAndMergeDeep,
   toDom,
   stringToDom,
-  _fixQuotesInDom,
   objectToDom,
   quote,
-  _quoteNodeText,
   getCols,
 };
