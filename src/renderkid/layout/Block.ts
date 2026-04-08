@@ -26,7 +26,7 @@ import SpecialString from "./SpecialString";
 const terminalWidth = tools.getCols();
 const cloneAndMergeDeep = tools.cloneAndMergeDeep;
 
-module.exports = function () {
+const default__ = function () {
   let self;
 
   const Block = /*#__PURE__*/ (function () {
@@ -417,3 +417,5 @@ module.exports = function () {
   };
   return Block;
 }.call(void 0);
+
+export default default__;

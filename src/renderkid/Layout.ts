@@ -22,10 +22,9 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
-let Block, Layout, i, len, prop, ref;
+let i, len, prop, ref;
 
-Block = require("./layout/Block");
-
+import Block from "./layout/Block";
 import * as tools from "./tools";
 
 const cloneAndMergeDeep = tools.cloneAndMergeDeep;
@@ -33,7 +32,7 @@ const cloneAndMergeDeep = tools.cloneAndMergeDeep;
 import SpecialString from "./layout/SpecialString";
 const terminalWidth = tools.getCols();
 
-module.exports = Layout = function () {
+const Layout = function () {
   let self;
 
   const Layout = /*#__PURE__*/ (function () {
@@ -160,3 +159,5 @@ for (i = 0, len = ref.length; i < len; i++) {
     });
   })();
 }
+
+export default Layout;
