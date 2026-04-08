@@ -22,15 +22,13 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
-let Styles;
-
 import * as tools from "../tools";
 import MixedDeclarationSet from "./styles/rule/MixedDeclarationSet";
 import StyleSheet from "./styles/StyleSheet";
 
 const terminalWidth = tools.getCols();
 
-module.exports = Styles = function () {
+const Styles = function () {
   let self;
 
   const Styles = /*#__PURE__*/ (function () {
@@ -119,3 +117,5 @@ module.exports = Styles = function () {
   };
   return Styles;
 }.call(void 0);
+
+export default Styles;
