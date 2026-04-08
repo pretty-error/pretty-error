@@ -79,10 +79,7 @@ module.exports = self = {
   _nameRx: /^[a-zA-Z\-_]{1}[a-zA-Z0-9\-_]*$/,
   _parseTag: function (k) {
     let attribs, classes, cls, id, m, name, parts;
-    if (
-      !k.match(/^[a-zA-Z0-9#\-_.[\]"'=,\s]+$/) ||
-      k.match(/^[0-9]+/)
-    ) {
+    if (!k.match(/^[a-zA-Z0-9#\-_.[\]"'=,\s]+$/) || k.match(/^[0-9]+/)) {
       throw Error("cannot parse tag `" + k + "`");
     }
     attribs = {};
