@@ -1727,7 +1727,7 @@ function isArrayLikeObject(value) {
  * _.isBuffer(new Uint8Array(2));
  * // => false
  */
-const isBuffer = nativeIsBuffer || stubFalse;
+const isBuffer = nativeIsBuffer;
 
 /**
  * Checks if `value` is classified as a `Function` object.
@@ -2047,23 +2047,6 @@ function constant(value) {
  */
 function identity(value) {
   return value;
-}
-
-/**
- * This method returns `false`.
- *
- * @static
- * @memberOf _
- * @since 4.13.0
- * @category Util
- * @returns {boolean} Returns `false`.
- * @example
- *
- * _.times(2, _.stubFalse);
- * // => [false, false]
- */
-function stubFalse() {
-  return false;
 }
 
 export default merge;

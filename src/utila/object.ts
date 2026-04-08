@@ -157,4 +157,4 @@ const object = {
   },
 };
 
-module.exports = object;
+export default object;
