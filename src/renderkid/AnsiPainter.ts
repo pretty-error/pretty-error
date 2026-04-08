@@ -205,4 +205,4 @@ const AnsiPainter = function () {
   return AnsiPainter;
 }.call(void 0);
 
-module.exports = AnsiPainter;
+export default AnsiPainter;

@@ -6,10 +6,9 @@ let instance,
   __slice = [].slice,
   __indexOf = [].indexOf;
 
-import merge from "lodash/merge";
-
 import RenderKid from "#renderkid";
 import { isPlainObject } from "#utils";
+import merge from "#utils/merge";
 
 import defaultStyle from "./defaultStyle";
 import nodePaths from "./nodePaths";

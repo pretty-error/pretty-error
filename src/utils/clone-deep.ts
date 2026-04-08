@@ -1,12 +1,3 @@
-/**
- * lodash (Custom Build) <https://lodash.com/>
- * Build: `lodash modularize exports="npm" -o ./`
- * Copyright jQuery Foundation and other contributors <https://jquery.org/>
- * Released under MIT license <https://lodash.com/license>
- * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
- * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- */
-
 /** Used as the size to enable large array optimizations. */
 const LARGE_ARRAY_SIZE = 200;
 
@@ -318,7 +309,7 @@ const coreJsData = root["__core-js_shared__"];
 
 /** Used to detect methods masquerading as native. */
 const maskSrcKey = (function () {
-  var uid = /[^.]+$/.exec(
+  const uid = /[^.]+$/.exec(
     (coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO) || "",
   );
   return uid ? "Symbol(src)_1." + uid : "";
@@ -351,17 +342,14 @@ const reIsNative = RegExp(
 );
 
 /** Built-in value references. */
-const Buffer = moduleExports ? root.Buffer : undefined,
-  Symbol = root.Symbol,
-  Uint8Array = root.Uint8Array,
-  getPrototype = overArg(Object.getPrototypeOf, Object),
+const getPrototype = overArg(Object.getPrototypeOf, Object),
   objectCreate = Object.create,
   propertyIsEnumerable = objectProto.propertyIsEnumerable,
   splice = arrayProto.splice;
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 const nativeGetSymbols = Object.getOwnPropertySymbols,
-  nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined,
+  nativeIsBuffer = Buffer.isBuffer,
   nativeKeys = overArg(Object.keys, Object);
 
 /* Built-in method references that are verified to be native. */
@@ -490,7 +478,7 @@ Hash.prototype.set = hashSet;
  * @constructor
  * @param {Array} [entries] The key-value pairs to cache.
  */
-function ListCache(entries) {
+function ListCache(entries?: unknown[]) {
   let index = -1,
     length = entries ? entries.length : 0;
 
@@ -696,7 +684,7 @@ MapCache.prototype.set = mapCacheSet;
  * @constructor
  * @param {Array} [entries] The key-value pairs to cache.
  */
-function Stack(entries) {
+function Stack(entries?) {
   this.__data__ = new ListCache(entries);
 }
 
@@ -798,7 +786,7 @@ function arrayLikeKeys(value, inherited) {
   const length = result.length,
     skipIndexes = !!length;
 
-  for (let key in value) {
+  for (const key in value) {
     if (
       (inherited || hasOwnProperty.call(value, key)) &&
       !(skipIndexes && (key == "length" || isIndex(key, length)))
@@ -1007,7 +995,7 @@ function baseKeys(object) {
     return nativeKeys(object);
   }
   const result = [];
-  for (let key in Object(object)) {
+  for (const key in Object(object)) {
     if (hasOwnProperty.call(object, key) && key != "constructor") {
       result.push(key);
     }
@@ -1123,7 +1111,9 @@ function cloneSymbol(symbol) {
  * @returns {Object} Returns the cloned typed array.
  */
 function cloneTypedArray(typedArray, isDeep) {
-  const buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
+  const buffer = isDeep
+    ? cloneArrayBuffer(typedArray.buffer)
+    : typedArray.buffer;
   return new typedArray.constructor(
     buffer,
     typedArray.byteOffset,
@@ -1638,7 +1628,7 @@ function isArrayLikeObject(value) {
  * _.isBuffer(new Uint8Array(2));
  * // => false
  */
-const isBuffer = nativeIsBuffer || stubFalse;
+const isBuffer = nativeIsBuffer;
 
 /**
  * Checks if `value` is classified as a `Function` object.

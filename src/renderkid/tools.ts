@@ -1,9 +1,9 @@
 import htmlparser from "htmlparser2";
-import merge from "lodash/merge";
 
 import { objectToDom as _objectToDom } from "#dom-converter";
 import { isPlainObject } from "#utils";
 import cloneDeep from "#utils/clone-deep";
+import merge from "#utils/merge";
 
 function repeatString(str, times) {
   let i, j, output, ref;
