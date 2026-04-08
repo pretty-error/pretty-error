@@ -26,12 +26,10 @@
     "oxfmt": "^0.44.0",
     "oxlint": "^1.59.0",
     "oxlint-tsgolint": "^0.20.0",
-    "strip-ansi": "^6.0.1",
     "tsdown": "^0.21.7",
     "typescript": "^6.0.2"
   },
   "inlinedDependencies": {
-    "ansi-regex": "5.0.1",
     "boolbase": "1.0.0",
     "css-select": "4.3.0",
     "css-what": "6.2.2",
@@ -42,7 +40,6 @@
     "entities": "2.2.0",
     "htmlparser2": "6.1.0",
     "lodash": "4.18.1",
-    "nth-check": "2.1.1",
-    "strip-ansi": "6.0.1"
+    "nth-check": "2.1.1"
   }
 }

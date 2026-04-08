@@ -1,5 +1,3 @@
-"use strict";
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -33,7 +31,7 @@ const isPlainObject = (obj) =>
 
 const cloneAndMergeDeep = tools.cloneAndMergeDeep;
 
-import stripAnsi from "strip-ansi";
+import { stripVTControlCharacters as stripAnsi } from "node:util";
 
 import AnsiPainter from "./AnsiPainter";
 import Layout from "./Layout";
@@ -121,8 +119,7 @@ const RenderKid = function () {
       {
         key: "_paint",
         value: function _paint(text, withColors) {
-          let painted;
-          painted = AnsiPainter.paint(text);
+          const painted = AnsiPainter.paint(text);
 
           if (withColors) {
             return painted;
