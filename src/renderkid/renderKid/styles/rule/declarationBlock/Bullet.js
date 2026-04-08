@@ -146,9 +146,7 @@ module.exports = Bullet = function () {
           color = "none";
           bg = "none";
 
-          if (
-            (m = val.match(/"([^"]+)"/) || (m = val.match(/'([^']+)'/)))
-          ) {
+          if ((m = val.match(/"([^"]+)"/) || (m = val.match(/'([^']+)'/)))) {
             char = m[1];
             val = val.replace(m[0], "");
             enabled = true;
