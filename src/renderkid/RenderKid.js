@@ -24,7 +24,6 @@ function _createClass(Constructor, protoProps, staticProps) {
 
 let AnsiPainter,
   Layout,
-  RenderKid,
   Styles,
   blockStyleApplier,
   cloneAndMergeDeep,
@@ -51,7 +50,7 @@ tools = require("./tools");
 stripAnsi = require("strip-ansi");
 terminalWidth = require("./tools").getCols();
 
-module.exports = RenderKid = function () {
+const RenderKid = function () {
   let self;
 
   const RenderKid = /*#__PURE__*/ (function () {
@@ -316,3 +315,5 @@ module.exports = RenderKid = function () {
   };
   return RenderKid;
 }.call(void 0);
+
+export default RenderKid;
