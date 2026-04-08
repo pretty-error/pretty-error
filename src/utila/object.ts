@@ -1,10 +1,8 @@
-let object,
-  _common,
-  __hasProp = {}.hasOwnProperty;
+const __hasProp = {}.hasOwnProperty;
 
-_common = require("./_common");
+import _common from "./_common";
 
-module.exports = object = {
+const object = {
   isBareObject: _common.isBareObject.bind(_common),
   /*
   	if object is an instance of a class
@@ -158,3 +156,5 @@ module.exports = object = {
     return grouped;
   },
 };
+
+module.exports = object;
