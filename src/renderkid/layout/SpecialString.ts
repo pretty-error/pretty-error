@@ -1,5 +1,3 @@
-"use strict";
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -22,9 +20,9 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
-let SpecialString, i, len, prop, ref;
+let i, len, prop, ref;
 
-module.exports = SpecialString = function () {
+const SpecialString = function () {
   let self;
 
   const SpecialString = /*#__PURE__*/ (function () {
@@ -247,3 +245,5 @@ for (i = 0, len = ref.length; i < len; i++) {
     });
   })();
 }
+
+export default SpecialString;
