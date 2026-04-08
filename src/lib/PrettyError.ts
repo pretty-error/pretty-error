@@ -11,7 +11,7 @@ ParsedError = require('./ParsedError');
 
 nodePaths = require('./nodePaths');
 
-RenderKid = require('renderkid');
+RenderKid = require('#renderkid');
 
 merge = require('lodash/merge');
 

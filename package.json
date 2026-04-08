@@ -2,6 +2,9 @@
   "name": "@pretty-error/pretty-error",
   "version": "0.0.0",
   "type": "module",
+  "imports": {
+    "#renderkid": "./src/renderkid/RenderKid.js"
+  },
   "scripts": {
     "test": "bun test",
     "lint": "oxlint",
@@ -11,11 +14,14 @@
   },
   "devDependencies": {
     "@gameroman/config": "^0.0.6",
-    "lodash": "^4.17.20",
+    "css-select": "^4.1.3",
+    "dom-converter": "^0.2.0",
+    "htmlparser2": "^6.1.0",
+    "lodash": "^4.17.21",
     "oxfmt": "^0.44.0",
     "oxlint": "^1.59.0",
     "oxlint-tsgolint": "^0.20.0",
-    "renderkid": "^3.0.0",
+    "strip-ansi": "^6.0.1",
     "tsdown": "^0.21.7",
     "typescript": "^6.0.2"
   },
@@ -37,7 +43,6 @@
     "htmlparser2": "6.1.0",
     "lodash": "4.18.1",
     "nth-check": "2.1.1",
-    "renderkid": "3.0.0",
     "strip-ansi": "6.0.1",
     "utila": "0.4.0"
   }
