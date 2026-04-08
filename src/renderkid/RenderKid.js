@@ -22,17 +22,8 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
-let AnsiPainter,
-  Layout,
-  Styles,
-  blockStyleApplier,
-  cloneAndMergeDeep,
-  inlineStyleApplier,
-  stripAnsi,
-  terminalWidth,
-  tools;
-inlineStyleApplier = require("./renderKid/styleApplier/inline");
-blockStyleApplier = require("./renderKid/styleApplier/block");
+import blockStyleApplier from "./renderKid/styleApplier/block";
+import inlineStyleApplier from "./renderKid/styleApplier/inline";
 
 const isPlainObject = (obj) =>
   obj &&
@@ -40,15 +31,16 @@ const isPlainObject = (obj) =>
   (Object.getPrototypeOf(obj) === null ||
     Object.getPrototypeOf(obj) === Object.prototype);
 
-const _require = require("./tools");
+const cloneAndMergeDeep = tools.cloneAndMergeDeep;
 
-cloneAndMergeDeep = _require.cloneAndMergeDeep;
-AnsiPainter = require("./AnsiPainter");
-Styles = require("./renderKid/Styles");
-Layout = require("./Layout");
-tools = require("./tools");
-stripAnsi = require("strip-ansi");
-terminalWidth = require("./tools").getCols();
+import stripAnsi from "strip-ansi";
+
+import AnsiPainter from "./AnsiPainter";
+import Layout from "./Layout";
+import Styles from "./renderKid/Styles";
+import tools from "./tools";
+
+const terminalWidth = tools.getCols();
 
 const RenderKid = function () {
   let self;

@@ -1,4 +1,4 @@
-let cloneDeep, merge, self;
+let cloneDeep, merge;
 
 import htmlparser from "htmlparser2";
 
@@ -13,7 +13,7 @@ const isPlainObject = (obj) =>
 merge = require("lodash/merge");
 cloneDeep = require("lodash/cloneDeep");
 
-module.exports = self = {
+const self = {
   repeatString: function repeatString(str, times) {
     let i, j, output, ref;
     output = "";
@@ -121,3 +121,5 @@ module.exports = self = {
     }
   },
 };
+
+module.exports = self;
