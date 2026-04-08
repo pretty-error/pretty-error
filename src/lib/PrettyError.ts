@@ -5,7 +5,6 @@ let ParsedError,
   arrayUtils,
   defaultStyle,
   instance,
-  isPlainObject,
   merge,
   nodePaths,
   prop,
@@ -23,7 +22,11 @@ let ParsedError,
       return -1;
     };
 
-isPlainObject = require("lodash/isPlainObject");
+const isPlainObject = (obj) =>
+  obj &&
+  typeof obj === "object" &&
+  (Object.getPrototypeOf(obj) === null ||
+    Object.getPrototypeOf(obj) === Object.prototype);
 
 defaultStyle = require("./defaultStyle");
 
