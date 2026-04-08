@@ -5,10 +5,10 @@
     "": {
       "dependencies": {
         "css-select": "4.3.0",
+        "htmlparser2": "6.1.0",
       },
       "devDependencies": {
         "@gameroman/config": "^0.0.6",
-        "htmlparser2": "^6.1.0",
         "oxfmt": "^0.44.0",
         "oxlint": "^1.59.0",
         "oxlint-tsgolint": "^0.20.0",
