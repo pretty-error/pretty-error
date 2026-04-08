@@ -11,112 +11,142 @@ const isPlainObject = (obj) =>
 import cloneDeep from "lodash/cloneDeep";
 import merge from "lodash/merge";
 
-const self = {
-  repeatString: function repeatString(str, times) {
-    let i, j, output, ref;
-    output = "";
+function repeatString(str, times) {
+  let i, j, output, ref;
+  output = "";
 
-    for (
-      i = j = 0, ref = times;
-      0 <= ref ? j < ref : j > ref;
-      i = 0 <= ref ? ++j : --j
-    ) {
-      output += str;
+  for (
+    i = j = 0, ref = times;
+    0 <= ref ? j < ref : j > ref;
+    i = 0 <= ref ? ++j : --j
+  ) {
+    output += str;
+  }
+
+  return output;
+}
+
+function cloneAndMergeDeep(base, toAppend) {
+  return merge(cloneDeep(base), toAppend);
+}
+
+function toDom(subject) {
+  if (typeof subject === "string") {
+    return self.stringToDom(subject);
+  } else if (isPlainObject(subject)) {
+    return self.objectToDom(subject);
+  } else {
+    throw Error("tools.toDom() only supports strings and objects");
+  }
+}
+
+function stringToDom(string) {
+  const handler = new htmlparser.DomHandler();
+  const parser = new htmlparser.Parser(handler);
+  parser.write(string);
+  parser.end();
+  return handler.dom;
+}
+
+function _fixQuotesInDom(input) {
+  let j, len, node;
+
+  if (Array.isArray(input)) {
+    for (j = 0, len = input.length; j < len; j++) {
+      node = input[j];
+
+      self._fixQuotesInDom(node);
     }
 
-    return output;
-  },
-  cloneAndMergeDeep: function cloneAndMergeDeep(base, toAppend) {
-    return merge(cloneDeep(base), toAppend);
-  },
-  toDom: function toDom(subject) {
-    if (typeof subject === "string") {
-      return self.stringToDom(subject);
-    } else if (isPlainObject(subject)) {
-      return self.objectToDom(subject);
-    } else {
-      throw Error("tools.toDom() only supports strings and objects");
+    return input;
+  }
+
+  node = input;
+
+  if (node.type === "text") {
+    return (node.data = self._quoteNodeText(node.data));
+  } else {
+    return self._fixQuotesInDom(node.children);
+  }
+}
+
+function objectToDom(o) {
+  if (!Array.isArray(o)) {
+    if (!isPlainObject(o)) {
+      throw Error("objectToDom() only accepts a bare object or an array");
     }
-  },
-  stringToDom: function stringToDom(string) {
-    const handler = new htmlparser.DomHandler();
-    const parser = new htmlparser.Parser(handler);
-    parser.write(string);
-    parser.end();
-    return handler.dom;
-  },
-  _fixQuotesInDom: function _fixQuotesInDom(input) {
-    let j, len, node;
+  }
 
-    if (Array.isArray(input)) {
-      for (j = 0, len = input.length; j < len; j++) {
-        node = input[j];
+  return self._fixQuotesInDom(_objectToDom(o));
+}
 
-        self._fixQuotesInDom(node);
-      }
+function quote(str) {
+  return String(str)
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/ /g, "&sp;")
+    .replace(/\n/g, "<br />");
+}
 
-      return input;
-    }
+function _quoteNodeText(text) {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/ /g, "&sp;")
+    .replace(/\n/g, "&nl;");
+}
 
-    node = input;
+function getCols() {
+  let cols, tty; // Based on https://github.com/jonschlinkert/window-size
 
-    if (node.type === "text") {
-      return (node.data = self._quoteNodeText(node.data));
-    } else {
-      return self._fixQuotesInDom(node.children);
-    }
-  },
-  objectToDom: function objectToDom(o) {
-    if (!Array.isArray(o)) {
-      if (!isPlainObject(o)) {
-        throw Error("objectToDom() only accepts a bare object or an array");
-      }
-    }
+  tty = require("node:tty");
 
-    return self._fixQuotesInDom(_objectToDom(o));
-  },
-  quote: function quote(str) {
-    return String(str)
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/ /g, "&sp;")
-      .replace(/\n/g, "<br />");
-  },
-  _quoteNodeText: function _quoteNodeText(text) {
-    return String(text)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/ /g, "&sp;")
-      .replace(/\n/g, "&nl;");
-  },
-  getCols: function getCols() {
-    let cols, tty; // Based on https://github.com/jonschlinkert/window-size
-
-    tty = require("node:tty");
-
-    cols = (function () {
-      try {
-        if (tty.isatty(1) && tty.isatty(2)) {
-          if (process.stdout.getWindowSize) {
-            return process.stdout.getWindowSize(1)[0];
-          } else if (tty.getWindowSize) {
-            return tty.getWindowSize()[1];
-          } else if (process.stdout.columns) {
-            return process.stdout.columns;
-          }
+  cols = (function () {
+    try {
+      if (tty.isatty(1) && tty.isatty(2)) {
+        if (process.stdout.getWindowSize) {
+          return process.stdout.getWindowSize(1)[0];
+        } else if (tty.getWindowSize) {
+          return tty.getWindowSize()[1];
+        } else if (process.stdout.columns) {
+          return process.stdout.columns;
         }
-      } catch (error) {}
-    })();
+      }
+    } catch (error) {}
+  })();
 
-    if (typeof cols === "number" && cols > 30) {
-      return cols;
-    } else {
-      return 80;
-    }
-  },
+  if (typeof cols === "number" && cols > 30) {
+    return cols;
+  } else {
+    return 80;
+  }
+}
+
+const self = {
+  repeatString,
+  cloneAndMergeDeep,
+  toDom,
+  stringToDom,
+  _fixQuotesInDom,
+  objectToDom,
+  quote,
+  _quoteNodeText,
+  getCols,
 };
 
 export default self;
+
+export {
+  repeatString,
+  cloneAndMergeDeep,
+  toDom,
+  stringToDom,
+  _fixQuotesInDom,
+  objectToDom,
+  quote,
+  _quoteNodeText,
+  getCols,
+};
