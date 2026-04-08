@@ -1,4 +1,5 @@
 let color, colors, i, len;
+
 const tags = {
   none: {
     color: "none",
@@ -48,4 +49,4 @@ for (i = 0, len = colors.length; i < len; i++) {
   };
 }
 
-module.exports = tags;
+export default tags;

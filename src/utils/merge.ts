@@ -1144,7 +1144,9 @@ function cloneArrayBuffer(arrayBuffer) {
  * @returns {Object} Returns the cloned typed array.
  */
 function cloneTypedArray(typedArray, isDeep) {
-  const buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
+  const buffer = isDeep
+    ? cloneArrayBuffer(typedArray.buffer)
+    : typedArray.buffer;
   return new typedArray.constructor(
     buffer,
     typedArray.byteOffset,
