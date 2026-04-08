@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "type": "module",
   "imports": {
-    "#dom-converter": "./src/dom-converter/domConverter.js",
-    "#renderkid": "./src/renderkid/RenderKid.js",
-    "#utila": "./src/utila/utila.js"
+    "#dom-converter": "./src/dom-converter/domConverter.ts",
+    "#renderkid": "./src/renderkid/RenderKid.ts",
+    "#utila": "./src/utila/utila.ts"
   },
   "exports": {
     ".": "./dist/index.mjs",
