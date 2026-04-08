@@ -6,7 +6,8 @@
     "#dom-converter": "./src/dom-converter/domConverter.ts",
     "#renderkid": "./src/renderkid/RenderKid.ts",
     "#utila": "./src/utila/utila.ts",
-    "#utils": "./src/utils/index.ts"
+    "#utils": "./src/utils/index.ts",
+    "#utils/*": "./src/utils/*.ts"
   },
   "exports": {
     ".": "./dist/index.mjs",
