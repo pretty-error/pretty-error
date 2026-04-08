@@ -1,15 +1,9 @@
 import htmlparser from "htmlparser2";
-
-import { objectToDom as _objectToDom } from "#dom-converter";
-
-const isPlainObject = (obj) =>
-  obj &&
-  typeof obj === "object" &&
-  (Object.getPrototypeOf(obj) === null ||
-    Object.getPrototypeOf(obj) === Object.prototype);
-
 import cloneDeep from "lodash/cloneDeep";
 import merge from "lodash/merge";
+
+import { objectToDom as _objectToDom } from "#dom-converter";
+import { isPlainObject } from "#utils";
 
 function repeatString(str, times) {
   let i, j, output, ref;

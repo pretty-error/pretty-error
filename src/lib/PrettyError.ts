@@ -6,15 +6,10 @@ let instance,
   __slice = [].slice,
   __indexOf = [].indexOf;
 
-const isPlainObject = (obj) =>
-  obj &&
-  typeof obj === "object" &&
-  (Object.getPrototypeOf(obj) === null ||
-    Object.getPrototypeOf(obj) === Object.prototype);
-
 import merge from "lodash/merge";
 
 import RenderKid from "#renderkid";
+import { isPlainObject } from "#utils";
 
 import defaultStyle from "./defaultStyle";
 import nodePaths from "./nodePaths";

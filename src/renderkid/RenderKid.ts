@@ -23,15 +23,11 @@ function _createClass(Constructor, protoProps, staticProps) {
 import blockStyleApplier from "./renderKid/styleApplier/block";
 import inlineStyleApplier from "./renderKid/styleApplier/inline";
 
-const isPlainObject = (obj) =>
-  obj &&
-  typeof obj === "object" &&
-  (Object.getPrototypeOf(obj) === null ||
-    Object.getPrototypeOf(obj) === Object.prototype);
-
 const cloneAndMergeDeep = tools.cloneAndMergeDeep;
 
 import { stripVTControlCharacters as stripAnsi } from "node:util";
+
+import { isPlainObject } from "#utils";
 
 import AnsiPainter from "./AnsiPainter";
 import Layout from "./Layout";
