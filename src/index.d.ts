@@ -18,10 +18,10 @@ declare module 'pretty-error' {
             | boolean
             | PrettyError.Callback
             | PrettyError.Callback[];
-            aliases?: boolean | Object;
+            aliases?: boolean | object;
         }
 
-        type Callback = (traceLine: Object | any, lineNumber: number) => boolean;
+        type Callback = (traceLine: object | any, lineNumber: number) => boolean;
     }
 
     class PrettyError {
@@ -53,13 +53,13 @@ declare module 'pretty-error' {
         alias(stringOrRx: string, alias: string): PrettyError;
         removeAlias(stringOrRx: string): PrettyError;
         removeAllAliases(): PrettyError;
-        appendStyle(toAppend: Object): PrettyError;
+        appendStyle(toAppend: object): PrettyError;
         render(
             e: PrettyError.ParsedError,
             logIt?: boolean,
             useColors?: boolean
         ): string;
-        getObject(e: Object): Object;
+        getObject(e: object): object;
     }
 
     export = PrettyError;
