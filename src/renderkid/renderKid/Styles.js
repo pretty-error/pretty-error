@@ -59,7 +59,7 @@ module.exports = Styles = function () {
       {
         key: "getStyleFor",
         value: function getStyleFor(el) {
-          var styles;
+          let styles;
           styles = el.styles;
 
           if (styles == null) {
@@ -72,7 +72,7 @@ module.exports = Styles = function () {
       {
         key: "_getRawStyleFor",
         value: function _getRawStyleFor(el) {
-          var def, user;
+          let def, user;
           def = this._defaultStyles.getRulesFor(el);
           user = this._userStyles.getRulesFor(el);
           return MixedDeclarationSet.mix(def, user).toObject();
@@ -81,7 +81,7 @@ module.exports = Styles = function () {
       {
         key: "_getComputedStyleFor",
         value: function _getComputedStyleFor(el) {
-          var decs, parent, prop, ref, val;
+          let decs, parent, prop, ref, val;
           decs = {};
           parent = el.parent;
           ref = this._getRawStyleFor(el);

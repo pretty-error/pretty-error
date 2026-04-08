@@ -36,10 +36,10 @@ module.exports = Block = function () {
 
   const Block = /*#__PURE__*/ (function () {
     function Block(_layout, _parent) {
-      var config =
+      const config =
         arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
-      var _name =
+      const _name =
         arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "";
 
       _classCallCheck(this, Block);
@@ -71,7 +71,7 @@ module.exports = Block = function () {
       {
         key: "_activate",
         value: function _activate() {
-          var deactivateParent =
+          const deactivateParent =
             arguments.length > 0 && arguments[0] !== undefined
               ? arguments[0]
               : true;
@@ -103,7 +103,7 @@ module.exports = Block = function () {
       {
         key: "_deactivate",
         value: function _deactivate() {
-          var activateParent =
+          const activateParent =
             arguments.length > 0 && arguments[0] !== undefined
               ? arguments[0]
               : true;
@@ -201,7 +201,7 @@ module.exports = Block = function () {
       {
         key: "openBlock",
         value: function openBlock(config, name) {
-          var block;
+          let block;
 
           this._ensureActive();
 
@@ -215,7 +215,7 @@ module.exports = Block = function () {
       {
         key: "_flushBuffer",
         value: function _flushBuffer() {
-          var str;
+          let str;
 
           if (this._buffer === "") {
             return;
@@ -230,7 +230,7 @@ module.exports = Block = function () {
       {
         key: "_toPrependToLine",
         value: function _toPrependToLine() {
-          var fromParent;
+          let fromParent;
           fromParent = "";
 
           if (this._parent != null) {
@@ -243,7 +243,7 @@ module.exports = Block = function () {
       {
         key: "_toAppendToLine",
         value: function _toAppendToLine() {
-          var fromParent;
+          let fromParent;
           fromParent = "";
 
           if (this._parent != null) {
@@ -268,7 +268,7 @@ module.exports = Block = function () {
       {
         key: "_writeInline",
         value: function _writeInline(str) {
-          var i, j, k, l, lineBreaksToAppend, m, ref, ref1, ref2, remaining; // special characters (such as <bg-white>) don't require
+          let i, j, k, l, lineBreaksToAppend, m, ref, ref1, ref2, remaining; // special characters (such as <bg-white>) don't require
           // any wrapping...
 
           if (new SpecialString(str).isOnlySpecialChars()) {
@@ -340,7 +340,7 @@ module.exports = Block = function () {
       {
         key: "_writeLine",
         value: function _writeLine(str) {
-          var line,
+          let line,
             lineContent,
             lineContentLength,
             remaining,

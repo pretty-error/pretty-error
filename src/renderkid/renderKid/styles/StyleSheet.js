@@ -61,7 +61,7 @@ module.exports = StyleSheet = function () {
         {
           key: "setRule",
           value: function setRule(selector, styles) {
-            var key, val;
+            let key, val;
 
             if (typeof selector === "string") {
               this._setRule(selector, styles);
@@ -79,7 +79,7 @@ module.exports = StyleSheet = function () {
         {
           key: "_setRule",
           value: function _setRule(s, styles) {
-            var i, len, ref, selector;
+            let i, len, ref, selector;
             ref = self.splitSelectors(s);
 
             for (i = 0, len = ref.length; i < len; i++) {
@@ -94,7 +94,7 @@ module.exports = StyleSheet = function () {
         {
           key: "_setSingleRule",
           value: function _setSingleRule(s, styles) {
-            var rule, selector;
+            let rule, selector;
             selector = self.normalizeSelector(s);
 
             if (!(rule = this._rulesBySelector[selector])) {
@@ -109,7 +109,7 @@ module.exports = StyleSheet = function () {
         {
           key: "getRulesFor",
           value: function getRulesFor(el) {
-            var ref, rule, rules, selector;
+            let ref, rule, rules, selector;
             rules = [];
             ref = this._rulesBySelector;
 
@@ -131,7 +131,7 @@ module.exports = StyleSheet = function () {
           value: function normalizeSelector(selector) {
             return selector
               .replace(/[\s]+/g, " ")
-              .replace(/[\s]*([>\,\+]{1})[\s]*/g, "$1")
+              .replace(/[\s]*([>,+]{1})[\s]*/g, "$1")
               .trim();
           },
         },

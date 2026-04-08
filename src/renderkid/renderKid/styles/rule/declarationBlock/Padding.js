@@ -130,7 +130,7 @@ module.exports = Padding = function () {
   const Padding = /*#__PURE__*/ (function (_Declaration2) {
     _inherits(Padding, _Declaration2);
 
-    var _super = _createSuper(Padding);
+    const _super = _createSuper(Padding);
 
     function Padding() {
       _classCallCheck(this, Padding);
@@ -142,7 +142,7 @@ module.exports = Padding = function () {
       {
         key: "setOnto",
         value: function setOnto(declarations, prop, originalValue) {
-          var append, val, vals;
+          let append, val, vals;
           append = "";
           val = _Declaration.sanitizeValue(originalValue);
 

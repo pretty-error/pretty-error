@@ -126,7 +126,7 @@ module.exports = DefaultLinePrependor = function () {
   const DefaultLinePrependor = /*#__PURE__*/ (function (_require) {
     _inherits(DefaultLinePrependor, _require);
 
-    var _super = _createSuper(DefaultLinePrependor);
+    const _super = _createSuper(DefaultLinePrependor);
 
     function DefaultLinePrependor() {
       _classCallCheck(this, DefaultLinePrependor);
@@ -140,7 +140,7 @@ module.exports = DefaultLinePrependor = function () {
         {
           key: "_render",
           value: function _render(inherited, options) {
-            var addToLeft,
+            let addToLeft,
               addToRight,
               alignment,
               bullet,

@@ -54,10 +54,10 @@ module.exports = Selector = function () {
         {
           key: "calculatePriority",
           value: function calculatePriority(text) {
-            var n, priotrity;
+            let n, priotrity;
             priotrity = 0;
 
-            if ((n = text.match(/[\#]{1}/g))) {
+            if ((n = text.match(/[#]{1}/g))) {
               priotrity += 100 * n.length;
             }
 

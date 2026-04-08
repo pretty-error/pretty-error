@@ -83,11 +83,11 @@ module.exports = SpecialString = function () {
         {
           key: "splitIn",
           value: function splitIn(limit) {
-            var trimLeftEachLine =
+            const trimLeftEachLine =
               arguments.length > 1 && arguments[1] !== undefined
                 ? arguments[1]
                 : false;
-            var buffer, bufferLength, justSkippedSkipChar, lines;
+            let buffer, bufferLength, justSkippedSkipChar, lines;
             buffer = "";
             bufferLength = 0;
             lines = [];
@@ -130,7 +130,7 @@ module.exports = SpecialString = function () {
         {
           key: "_getLength",
           value: function _getLength() {
-            var sum;
+            let sum;
             sum = 0;
 
             self._countChars(this._str, function (char, charLength) {
@@ -143,13 +143,13 @@ module.exports = SpecialString = function () {
         {
           key: "cut",
           value: function cut(from, to) {
-            var _this = this;
+            const _this = this;
 
-            var trimLeft =
+            const trimLeft =
               arguments.length > 2 && arguments[2] !== undefined
                 ? arguments[2]
                 : false;
-            var after, before, cur, cut;
+            let after, before, cur, cut;
 
             if (to == null) {
               to = this.length;
@@ -198,7 +198,7 @@ module.exports = SpecialString = function () {
         {
           key: "_countChars",
           value: function _countChars(text, cb) {
-            var char, charLength, m;
+            let char, charLength, m;
 
             while (text.length !== 0) {
               if ((m = text.match(self._tagRx))) {

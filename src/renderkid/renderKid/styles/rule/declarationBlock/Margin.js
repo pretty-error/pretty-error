@@ -130,7 +130,7 @@ module.exports = Margin = function () {
   const Margin = /*#__PURE__*/ (function (_Declaration2) {
     _inherits(Margin, _Declaration2);
 
-    var _super = _createSuper(Margin);
+    const _super = _createSuper(Margin);
 
     function Margin() {
       _classCallCheck(this, Margin);
@@ -142,7 +142,7 @@ module.exports = Margin = function () {
       {
         key: "setOnto",
         value: function setOnto(declarations, prop, originalValue) {
-          var append, val, vals;
+          let append, val, vals;
           append = "";
           val = _Declaration.sanitizeValue(originalValue);
 

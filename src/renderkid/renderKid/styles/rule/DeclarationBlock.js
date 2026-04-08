@@ -60,7 +60,7 @@ module.exports = DeclarationBlock = function () {
         {
           key: "set",
           value: function set(prop, value) {
-            var key, val;
+            let key, val;
 
             if (_typeof(prop) === "object") {
               for (key in prop) {
@@ -85,7 +85,7 @@ module.exports = DeclarationBlock = function () {
         {
           key: "_getDeclarationClass",
           value: function _getDeclarationClass(prop) {
-            var cls;
+            let cls;
 
             if (prop[0] === "_") {
               return Arbitrary;

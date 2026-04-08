@@ -45,14 +45,14 @@ module.exports = Layout = function () {
 
   const Layout = /*#__PURE__*/ (function () {
     function Layout() {
-      var config =
+      const config =
         arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      var rootBlockConfig =
+      const rootBlockConfig =
         arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
       _classCallCheck(this, Layout);
 
-      var rootConfig;
+      let rootConfig;
       this._written = [];
       this._activeBlock = null;
       this._config = cloneAndMergeDeep(self._defaultConfig, config); // Every layout has a root block
@@ -82,7 +82,7 @@ module.exports = Layout = function () {
       {
         key: "_appendLine",
         value: function _appendLine(text) {
-          var s;
+          let s;
 
           this._append(text);
 

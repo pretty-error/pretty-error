@@ -63,7 +63,7 @@ module.exports = AnsiPainter = function () {
         {
           key: "_parse",
           value: function _parse(string) {
-            var injectFakeRoot =
+            const injectFakeRoot =
               arguments.length > 1 && arguments[1] !== undefined
                 ? arguments[1]
                 : true;
@@ -78,7 +78,7 @@ module.exports = AnsiPainter = function () {
         {
           key: "_renderDom",
           value: function _renderDom(dom) {
-            var parentStyles;
+            let parentStyles;
             parentStyles = {
               bg: "none",
               color: "none",
@@ -89,7 +89,7 @@ module.exports = AnsiPainter = function () {
         {
           key: "_renderChildren",
           value: function _renderChildren(children, parentStyles) {
-            var child, n, ret;
+            let child, n, ret;
             ret = "";
 
             for (n in children) {
@@ -131,7 +131,7 @@ module.exports = AnsiPainter = function () {
         {
           key: "_renderTag",
           value: function _renderTag(node, parentStyles) {
-            var currentStyles, tagStyles;
+            let currentStyles, tagStyles;
             tagStyles = this._getStylesForTagName(node.name);
             currentStyles = this._mixStyles(parentStyles, tagStyles);
             return this._renderChildren(node.children, currentStyles);
@@ -140,7 +140,7 @@ module.exports = AnsiPainter = function () {
         {
           key: "_mixStyles",
           value: function _mixStyles() {
-            var final, i, key, len, style, val;
+            let final, i, key, len, style, val;
             final = {};
 
             for (

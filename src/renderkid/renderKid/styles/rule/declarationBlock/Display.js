@@ -128,7 +128,7 @@ module.exports = Display = function () {
   const Display = /*#__PURE__*/ (function (_Declaration2) {
     _inherits(Display, _Declaration2);
 
-    var _super = _createSuper(Display);
+    const _super = _createSuper(Display);
 
     function Display() {
       _classCallCheck(this, Display);

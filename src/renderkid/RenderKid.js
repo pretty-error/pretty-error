@@ -53,7 +53,7 @@ module.exports = RenderKid = function () {
 
   const RenderKid = /*#__PURE__*/ (function () {
     function RenderKid() {
-      var config =
+      const config =
         arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
       _classCallCheck(this, RenderKid);
@@ -86,7 +86,7 @@ module.exports = RenderKid = function () {
       {
         key: "render",
         value: function render(input) {
-          var withColors =
+          const withColors =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
               : true;
@@ -110,7 +110,7 @@ module.exports = RenderKid = function () {
       {
         key: "_objToDom",
         value: function _objToDom(o) {
-          var injectFakeRoot =
+          const injectFakeRoot =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
               : true;
@@ -127,7 +127,7 @@ module.exports = RenderKid = function () {
       {
         key: "_paint",
         value: function _paint(text, withColors) {
-          var painted;
+          let painted;
           painted = AnsiPainter.paint(text);
 
           if (withColors) {
@@ -140,7 +140,7 @@ module.exports = RenderKid = function () {
       {
         key: "_parse",
         value: function _parse(string) {
-          var injectFakeRoot =
+          const injectFakeRoot =
             arguments.length > 1 && arguments[1] !== undefined
               ? arguments[1]
               : true;
@@ -155,7 +155,7 @@ module.exports = RenderKid = function () {
       {
         key: "_renderDom",
         value: function _renderDom(dom) {
-          var bodyTag, layout, rootBlock;
+          let bodyTag, layout, rootBlock;
           bodyTag = dom[0];
           layout = new Layout(this._config.layout);
           rootBlock = layout.getRootBlock();
@@ -168,7 +168,7 @@ module.exports = RenderKid = function () {
       {
         key: "_renderChildrenOf",
         value: function _renderChildrenOf(parentNode, parentBlock) {
-          var i, len, node, nodes;
+          let i, len, node, nodes;
           nodes = parentNode.children;
 
           for (i = 0, len = nodes.length; i < len; i++) {
@@ -197,7 +197,7 @@ module.exports = RenderKid = function () {
       {
         key: "_renderText",
         value: function _renderText(node, parentNode, parentBlock) {
-          var ref, text;
+          let ref, text;
           text = node.data;
           text = text.replace(/\s+/g, " "); // let's only trim if the parent is an inline element
 
@@ -222,9 +222,9 @@ module.exports = RenderKid = function () {
       {
         key: "_renderBlockNode",
         value: function _renderBlockNode(node, parentNode, parentBlock) {
-          var after, before, block, blockConfig;
+          let after, before, block, blockConfig;
 
-          var _blockStyleApplier$ap = blockStyleApplier.applyTo(
+          const _blockStyleApplier$ap = blockStyleApplier.applyTo(
             node,
             this._getStyleFor(node),
           );
@@ -250,9 +250,9 @@ module.exports = RenderKid = function () {
       {
         key: "_renderInlineNode",
         value: function _renderInlineNode(node, parentNode, parentBlock) {
-          var after, before;
+          let after, before;
 
-          var _inlineStyleApplier$a = inlineStyleApplier.applyTo(
+          const _inlineStyleApplier$a = inlineStyleApplier.applyTo(
             node,
             this._getStyleFor(node),
           );

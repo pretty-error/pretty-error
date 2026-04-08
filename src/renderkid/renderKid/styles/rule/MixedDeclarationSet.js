@@ -41,7 +41,7 @@ module.exports = MixedDeclarationSet = function () {
         {
           key: "mixWithList",
           value: function mixWithList(rules) {
-            var i, len, rule;
+            let i, len, rule;
             rules.sort(function (a, b) {
               return a.selector.priority > b.selector.priority;
             });
@@ -58,7 +58,7 @@ module.exports = MixedDeclarationSet = function () {
         {
           key: "_mixWithRule",
           value: function _mixWithRule(rule) {
-            var dec, prop, ref;
+            let dec, prop, ref;
             ref = rule.styles._declarations;
 
             for (prop in ref) {
@@ -71,7 +71,7 @@ module.exports = MixedDeclarationSet = function () {
         {
           key: "_mixWithDeclaration",
           value: function _mixWithDeclaration(dec) {
-            var cur;
+            let cur;
             cur = this._declarations[dec.prop];
 
             if (cur != null && cur.important && !dec.important) {
@@ -98,7 +98,7 @@ module.exports = MixedDeclarationSet = function () {
         {
           key: "toObject",
           value: function toObject() {
-            var dec, obj, prop, ref;
+            let dec, obj, prop, ref;
             obj = {};
             ref = this._declarations;
 
@@ -115,7 +115,7 @@ module.exports = MixedDeclarationSet = function () {
         {
           key: "mix",
           value: function mix() {
-            var i, len, mixed, rules;
+            let i, len, mixed, rules;
             mixed = new self();
 
             for (

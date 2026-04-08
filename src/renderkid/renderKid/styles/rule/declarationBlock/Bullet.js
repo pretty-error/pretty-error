@@ -126,7 +126,7 @@ module.exports = Bullet = function () {
   const Bullet = /*#__PURE__*/ (function (_Declaration2) {
     _inherits(Bullet, _Declaration2);
 
-    var _super = _createSuper(Bullet);
+    const _super = _createSuper(Bullet);
 
     function Bullet() {
       _classCallCheck(this, Bullet);
@@ -138,7 +138,7 @@ module.exports = Bullet = function () {
       {
         key: "_set",
         value: function _set(val) {
-          var alignment, bg, char, color, enabled, m, original;
+          let alignment, bg, char, color, enabled, m, original;
           val = String(val);
           original = val;
           char = null;
@@ -147,7 +147,7 @@ module.exports = Bullet = function () {
           bg = "none";
 
           if (
-            (m = val.match(/\"([^"]+)\"/) || (m = val.match(/\'([^']+)\'/)))
+            (m = val.match(/"([^"]+)"/) || (m = val.match(/'([^']+)'/)))
           ) {
             char = m[1];
             val = val.replace(m[0], "");
@@ -165,12 +165,12 @@ module.exports = Bullet = function () {
             enabled = false;
           }
 
-          if ((m = val.match(/color\:([\w\-]+)/))) {
+          if ((m = val.match(/color:([\w-]+)/))) {
             color = m[1];
             val = val.replace(m[0], "");
           }
 
-          if ((m = val.match(/bg\:([\w\-]+)/))) {
+          if ((m = val.match(/bg:([\w-]+)/))) {
             bg = m[1];
             val = val.replace(m[0], "");
           }

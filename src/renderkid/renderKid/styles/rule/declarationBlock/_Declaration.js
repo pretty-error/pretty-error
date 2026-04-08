@@ -115,7 +115,7 @@ module.exports = _Declaration = function () {
         {
           key: "setOnto",
           value: function setOnto(declarations, prop, val) {
-            var dec;
+            let dec;
 
             if (!(dec = declarations[prop])) {
               return (declarations[prop] = new this(prop, val));
