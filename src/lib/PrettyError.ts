@@ -1,6 +1,5 @@
 let instance,
   prop,
-  _fn,
   _i,
   _len,
   _ref,
@@ -574,9 +573,9 @@ const PrettyError = (function () {
 })();
 
 _ref = ["renderer", "style"];
-_fn = function () {
-  let methodName;
-  methodName = "_get" + prop[0].toUpperCase() + prop.substr(1, prop.length);
+const _fn = function () {
+  const methodName =
+    "_get" + prop[0].toUpperCase() + prop.substr(1, prop.length);
   return PrettyError.prototype.__defineGetter__(prop, function () {
     return this[methodName]();
   });

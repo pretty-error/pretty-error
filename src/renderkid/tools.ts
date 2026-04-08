@@ -1,5 +1,3 @@
-let cloneDeep, merge;
-
 import htmlparser from "htmlparser2";
 
 import { objectToDom as _objectToDom } from "#dom-converter";
@@ -10,8 +8,8 @@ const isPlainObject = (obj) =>
   (Object.getPrototypeOf(obj) === null ||
     Object.getPrototypeOf(obj) === Object.prototype);
 
-merge = require("lodash/merge");
-cloneDeep = require("lodash/cloneDeep");
+import cloneDeep from "lodash/cloneDeep";
+import merge from "lodash/merge";
 
 const self = {
   repeatString: function repeatString(str, times) {
@@ -35,15 +33,14 @@ const self = {
     if (typeof subject === "string") {
       return self.stringToDom(subject);
     } else if (isPlainObject(subject)) {
-      return self._objectToDom(subject);
+      return self.objectToDom(subject);
     } else {
       throw Error("tools.toDom() only supports strings and objects");
     }
   },
   stringToDom: function stringToDom(string) {
-    let handler, parser;
-    handler = new htmlparser.DomHandler();
-    parser = new htmlparser.Parser(handler);
+    const handler = new htmlparser.DomHandler();
+    const parser = new htmlparser.Parser(handler);
     parser.write(string);
     parser.end();
     return handler.dom;
@@ -122,4 +119,4 @@ const self = {
   },
 };
 
-module.exports = self;
+export default self;
