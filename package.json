@@ -5,6 +5,10 @@
   "imports": {
     "#renderkid": "./src/renderkid/RenderKid.js"
   },
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "test": "bun test",
     "lint": "oxlint",
@@ -24,10 +28,6 @@
     "strip-ansi": "^6.0.1",
     "tsdown": "^0.21.7",
     "typescript": "^6.0.2"
-  },
-  "exports": {
-    ".": "./dist/index.mjs",
-    "./package.json": "./package.json"
   },
   "inlinedDependencies": {
     "ansi-regex": "5.0.1",
