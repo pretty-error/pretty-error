@@ -26,7 +26,7 @@ let Block, Layout, i, len, prop, ref;
 
 Block = require("./layout/Block");
 
-import tools from "./tools";
+import * as tools from "./tools";
 
 const cloneAndMergeDeep = tools.cloneAndMergeDeep;
 

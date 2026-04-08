@@ -36,7 +36,7 @@ import { stripVTControlCharacters as stripAnsi } from "node:util";
 import AnsiPainter from "./AnsiPainter";
 import Layout from "./Layout";
 import Styles from "./renderKid/Styles";
-import tools from "./tools";
+import * as tools from "./tools";
 
 const terminalWidth = tools.getCols();
 

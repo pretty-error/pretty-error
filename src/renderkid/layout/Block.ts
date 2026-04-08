@@ -20,7 +20,7 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
-import tools from "../tools";
+import * as tools from "../tools";
 import SpecialString from "./SpecialString";
 
 const terminalWidth = tools.getCols();

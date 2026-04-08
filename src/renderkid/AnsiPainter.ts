@@ -24,7 +24,7 @@ const hasProp = {}.hasOwnProperty;
 
 import styles from "./ansiPainter/styles";
 import tags from "./ansiPainter/tags";
-import tools from "./tools";
+import * as tools from "./tools";
 
 const AnsiPainter = function () {
   let self;
