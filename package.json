@@ -4,7 +4,8 @@
   "type": "module",
   "imports": {
     "#dom-converter": "./src/dom-converter/domConverter.js",
-    "#renderkid": "./src/renderkid/RenderKid.js"
+    "#renderkid": "./src/renderkid/RenderKid.js",
+    "#utila": "./src/utila/utila.js"
   },
   "exports": {
     ".": "./dist/index.mjs",
@@ -27,8 +28,7 @@
     "oxlint-tsgolint": "^0.20.0",
     "strip-ansi": "^6.0.1",
     "tsdown": "^0.21.7",
-    "typescript": "^6.0.2",
-    "utila": "~0.4"
+    "typescript": "^6.0.2"
   },
   "inlinedDependencies": {
     "ansi-regex": "5.0.1",
@@ -43,7 +43,6 @@
     "htmlparser2": "6.1.0",
     "lodash": "4.18.1",
     "nth-check": "2.1.1",
-    "strip-ansi": "6.0.1",
-    "utila": "0.4.0"
+    "strip-ansi": "6.0.1"
   }
 }

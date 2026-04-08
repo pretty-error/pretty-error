@@ -7,7 +7,7 @@ saneObjectToDom = require("./saneObjectToDom");
 
 domToMarkup = require("./domToMarkup");
 
-object = require("utila").object;
+object = require("#utila").object;
 
 module.exports = self = {
   objectToDom: function (o) {

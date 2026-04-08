@@ -3,7 +3,7 @@ let object,
   self,
   hasProp = {}.hasOwnProperty;
 
-object = require("utila").object;
+object = require("#utila").object;
 
 module.exports = self = {
   sanitize: function (val) {
