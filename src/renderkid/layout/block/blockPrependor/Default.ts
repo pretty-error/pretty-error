@@ -77,14 +77,7 @@ function _isNativeReflectConstruct() {
   }
 }
 
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf
-    ? Object.getPrototypeOf
-    : function _getPrototypeOf(o) {
-        return o.__proto__ || Object.getPrototypeOf(o);
-      };
-  return _getPrototypeOf(o);
-}
+const _getPrototypeOf = Object.getPrototypeOf;
 
 import * as tools from "../../../tools";
 import _BlockPrependor from "./_BlockPrependor";
