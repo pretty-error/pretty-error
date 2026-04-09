@@ -82,6 +82,7 @@ function _isNativeReflectConstruct() {
 const _getPrototypeOf = Object.getPrototypeOf;
 
 import * as tools from "../../../tools";
+import _BlockAppendor from "./_BlockAppendor";
 
 const DefaultBlockAppendor = /*#__PURE__*/ (function (_require) {
   _inherits(DefaultBlockAppendor, _require);
@@ -104,6 +105,6 @@ const DefaultBlockAppendor = /*#__PURE__*/ (function (_require) {
   ]);
 
   return DefaultBlockAppendor;
-})(require("./_BlockAppendor"));
+})(_BlockAppendor);
 
 export default DefaultBlockAppendor;
