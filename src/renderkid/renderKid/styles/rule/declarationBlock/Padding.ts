@@ -84,7 +84,7 @@ function _isNativeReflectConstruct() {
 
 const _getPrototypeOf = Object.getPrototypeOf;
 
-module.exports = Padding = function () {
+const Padding = function () {
   let self;
 
   const Padding = /*#__PURE__*/ (function (_Declaration2) {
@@ -191,3 +191,5 @@ module.exports = Padding = function () {
   self = Padding;
   return Padding;
 }.call(void 0);
+
+export default Padding;

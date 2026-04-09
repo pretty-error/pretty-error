@@ -67,9 +67,7 @@ function _isNativeReflectConstruct() {
 
 const _getPrototypeOf = Object.getPrototypeOf;
 
-let Width;
-
-module.exports = Width = /*#__PURE__*/ (function (_Length2) {
+const Width = /*#__PURE__*/ (function (_Length2) {
   _inherits(Width, _Length2);
 
   const _super = _createSuper(Width);
@@ -82,3 +80,5 @@ module.exports = Width = /*#__PURE__*/ (function (_Length2) {
 
   return Width;
 })(_Length);
+
+export default Width;

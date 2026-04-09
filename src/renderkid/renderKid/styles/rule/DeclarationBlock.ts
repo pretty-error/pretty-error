@@ -1,4 +1,20 @@
+import Arbitrary from "./declarationBlock/Arbitrary";
 import Background from "./declarationBlock/Background";
+import Bullet from "./declarationBlock/Bullet";
+import Color from "./declarationBlock/Color";
+import Display from "./declarationBlock/Display";
+import Height from "./declarationBlock/Height";
+import Margin from "./declarationBlock/Margin";
+import MarginBottom from "./declarationBlock/MarginBottom";
+import MarginLeft from "./declarationBlock/MarginLeft";
+import MarginRight from "./declarationBlock/MarginRight";
+import MarginTop from "./declarationBlock/MarginTop";
+import Padding from "./declarationBlock/Padding";
+import PaddingBottom from "./declarationBlock/PaddingBottom";
+import PaddingLeft from "./declarationBlock/PaddingLeft";
+import PaddingRight from "./declarationBlock/PaddingRight";
+import PaddingTop from "./declarationBlock/PaddingTop";
+import Width from "./declarationBlock/Width";
 
 const _typeof = (obj) => typeof obj;
 
@@ -24,7 +40,7 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
-let Arbitrary, declarationClasses;
+let declarationClasses;
 
 const DeclarationBlock = function () {
   let self;
@@ -101,24 +117,23 @@ const DeclarationBlock = function () {
   return DeclarationBlock;
 }.call(void 0);
 
-Arbitrary = require("./declarationBlock/Arbitrary");
 declarationClasses = {
-  color: require("./declarationBlock/Color"),
+  color: Color,
   background: Background,
-  width: require("./declarationBlock/Width"),
-  height: require("./declarationBlock/Height"),
-  bullet: require("./declarationBlock/Bullet"),
-  display: require("./declarationBlock/Display"),
-  margin: require("./declarationBlock/Margin"),
-  marginTop: require("./declarationBlock/MarginTop"),
-  marginLeft: require("./declarationBlock/MarginLeft"),
-  marginRight: require("./declarationBlock/MarginRight"),
-  marginBottom: require("./declarationBlock/MarginBottom"),
-  padding: require("./declarationBlock/Padding"),
-  paddingTop: require("./declarationBlock/PaddingTop"),
-  paddingLeft: require("./declarationBlock/PaddingLeft"),
-  paddingRight: require("./declarationBlock/PaddingRight"),
-  paddingBottom: require("./declarationBlock/PaddingBottom"),
+  width: Width,
+  height: Height,
+  bullet: Bullet,
+  display: Display,
+  margin: Margin,
+  marginTop: MarginTop,
+  marginLeft: MarginLeft,
+  marginRight: MarginRight,
+  marginBottom: MarginBottom,
+  padding: Padding,
+  paddingTop: PaddingTop,
+  paddingLeft: PaddingLeft,
+  paddingRight: PaddingRight,
+  paddingBottom: PaddingBottom,
 };
 
 export default DeclarationBlock;

@@ -67,9 +67,7 @@ function _isNativeReflectConstruct() {
 
 const _getPrototypeOf = Object.getPrototypeOf;
 
-let PaddingLeft;
-
-module.exports = PaddingLeft = /*#__PURE__*/ (function (_Length2) {
+const PaddingLeft = /*#__PURE__*/ (function (_Length2) {
   _inherits(PaddingLeft, _Length2);
 
   const _super = _createSuper(PaddingLeft);
@@ -82,3 +80,5 @@ module.exports = PaddingLeft = /*#__PURE__*/ (function (_Length2) {
 
   return PaddingLeft;
 })(_Length);
+
+export default PaddingLeft;
