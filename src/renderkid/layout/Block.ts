@@ -21,6 +21,11 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 
 import { getCols, cloneAndMergeDeep } from "../tools";
+import DefaultBlockAppendor from "./block/blockAppendor/Default";
+import DefaultBlockPrependor from "./block/blockPrependor/Default";
+import DefaultLineAppendor from "./block/lineAppendor/Default";
+import DefaultLinePrependor from "./block/linePrependor/Default";
+import DefaultLineWrapper from "./block/lineWrapper/Default";
 import SpecialString from "./SpecialString";
 
 const terminalWidth = getCols();
@@ -381,31 +386,31 @@ const default__ = function () {
   self = Block;
   Block.defaultConfig = {
     blockPrependor: {
-      fn: require("./block/blockPrependor/Default"),
+      fn: DefaultBlockPrependor,
       options: {
         amount: 0,
       },
     },
     blockAppendor: {
-      fn: require("./block/blockAppendor/Default"),
+      fn: DefaultBlockAppendor,
       options: {
         amount: 0,
       },
     },
     linePrependor: {
-      fn: require("./block/linePrependor/Default"),
+      fn: DefaultLinePrependor,
       options: {
         amount: 0,
       },
     },
     lineAppendor: {
-      fn: require("./block/lineAppendor/Default"),
+      fn: DefaultLineAppendor,
       options: {
         amount: 0,
       },
     },
     lineWrapper: {
-      fn: require("./block/lineWrapper/Default"),
+      fn: DefaultLineWrapper,
       options: {
         lineWidth: null,
       },
