@@ -1,3 +1,5 @@
+import _Length from "./_Length";
+
 const _typeof = (obj) => typeof obj;
 
 function _classCallCheck(instance, Constructor) {

@@ -1,3 +1,5 @@
+import Background from "./declarationBlock/Background";
+
 const _typeof = (obj) => typeof obj;
 
 function _classCallCheck(instance, Constructor) {
@@ -102,7 +104,7 @@ const DeclarationBlock = function () {
 Arbitrary = require("./declarationBlock/Arbitrary");
 declarationClasses = {
   color: require("./declarationBlock/Color"),
-  background: require("./declarationBlock/Background"),
+  background: Background,
   width: require("./declarationBlock/Width"),
   height: require("./declarationBlock/Height"),
   bullet: require("./declarationBlock/Bullet"),
