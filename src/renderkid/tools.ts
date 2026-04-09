@@ -93,23 +93,15 @@ function _quoteNodeText(text) {
     .replace(/\n/g, "&nl;");
 }
 
+import tty from "node:tty";
+
 function getCols() {
-  let cols, tty; // Based on https://github.com/jonschlinkert/window-size
-
-  tty = require("node:tty");
-
-  cols = (function () {
+  const cols = (function () {
     try {
       if (tty.isatty(1) && tty.isatty(2)) {
-        if (process.stdout.getWindowSize) {
-          return process.stdout.getWindowSize(1)[0];
-        } else if (tty.getWindowSize) {
-          return tty.getWindowSize()[1];
-        } else if (process.stdout.columns) {
-          return process.stdout.columns;
-        }
+        return process.stdout.getWindowSize()[0];
       }
-    } catch (error) {}
+    } catch {}
   })();
 
   if (typeof cols === "number" && cols > 30) {
