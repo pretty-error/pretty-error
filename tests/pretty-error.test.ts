@@ -30,7 +30,7 @@ const sanitize = (str: string) => {
       ":<line>:<col>",
     )
     .replace(/:(\x1B\[[0-9;]*m)*\d+/g, ":<line>")
-    .replace(/ +(\d+)$/gm, " <num>");
+    .replace(/\s+\d+(\s*(?:\u001b\[\d+m)*)$/gm, " <num>$1");
 };
 
 function snapshot(stack) {
