@@ -25,6 +25,10 @@ const hasOwnProperty = objectProto.hasOwnProperty;
 
 const objectToString = objectProto.toString;
 
+function isFunction(value) {
+  return typeof value === "function";
+}
+
 export {
   arrayProto,
   funcProto,
@@ -36,4 +40,5 @@ export {
   funcToString,
   hasOwnProperty,
   objectToString,
+  isFunction,
 };
