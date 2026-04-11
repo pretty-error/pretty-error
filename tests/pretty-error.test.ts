@@ -22,6 +22,22 @@ const getCaughtError = (what: string | (() => any)): Error => {
   throw new Error("bad argument for error");
 };
 
+const sanitize = (str: string) => {
+  return (
+    str
+      // Remove absolute paths (handles Windows and POSIX)
+      .replace(/(?:\w:)?\/.*?\/(pretty-error\.test\.ts)/g, "$1")
+      // Remove line and column numbers
+      .replace(/:\d+:\d+/g, ":<line>:<col>")
+      // Remove line numbers only (if any exist without columns)
+      .replace(/:\d+/g, ":<line>")
+  );
+};
+
+function snapshot(stack) {
+  expect(sanitize(stack)).toMatchSnapshot();
+}
+
 describe("PrettyError", () => {
   describe("constructor()", () => {
     it("should work", () => {
@@ -59,29 +75,29 @@ describe("PrettyError", () => {
       const e1 = getCaughtError(() => {
         expect("a").toBe("b");
       });
-      expect(p.render(e1, false)).toMatchSnapshot();
+      snapshot(p.render(e1, false));
 
       const e2 = getCaughtError(() => Array.split(Object));
-      expect(p.render(e2, false)).toMatchSnapshot();
+      snapshot(p.render(e2, false));
 
       const e3 = "Plain error message";
-      expect(p.render(e3, false)).toMatchSnapshot();
+      snapshot(p.render(e3, false));
 
       const e4 = {
         message: "Custom error message",
         kind: "Custom Error",
       };
-      expect(p.render(e4, false)).toMatchSnapshot();
+      snapshot(p.render(e4, false));
 
       const e5 = {
         message: "Error with custom stack",
         stack: ["line one", "line two"],
         wrapper: "UnhandledRejection",
       };
-      expect(p.render(e5, false)).toMatchSnapshot();
+      snapshot(p.render(e5, false));
 
       const e6 = getCaughtError(() => PrettyError.someNonExistingFuncion());
-      expect(p.render(e6, false)).toMatchSnapshot();
+      snapshot(p.render(e6, false));
     });
 
     it("should render without colors", () => {
@@ -90,7 +106,7 @@ describe("PrettyError", () => {
       const e = getCaughtError(() => {
         throw new Error("no color");
       });
-      expect(p.render(e, false)).toMatchSnapshot();
+      snapshot(p.render(e, false));
     });
   });
 
