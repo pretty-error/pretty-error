@@ -87,7 +87,6 @@ describe("PrettyError", () => {
     it("should render without colors", () => {
       const p = new PrettyError();
       p.withoutColors();
-      const e = getCaughtError(() => expect("a").toBe("b"));
       const e = getCaughtError(() => {
         throw new Error("no color");
       });
