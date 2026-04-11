@@ -45,9 +45,13 @@ const sanitize = (str: string) => {
         if (numCount === 2) return "<col>";
         return "";
       });
-      const combined = prefix + cleanRest.replace(/[:\s]+/g, ":");
 
-      return combined;
+      const fixedRest = cleanRest
+        .replace(/(\s*:\s*)(<line>)/g, ":$2")
+        .replace(/(<line>)(\s*:\s*)/g, "$1:")
+        .replace(/(\s*:\s*)(<col>)/g, ":$2");
+
+      return prefix + fixedRest;
     })
     .join("\n");
 
