@@ -4,7 +4,7 @@ function convert(obj) {
   return _arrayToChildren(obj);
 }
 
-function _arrayToChildren(a, parent) {
+function _arrayToChildren(a, parent?) {
   let children, j, len, node, prev, v;
   if (parent == null) {
     parent = null;

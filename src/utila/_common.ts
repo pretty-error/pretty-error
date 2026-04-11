@@ -1,50 +1,54 @@
+function isBareObject(o) {
+  if (o != null && o.constructor === Object) {
+    return true;
+  }
+  return false;
+}
+
+function typeOf(item) {
+  let _ref;
+  if (item === null) {
+    return "null";
+  }
+  if (typeof item !== "object") {
+    return typeof item;
+  }
+  if (Array.isArray(item)) {
+    return "array";
+  }
+  if (item.nodeName) {
+    if (item.nodeType === 1) {
+      return "element";
+    }
+    if (item.nodeType === 3) {
+      return (_ref = /\S/.test(item.nodeValue)) != null
+        ? _ref
+        : {
+            textnode: "whitespace",
+          };
+    }
+  } else if (typeof item.length === "number") {
+    if (item.callee) {
+      return "arguments";
+    }
+  }
+  return typeof item;
+}
+
 const common = {
-  /*
+  /**
   	Checks to see if o is an object, and it isn't an instance
   	of some class.
   */
 
-  isBareObject: function isBareObject(o) {
-    if (o != null && o.constructor === Object) {
-      return true;
-    }
-    return false;
-  },
-  /*
+  isBareObject,
+  /**
   	Returns type of an object, including:
   	undefined, null, string, number, array,
   	arguments, element, textnode, whitespace, and object
   */
 
-  typeOf: function typeOf(item) {
-    let _ref;
-    if (item === null) {
-      return "null";
-    }
-    if (typeof item !== "object") {
-      return typeof item;
-    }
-    if (Array.isArray(item)) {
-      return "array";
-    }
-    if (item.nodeName) {
-      if (item.nodeType === 1) {
-        return "element";
-      }
-      if (item.nodeType === 3) {
-        return (_ref = /\S/.test(item.nodeValue)) != null
-          ? _ref
-          : {
-              textnode: "whitespace",
-            };
-      }
-    } else if (typeof item.length === "number") {
-      if (item.callee) {
-        return "arguments";
-      }
-    }
-    return typeof item;
-  },
+  typeOf,
 
   clone: function clone(item, includePrototype) {
     if (includePrototype == null) {
@@ -59,7 +63,7 @@ const common = {
         return item;
     }
   },
-  /*
+  /**
   	Deep clone of an object.
   	From MooTools
   */
@@ -91,7 +95,7 @@ const common = {
       return clone;
     }
   },
-  /*
+  /**
   	Deep clone of an array.
   	From MooTools
   */
