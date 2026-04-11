@@ -47,7 +47,9 @@ function replaceLineCol(str: string) {
 
 const sanitize = (str: string) => {
   return replaceLineCol(
-    cleanupSpacing(fixStupidGithubCI(Bun.stripANSI(stripFilePaths(str)))),
+    fixStupidGithubCI(
+      cleanupSpacing(fixStupidGithubCI(Bun.stripANSI(stripFilePaths(str)))),
+    ),
   );
 };
 
