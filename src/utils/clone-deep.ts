@@ -40,9 +40,6 @@ const arrayBufferTag = "[object ArrayBuffer]",
   uint16Tag = "[object Uint16Array]",
   uint32Tag = "[object Uint32Array]";
 
-/** Used to match `RegExp` flags from their coerced string values. */
-const reFlags = /\w*$/;
-
 /** Used to detect unsigned integer values. */
 const reIsUint = /^(?:0|[1-9]\d*)$/;
 
@@ -441,7 +438,7 @@ function baseAssign(object, source) {
   return object && copyObject(source, keys(source), object);
 }
 
-function baseClone(value, isDeep, isFull, customizer, key, object, stack) {
+function baseClone(value, isDeep, isFull, customizer?, key?, object?, stack?) {
   let result;
   if (customizer) {
     result = object ? customizer(value, key, object, stack) : customizer(value);
@@ -561,12 +558,6 @@ function cloneMap(map, isDeep, cloneFunc) {
   return array.reduce(addMapEntry, new map.constructor());
 }
 
-function cloneRegExp(regexp) {
-  const result = new regexp.constructor(regexp.source, reFlags.exec(regexp));
-  result.lastIndex = regexp.lastIndex;
-  return result;
-}
-
 function cloneSet(set, isDeep, cloneFunc) {
   const array = isDeep ? cloneFunc(setToArray(set), true) : setToArray(set);
   return array.reduce(addSetEntry, new set.constructor());
@@ -683,7 +674,7 @@ function initCloneByTag(object, tag, cloneFunc, isDeep) {
       return new Ctor(object);
 
     case regexpTag:
-      return cloneRegExp(object);
+      return new RegExp(object);
 
     case setTag:
       return cloneSet(object, isDeep, cloneFunc);
