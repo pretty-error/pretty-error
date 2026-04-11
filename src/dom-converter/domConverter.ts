@@ -1,4 +1,11 @@
-import { isBareObject, __hasProp } from "#utila";
+import { __hasProp } from "#utila";
+
+function isBareObject(o) {
+  if (o != null && o.constructor === Object) {
+    return true;
+  }
+  return false;
+}
 
 // ---
 
