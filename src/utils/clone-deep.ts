@@ -108,19 +108,6 @@ function arrayPush(array, values) {
   return array;
 }
 
-function arrayReduce(array, iteratee, accumulator, initAccum) {
-  let index = -1,
-    length = array ? array.length : 0;
-
-  if (initAccum && length) {
-    accumulator = array[++index];
-  }
-  while (++index < length) {
-    accumulator = iteratee(accumulator, array[index], index, array);
-  }
-  return accumulator;
-}
-
 function baseTimes(n, iteratee) {
   let index = -1,
     result = Array(n);
@@ -248,16 +235,6 @@ function listCacheHas(key) {
   return assocIndexOf(this.__data__, key) > -1;
 }
 
-/**
- * Sets the list cache `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf ListCache
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the list cache instance.
- */
 function listCacheSet(key, value) {
   const data = this.__data__,
     index = assocIndexOf(data, key);
@@ -277,13 +254,6 @@ ListCache.prototype.get = listCacheGet;
 ListCache.prototype.has = listCacheHas;
 ListCache.prototype.set = listCacheSet;
 
-/**
- * Creates a map cache object to store key-value pairs.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
 function MapCache(entries) {
   let index = -1,
     length = entries ? entries.length : 0;
@@ -295,13 +265,6 @@ function MapCache(entries) {
   }
 }
 
-/**
- * Removes all key-value entries from the map.
- *
- * @private
- * @name clear
- * @memberOf MapCache
- */
 function mapCacheClear() {
   this.__data__ = {
     hash: new Hash(),
@@ -318,29 +281,10 @@ function mapCacheGet(key) {
   return getMapData(this, key).get(key);
 }
 
-/**
- * Checks if a map value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf MapCache
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
 function mapCacheHas(key) {
   return getMapData(this, key).has(key);
 }
 
-/**
- * Sets the map `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf MapCache
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the map cache instance.
- */
 function mapCacheSet(key, value) {
   getMapData(this, key).set(key, value);
   return this;

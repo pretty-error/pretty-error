@@ -244,13 +244,6 @@ function MapCache(entries) {
   }
 }
 
-/**
- * Removes all key-value entries from the map.
- *
- * @private
- * @name clear
- * @memberOf MapCache
- */
 function mapCacheClear() {
   this.size = 0;
   this.__data__ = {
@@ -260,57 +253,20 @@ function mapCacheClear() {
   };
 }
 
-/**
- * Removes `key` and its value from the map.
- *
- * @private
- * @name delete
- * @memberOf MapCache
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
 function mapCacheDelete(key) {
   const result = getMapData(this, key)["delete"](key);
   this.size -= result ? 1 : 0;
   return result;
 }
 
-/**
- * Gets the map value for `key`.
- *
- * @private
- * @name get
- * @memberOf MapCache
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
 function mapCacheGet(key) {
   return getMapData(this, key).get(key);
 }
 
-/**
- * Checks if a map value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf MapCache
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
 function mapCacheHas(key) {
   return getMapData(this, key).has(key);
 }
 
-/**
- * Sets the map `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf MapCache
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the map cache instance.
- */
 function mapCacheSet(key, value) {
   const data = getMapData(this, key),
     size = data.size;
@@ -357,7 +313,7 @@ function stackSet(key, value) {
   let data = this.__data__;
   if (data instanceof ListCache) {
     const pairs = data.__data__;
-    if (!Map || pairs.length < LARGE_ARRAY_SIZE - 1) {
+    if (pairs.length < LARGE_ARRAY_SIZE - 1) {
       pairs.push([key, value]);
       this.size = ++data.size;
       return this;
@@ -376,14 +332,6 @@ Stack.prototype.get = stackGet;
 Stack.prototype.has = stackHas;
 Stack.prototype.set = stackSet;
 
-/**
- * Creates an array of the enumerable property names of the array-like `value`.
- *
- * @private
- * @param {*} value The value to query.
- * @param {boolean} inherited Specify returning inherited property names.
- * @returns {Array} Returns the array of property names.
- */
 function arrayLikeKeys(value, inherited) {
   const isArr = isArray(value),
     isArg = !isArr && isArguments(value),
@@ -393,7 +341,7 @@ function arrayLikeKeys(value, inherited) {
     result = skipIndexes ? baseTimes(value.length, String) : [],
     length = result.length;
 
-  for (let key in value) {
+  for (const key in value) {
     if (
       (inherited || hasOwnProperty.call(value, key)) &&
       !(
@@ -415,15 +363,6 @@ function arrayLikeKeys(value, inherited) {
   return result;
 }
 
-/**
- * This function is like `assignValue` except that it doesn't assign
- * `undefined` values.
- *
- * @private
- * @param {Object} object The object to modify.
- * @param {string} key The key of the property to assign.
- * @param {*} value The value to assign.
- */
 function assignMergeValue(object, key, value) {
   if (
     (value !== undefined && !eq(object[key], value)) ||
@@ -433,16 +372,6 @@ function assignMergeValue(object, key, value) {
   }
 }
 
-/**
- * Assigns `value` to `key` of `object` if the existing value is not equivalent
- * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
- * for equality comparisons.
- *
- * @private
- * @param {Object} object The object to modify.
- * @param {string} key The key of the property to assign.
- * @param {*} value The value to assign.
- */
 function assignValue(object, key, value) {
   const objValue = object[key];
   if (
@@ -453,14 +382,6 @@ function assignValue(object, key, value) {
   }
 }
 
-/**
- * Gets the index at which the `key` is found in `array` of key-value pairs.
- *
- * @private
- * @param {Array} array The array to inspect.
- * @param {*} key The key to search for.
- * @returns {number} Returns the index of the matched value, else `-1`.
- */
 function assocIndexOf(array, key) {
   let length = array.length;
   while (length--) {
@@ -471,15 +392,6 @@ function assocIndexOf(array, key) {
   return -1;
 }
 
-/**
- * The base implementation of `assignValue` and `assignMergeValue` without
- * value checks.
- *
- * @private
- * @param {Object} object The object to modify.
- * @param {string} key The key of the property to assign.
- * @param {*} value The value to assign.
- */
 function baseAssignValue(object, key, value) {
   if (key == "__proto__" && defineProperty) {
     defineProperty(object, key, {
