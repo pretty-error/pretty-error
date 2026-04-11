@@ -3,12 +3,10 @@ import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import defaultStyle from "../src/lib/defaultStyle";
 import PrettyError from "../src/lib/PrettyError";
 
-// Helper to check if the error stack starts with ANSI color codes
 const isFormatted = (exc: Error): boolean => {
   return exc.stack?.indexOf("  \u001b[0m\u001b[97m\u001b[41m") === 0;
 };
 
-// Helper to catch errors from strings or functions
 const getCaughtError = (what: string | (() => any)): Error => {
   if (typeof what === "string") {
     return getCaughtError(() => {
@@ -58,42 +56,42 @@ describe("PrettyError", () => {
       p.skipNodeFiles();
       p.appendStyle({ "pretty-error": { marginLeft: 4 } });
 
-      const e1 = getCaughtError(() => expect("a").toBe("b"));
-      console.log(p.render(e1, false));
+      const e1 = getCaughtError(() => {
+        expect("a").toBe("b");
+      });
+      expect(p.render(e1, false)).toMatchSnapshot();
 
-      const e2 = getCaughtError(() => (Array as any).split(Object));
-      console.log(p.render(e2, false));
+      const e2 = getCaughtError(() => Array.split(Object));
+      expect(p.render(e2, false)).toMatchSnapshot();
 
       const e3 = "Plain error message";
-      console.log(p.render(e3, false));
+      expect(p.render(e3, false)).toMatchSnapshot();
 
       const e4 = {
         message: "Custom error message",
         kind: "Custom Error",
       };
-      console.log(p.render(e4 as any, false));
+      expect(p.render(e4, false)).toMatchSnapshot();
 
       const e5 = {
         message: "Error with custom stack",
         stack: ["line one", "line two"],
         wrapper: "UnhandledRejection",
       };
-      console.log(p.render(e5 as any, false));
+      expect(p.render(e5, false)).toMatchSnapshot();
 
-      const e6 = getCaughtError(() =>
-        (PrettyError as any).someNonExistingFuncion(),
-      );
-      console.log(p.render(e6, false));
+      const e6 = getCaughtError(() => PrettyError.someNonExistingFuncion());
+      expect(p.render(e6, false)).toMatchSnapshot();
     });
 
-    it.skip("should render without colors if pe._useColors is false", () => {
+    it("should render without colors", () => {
       const p = new PrettyError();
       p.withoutColors();
-      p.skipNodeFiles();
-      p.appendStyle({ "pretty-error": { marginLeft: 4 } });
-
       const e = getCaughtError(() => expect("a").toBe("b"));
-      console.log(p.render(e, false));
+      const e = getCaughtError(() => {
+        throw new Error("no color");
+      });
+      expect(p.render(e, false)).toMatchSnapshot();
     });
   });
 
