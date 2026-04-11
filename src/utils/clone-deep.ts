@@ -4,10 +4,13 @@ import {
   arrayProto,
   eq,
   funcProto,
+  funcToString,
   HASH_UNDEFINED,
+  hasOwnProperty,
   isLength,
   LARGE_ARRAY_SIZE,
   objectProto,
+  objectToString,
 } from "./shared";
 
 /** `Object#toString` result references. */
@@ -298,12 +301,6 @@ const maskSrcKey = (function () {
   return uid ? "Symbol(src)_1." + uid : "";
 })();
 
-const funcToString = funcProto.toString;
-
-const hasOwnProperty = objectProto.hasOwnProperty;
-
-const objectToString = objectProto.toString;
-
 /** Used to detect if a method is native. */
 const reIsNative = RegExp(
   "^" +
@@ -591,28 +588,10 @@ function mapCacheClear() {
   };
 }
 
-/**
- * Removes `key` and its value from the map.
- *
- * @private
- * @name delete
- * @memberOf MapCache
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
 function mapCacheDelete(key) {
   return getMapData(this, key)["delete"](key);
 }
 
-/**
- * Gets the map value for `key`.
- *
- * @private
- * @name get
- * @memberOf MapCache
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
 function mapCacheGet(key) {
   return getMapData(this, key).get(key);
 }

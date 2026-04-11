@@ -19,6 +19,12 @@ function eq(value, other) {
   return value === other || (value !== value && other !== other);
 }
 
+const funcToString = funcProto.toString;
+
+const hasOwnProperty = objectProto.hasOwnProperty;
+
+const objectToString = objectProto.toString;
+
 export {
   arrayProto,
   funcProto,
@@ -27,4 +33,7 @@ export {
   HASH_UNDEFINED,
   isLength,
   eq,
+  funcToString,
+  hasOwnProperty,
+  objectToString,
 };

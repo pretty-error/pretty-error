@@ -5,8 +5,9 @@ import { isPlainObject, p } from "#utils";
 import {
   arrayProto,
   eq,
-  funcProto,
+  funcToString,
   HASH_UNDEFINED,
+  hasOwnProperty,
   isLength,
   LARGE_ARRAY_SIZE,
   objectProto,
@@ -187,12 +188,6 @@ function overArg(func, transform) {
 
 /** Used to detect overreaching core-js shims. */
 const coreJsData = root["__core-js_shared__"];
-
-/** Used to resolve the decompiled source of functions. */
-const funcToString = funcProto.toString;
-
-/** Used to check objects for own properties. */
-const hasOwnProperty = objectProto.hasOwnProperty;
 
 /** Used to detect methods masquerading as native. */
 const maskSrcKey = (function () {
@@ -692,7 +687,7 @@ Stack.prototype.set = stackSet;
 function arrayLikeKeys(value, inherited) {
   const isArr = isArray(value),
     isArg = !isArr && isArguments(value),
-    isBuff = !isArr && !isArg && isBuffer(value),
+    isBuff = !isArr && !isArg && Buffer.isBuffer(value),
     isType = !isArr && !isArg && !isBuff && isTypedArray(value),
     skipIndexes = isArr || isArg || isBuff || isType,
     result = skipIndexes ? baseTimes(value.length, String) : [],
@@ -798,26 +793,8 @@ function baseAssignValue(object, key, value) {
   }
 }
 
-/**
- * The base implementation of `baseForOwn` which iterates over `object`
- * properties returned by `keysFunc` and invokes `iteratee` for each property.
- * Iteratee functions may exit iteration early by explicitly returning `false`.
- *
- * @private
- * @param {Object} object The object to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @param {Function} keysFunc The function to get the keys of `object`.
- * @returns {Object} Returns `object`.
- */
 const baseFor = createBaseFor();
 
-/**
- * The base implementation of `getTag` without fallbacks for buggy environments.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the `toStringTag`.
- */
 function baseGetTag(value) {
   if (value == null) {
     return value === undefined ? undefinedTag : nullTag;
@@ -827,25 +804,10 @@ function baseGetTag(value) {
     : objectToString(value);
 }
 
-/**
- * The base implementation of `_.isArguments`.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an `arguments` object,
- */
 function baseIsArguments(value) {
   return isObjectLike(value) && baseGetTag(value) == argsTag;
 }
 
-/**
- * The base implementation of `_.isNative` without bad shim checks.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a native function,
- *  else `false`.
- */
 function baseIsNative(value) {
   if (!isObject(value) || isMasked(value)) {
     return false;
@@ -854,13 +816,6 @@ function baseIsNative(value) {
   return pattern.test(toSource(value));
 }
 
-/**
- * The base implementation of `_.isTypedArray` without Node.js optimizations.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
- */
 function baseIsTypedArray(value) {
   return (
     isObjectLike(value) &&
@@ -984,7 +939,7 @@ function baseMergeDeep(
 
   if (isCommon) {
     const isArr = isArray(srcValue),
-      isBuff = !isArr && isBuffer(srcValue),
+      isBuff = !isArr && Buffer.isBuffer(srcValue),
       isTyped = !isArr && !isBuff && isTypedArray(srcValue);
 
     newValue = srcValue;
@@ -1197,10 +1152,9 @@ function createAssigner(assigner) {
  * Creates a base function for methods like `_.forIn` and `_.forOwn`.
  *
  * @private
- * @param {boolean} [fromRight] Specify iterating from right to left.
  * @returns {Function} Returns the new base function.
  */
-function createBaseFor(fromRight) {
+function createBaseFor() {
   return function (object, iteratee, keysFunc) {
     let index = -1,
       iterable = Object(object),
@@ -1208,7 +1162,7 @@ function createBaseFor(fromRight) {
       length = props.length;
 
     while (length--) {
-      const key = props[fromRight ? length : ++index];
+      const key = props[++index];
       if (iteratee(iterable[key], key, iterable) === false) {
         break;
       }
@@ -1453,25 +1407,8 @@ function safeGet(object, key) {
   return object[key];
 }
 
-/**
- * Sets the `toString` method of `func` to return `string`.
- *
- * @private
- * @param {Function} func The function to modify.
- * @param {Function} string The `toString` result.
- * @returns {Function} Returns `func`.
- */
 const setToString = shortOut(baseSetToString);
 
-/**
- * Creates a function that'll short out and invoke `identity` instead
- * of `func` when it's called `HOT_COUNT` or more times in `HOT_SPAN`
- * milliseconds.
- *
- * @private
- * @param {Function} func The function to restrict.
- * @returns {Function} Returns the new shortable function.
- */
 function shortOut(func) {
   let count = 0,
     lastCalled = 0;
@@ -1492,13 +1429,6 @@ function shortOut(func) {
   };
 }
 
-/**
- * Converts `func` to its source code.
- *
- * @private
- * @param {Function} func The function to convert.
- * @returns {string} Returns the source code.
- */
 function toSource(func) {
   if (func != null) {
     try {
@@ -1511,24 +1441,6 @@ function toSource(func) {
   return "";
 }
 
-/**
- * Checks if `value` is likely an `arguments` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an `arguments` object,
- *  else `false`.
- * @example
- *
- * _.isArguments(function() { return arguments; }());
- * // => true
- *
- * _.isArguments([1, 2, 3]);
- * // => false
- */
 const isArguments = baseIsArguments(
   (function () {
     return arguments;
@@ -1543,107 +1455,15 @@ const isArguments = baseIsArguments(
       );
     };
 
-/**
- * Checks if `value` is classified as an `Array` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an array, else `false`.
- * @example
- *
- * _.isArray([1, 2, 3]);
- * // => true
- *
- * _.isArray(document.body.children);
- * // => false
- *
- * _.isArray('abc');
- * // => false
- *
- * _.isArray(_.noop);
- * // => false
- */
 const isArray = Array.isArray;
 
-/**
- * Checks if `value` is array-like. A value is considered array-like if it's
- * not a function and has a `value.length` that's an integer greater than or
- * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
- * @example
- *
- * _.isArrayLike([1, 2, 3]);
- * // => true
- *
- * _.isArrayLike(document.body.children);
- * // => true
- *
- * _.isArrayLike('abc');
- * // => true
- *
- * _.isArrayLike(_.noop);
- * // => false
- */
 function isArrayLike(value) {
   return value != null && isLength(value.length) && !isFunction(value);
 }
 
-/**
- * This method is like `_.isArrayLike` except that it also checks if `value`
- * is an object.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an array-like object,
- *  else `false`.
- * @example
- *
- * _.isArrayLikeObject([1, 2, 3]);
- * // => true
- *
- * _.isArrayLikeObject(document.body.children);
- * // => true
- *
- * _.isArrayLikeObject('abc');
- * // => false
- *
- * _.isArrayLikeObject(_.noop);
- * // => false
- */
 function isArrayLikeObject(value) {
   return isObjectLike(value) && isArrayLike(value);
 }
-
-/**
- * Checks if `value` is a buffer.
- *
- * @static
- * @memberOf _
- * @since 4.3.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
- * @example
- *
- * _.isBuffer(new Buffer(2));
- * // => true
- *
- * _.isBuffer(new Uint8Array(2));
- * // => false
- */
-const isBuffer = Buffer.isBuffer;
 
 /**
  * Checks if `value` is classified as a `Function` object.
@@ -1742,82 +1562,16 @@ function keysIn(object) {
   return isArrayLike(object) ? arrayLikeKeys(object, true) : baseKeysIn(object);
 }
 
-/**
- * This method is like `_.assign` except that it recursively merges own and
- * inherited enumerable string keyed properties of source objects into the
- * destination object. Source properties that resolve to `undefined` are
- * skipped if a destination value exists. Array and plain object properties
- * are merged recursively. Other objects and value types are overridden by
- * assignment. Source objects are applied from left to right. Subsequent
- * sources overwrite property assignments of previous sources.
- *
- * **Note:** This method mutates `object`.
- *
- * @static
- * @memberOf _
- * @since 0.5.0
- * @category Object
- * @param {Object} object The destination object.
- * @param {...Object} [sources] The source objects.
- * @returns {Object} Returns `object`.
- * @example
- *
- * var object = {
- *   'a': [{ 'b': 2 }, { 'd': 4 }]
- * };
- *
- * var other = {
- *   'a': [{ 'c': 3 }, { 'e': 5 }]
- * };
- *
- * _.merge(object, other);
- * // => { 'a': [{ 'b': 2, 'c': 3 }, { 'd': 4, 'e': 5 }] }
- */
 const merge = createAssigner(function (object, source, srcIndex) {
   baseMerge(object, source, srcIndex);
 });
 
-/**
- * Creates a function that returns `value`.
- *
- * @static
- * @memberOf _
- * @since 2.4.0
- * @category Util
- * @param {*} value The value to return from the new function.
- * @returns {Function} Returns the new constant function.
- * @example
- *
- * var objects = _.times(2, _.constant({ 'a': 1 }));
- *
- * console.log(objects);
- * // => [{ 'a': 1 }, { 'a': 1 }]
- *
- * console.log(objects[0] === objects[1]);
- * // => true
- */
 function constant(value) {
   return function () {
     return value;
   };
 }
 
-/**
- * This method returns the first argument it receives.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Util
- * @param {*} value Any value.
- * @returns {*} Returns `value`.
- * @example
- *
- * var object = { 'a': 1 };
- *
- * console.log(_.identity(object) === object);
- * // => true
- */
 function identity(value) {
   return value;
 }
