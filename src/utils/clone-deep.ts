@@ -190,12 +190,6 @@ function setToArray(set) {
   return result;
 }
 
-/** Used to detect methods masquerading as native. */
-const maskSrcKey = (function () {
-  const uid = null;
-  return uid ? "Symbol(src)_1." + uid : "";
-})();
-
 /** Used to detect if a method is native. */
 const reIsNative = RegExp(
   "^" +
@@ -420,66 +414,22 @@ function Stack(entries?) {
   this.__data__ = new ListCache(entries);
 }
 
-/**
- * Removes all key-value entries from the stack.
- *
- * @private
- * @name clear
- * @memberOf Stack
- */
 function stackClear() {
   this.__data__ = new ListCache();
 }
 
-/**
- * Removes `key` and its value from the stack.
- *
- * @private
- * @name delete
- * @memberOf Stack
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
 function stackDelete(key) {
   return this.__data__["delete"](key);
 }
 
-/**
- * Gets the stack value for `key`.
- *
- * @private
- * @name get
- * @memberOf Stack
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
 function stackGet(key) {
   return this.__data__.get(key);
 }
 
-/**
- * Checks if a stack value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf Stack
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
 function stackHas(key) {
   return this.__data__.has(key);
 }
 
-/**
- * Sets the stack `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf Stack
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the stack cache instance.
- */
 function stackSet(key, value) {
   let cache = this.__data__;
   if (cache instanceof ListCache) {
@@ -529,16 +479,6 @@ function arrayLikeKeys(value, inherited) {
   return result;
 }
 
-/**
- * Assigns `value` to `key` of `object` if the existing value is not equivalent
- * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
- * for equality comparisons.
- *
- * @private
- * @param {Object} object The object to modify.
- * @param {string} key The key of the property to assign.
- * @param {*} value The value to assign.
- */
 function assignValue(object, key, value) {
   const objValue = object[key];
   if (
@@ -549,14 +489,6 @@ function assignValue(object, key, value) {
   }
 }
 
-/**
- * Gets the index at which the `key` is found in `array` of key-value pairs.
- *
- * @private
- * @param {Array} array The array to inspect.
- * @param {*} key The key to search for.
- * @returns {number} Returns the index of the matched value, else `-1`.
- */
 function assocIndexOf(array, key) {
   let length = array.length;
   while (length--) {
@@ -567,15 +499,6 @@ function assocIndexOf(array, key) {
   return -1;
 }
 
-/**
- * The base implementation of `_.assign` without support for multiple sources
- * or `customizer` functions.
- *
- * @private
- * @param {Object} object The destination object.
- * @param {Object} source The source object.
- * @returns {Object} Returns `object`.
- */
 function baseAssign(object, source) {
   return object && copyObject(source, keys(source), object);
 }
@@ -702,14 +625,6 @@ function baseKeys(object) {
   return result;
 }
 
-/**
- * Creates a clone of  `buffer`.
- *
- * @private
- * @param {Buffer} buffer The buffer to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Buffer} Returns the cloned buffer.
- */
 function cloneBuffer(buffer, isDeep) {
   if (isDeep) {
     return buffer.slice();
@@ -719,27 +634,12 @@ function cloneBuffer(buffer, isDeep) {
   return result;
 }
 
-/**
- * Creates a clone of `arrayBuffer`.
- *
- * @private
- * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
- * @returns {ArrayBuffer} Returns the cloned array buffer.
- */
 function cloneArrayBuffer(arrayBuffer) {
   const result = new arrayBuffer.constructor(arrayBuffer.byteLength);
   new Uint8Array(result).set(new Uint8Array(arrayBuffer));
   return result;
 }
 
-/**
- * Creates a clone of `dataView`.
- *
- * @private
- * @param {Object} dataView The data view to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the cloned data view.
- */
 function cloneDataView(dataView, isDeep) {
   const buffer = isDeep ? cloneArrayBuffer(dataView.buffer) : dataView.buffer;
   return new dataView.constructor(
@@ -749,15 +649,6 @@ function cloneDataView(dataView, isDeep) {
   );
 }
 
-/**
- * Creates a clone of `map`.
- *
- * @private
- * @param {Object} map The map to clone.
- * @param {Function} cloneFunc The function to clone values.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the cloned map.
- */
 function cloneMap(map, isDeep, cloneFunc) {
   const array = isDeep ? cloneFunc(mapToArray(map), true) : mapToArray(map);
   return arrayReduce(array, addMapEntry, new map.constructor());
@@ -944,7 +835,7 @@ function isKeyable(value) {
 }
 
 function isMasked(func) {
-  return !!maskSrcKey && maskSrcKey in func;
+  return !!"" && "" in func;
 }
 
 function isPrototype(value) {

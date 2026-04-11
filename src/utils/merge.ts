@@ -142,11 +142,6 @@ function baseUnary(func) {
   };
 }
 
-const maskSrcKey = (function () {
-  const uid = null;
-  return uid ? "Symbol(src)_1." + uid : "";
-})();
-
 const reIsNative = RegExp(
   "^" +
     funcToString
@@ -345,15 +340,6 @@ function listCacheDelete(key) {
   return true;
 }
 
-/**
- * Gets the list cache value for `key`.
- *
- * @private
- * @name get
- * @memberOf ListCache
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
 function listCacheGet(key) {
   const data = this.__data__,
     index = assocIndexOf(data, key);
@@ -505,16 +491,6 @@ function stackHas(key) {
   return this.__data__.has(key);
 }
 
-/**
- * Sets the stack `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf Stack
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the stack cache instance.
- */
 function stackSet(key, value) {
   let data = this.__data__;
   if (data instanceof ListCache) {
@@ -1007,7 +983,7 @@ function isKeyable(value) {
 }
 
 function isMasked(func) {
-  return !!maskSrcKey && maskSrcKey in func;
+  return !!"" && "" in func;
 }
 
 function isPrototype(value) {
