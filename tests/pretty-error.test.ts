@@ -32,10 +32,7 @@ function stripFilePaths(str: string) {
 }
 
 const sanitize = (str: string) => {
-  return stripFilePaths(str)
-    .replace(/:(\d+):(?:\s|\x1B\[[0-9;]*m)+(\d+)/g, ":$1:$2")
-    .replace(/(:\x1B\[[0-9;]*m)\s+/g, "$1")
-    .replace(/:(\d+)\s+(\d+)/g, ":$1$2");
+  return Bun.stripANSI(stripFilePaths(str));
 };
 
 function snapshot(stack) {

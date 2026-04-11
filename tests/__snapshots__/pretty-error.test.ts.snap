@@ -1,81 +1,81 @@
 // Bun Snapshot v1, https://bun.sh/docs/test/snapshots
 
 exports[`PrettyError render() should work 1`] = `
-"    \x1B[0m\x1B[97m\x1B[41mError\x1B[0m\x1B[90m:\x1B[0m\x1B[37m \x1B[0m\x1B[97m\x1B[2mexpect(\x1B[0m\x1B[31mreceived\x1B[0m\x1B[2m).\x1B[0mtoBe\x1B[2m(\x1B[0m\x1B[32mexpected\x1B[0m\x1B[2m)\x1B[0m\x1B[0m
-\x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[97mExpected: \x1B[0m\x1B[32m"\x1B[0m\x1B[32mb\x1B[0m\x1B[32m"\x1B[0m\x1B[0m
-\x1B[0m    \x1B[0m\x1B[97mReceived: \x1B[0m\x1B[31m"\x1B[0m\x1B[31ma\x1B[0m\x1B[31m"\x1B[0m\x1B[0m
-\x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[37mtoBe\x1B[0m
-\x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m80\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
-\x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:80:21\x1B[0m
-\x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m19\x1B[0m\x1B[37m \x1B[0m\x1B[37mgetCaughtError\x1B[0m
-\x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:19:7\x1B[0m
-\x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m79\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
-\x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:79:18\x1B[0m
-\x1B[0m    \x1B[0m
-\x1B[0m"
+"    Error: expect(received).toBe(expected)
+    
+    Expected: "b"
+    Received: "a"
+    
+    - toBe
+    
+    - pretty-error.test.ts:77 <anonymous>
+      pretty-error.test.ts:77:21
+    
+    - pretty-error.test.ts:19 getCaughtError
+      pretty-error.test.ts:19:7
+    
+    - pretty-error.test.ts:76 <anonymous>
+      pretty-error.test.ts:76:18
+    
+"
 `;
 
 exports[`PrettyError render() should work 2`] = `
-"    \x1B[0m\x1B[97m\x1B[41mTypeError\x1B[0m\x1B[90m:\x1B[0m\x1B[37m \x1B[0m\x1B[97mArray.split is not a function. (In 'Array.split(Object)', 'Array.split' is undefined)\x1B[0m
-\x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m84\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
-\x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:84:45\x1B[0m
-\x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m19\x1B[0m\x1B[37m \x1B[0m\x1B[37mgetCaughtError\x1B[0m
-\x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:19:7\x1B[0m
-\x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m84\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
-\x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:84:18\x1B[0m
-\x1B[0m    \x1B[0m
-\x1B[0m"
+"    TypeError: Array.split is not a function. (In 'Array.split(Object)', 'Array.split' is undefined)
+    
+    - pretty-error.test.ts:81 <anonymous>
+      pretty-error.test.ts:81:45
+    
+    - pretty-error.test.ts:19 getCaughtError
+      pretty-error.test.ts:19:7
+    
+    - pretty-error.test.ts:81 <anonymous>
+      pretty-error.test.ts:81:18
+    
+"
 `;
 
 exports[`PrettyError render() should work 3`] = `
-"    \x1B[0m\x1B[97m\x1B[41mError\x1B[0m\x1B[90m:\x1B[0m\x1B[37m \x1B[0m\x1B[97mPlain error message\x1B[0m
-\x1B[0m"
+"    Error: Plain error message
+"
 `;
 
 exports[`PrettyError render() should work 4`] = `
-"    \x1B[0m\x1B[97m\x1B[41mCustom Error\x1B[0m\x1B[90m:\x1B[0m\x1B[37m \x1B[0m\x1B[97mCustom error message\x1B[0m
-\x1B[0m"
+"    Custom Error: Custom error message
+"
 `;
 
 exports[`PrettyError render() should work 5`] = `
-"    \x1B[0m\x1B[90mUnhandledRejection\x1B[0m\x1B[37m \x1B[0m\x1B[97m\x1B[41mError\x1B[0m\x1B[90m:\x1B[0m\x1B[37m \x1B[0m\x1B[97mError with custom stack\x1B[0m
-\x1B[0m"
+"    UnhandledRejection Error: Error with custom stack
+"
 `;
 
 exports[`PrettyError render() should work 6`] = `
-"    \x1B[0m\x1B[97m\x1B[41mTypeError\x1B[0m\x1B[90m:\x1B[0m\x1B[37m \x1B[0m\x1B[97mPrettyError.someNonExistingFuncion is not a function. (In 'PrettyError.someNonExistingFuncion()', 'PrettyError.someNonExistingFuncion'\x1B[0m    \x1B[0m\x1B[97m is undefined)\x1B[0m
-\x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m103\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
-\x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:103:51\x1B[0m
-\x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m19\x1B[0m\x1B[37m \x1B[0m\x1B[37mgetCaughtError\x1B[0m
-\x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:19:7\x1B[0m
-\x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m103\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
-\x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:103:18\x1B[0m
-\x1B[0m    \x1B[0m
-\x1B[0m"
+"    TypeError: PrettyError.someNonExistingFuncion is not a function. (In 'PrettyError.someNonExistingFuncion()', 'PrettyError.someNonExistingFuncion'     is undefined)
+    
+    - pretty-error.test.ts:100 <anonymous>
+      pretty-error.test.ts:100:51
+    
+    - pretty-error.test.ts:19 getCaughtError
+      pretty-error.test.ts:19:7
+    
+    - pretty-error.test.ts:100 <anonymous>
+      pretty-error.test.ts:100:18
+    
+"
 `;
 
 exports[`PrettyError render() should render without colors 1`] = `
 "  Error: no color
   
-  - pretty-error.test.ts:111 <anonymous>
-    pretty-error.test.ts:111:19
+  - pretty-error.test.ts:108 <anonymous>
+    pretty-error.test.ts:108:19
   
   - pretty-error.test.ts:19 getCaughtError
     pretty-error.test.ts:19:7
   
-  - pretty-error.test.ts:110 <anonymous>
-    pretty-error.test.ts:110:17
+  - pretty-error.test.ts:107 <anonymous>
+    pretty-error.test.ts:107:17
   
 "
 `;
