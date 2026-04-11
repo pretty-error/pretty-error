@@ -1,6 +1,6 @@
 import { object } from "#utila";
 
-import objectToSaneObject from "./objectToSaneObject";
+import * as objectToSaneObject from "./objectToSaneObject";
 import saneObjectToDom from "./saneObjectToDom";
 
 function object2SaneObject(o) {
