@@ -32,7 +32,7 @@ function stripFilePaths(str: string) {
 }
 
 const sanitize = (str: string) => {
-  return stripFilePaths(str);
+  return stripFilePaths(str).replace(/:\s+(\d+)/, ":$1");
 };
 
 function snapshot(stack) {
