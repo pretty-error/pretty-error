@@ -1,3 +1,5 @@
+import { isPlainObject } from "#utils";
+
 /** Used as the size to enable large array optimizations. */
 const LARGE_ARRAY_SIZE = 200;
 
@@ -242,9 +244,6 @@ const maskSrcKey = (function () {
  * of values.
  */
 const nativeObjectToString = objectProto.toString;
-
-/** Used to infer the `Object` constructor. */
-const objectCtorString = funcToString.call(Object);
 
 /** Used to detect if a method is native. */
 const reIsNative = RegExp(
@@ -1849,50 +1848,6 @@ function isObject(value) {
  */
 function isObjectLike(value) {
   return value != null && typeof value == "object";
-}
-
-/**
- * Checks if `value` is a plain object, that is, an object created by the
- * `Object` constructor or one with a `[[Prototype]]` of `null`.
- *
- * @static
- * @memberOf _
- * @since 0.8.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- * }
- *
- * _.isPlainObject(new Foo);
- * // => false
- *
- * _.isPlainObject([1, 2, 3]);
- * // => false
- *
- * _.isPlainObject({ 'x': 0, 'y': 0 });
- * // => true
- *
- * _.isPlainObject(Object.create(null));
- * // => true
- */
-function isPlainObject(value) {
-  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
-    return false;
-  }
-  const proto = getPrototype(value);
-  if (proto === null) {
-    return true;
-  }
-  const Ctor = hasOwnProperty.call(proto, "constructor") && proto.constructor;
-  return (
-    typeof Ctor == "function" &&
-    Ctor instanceof Ctor &&
-    funcToString.call(Ctor) == objectCtorString
-  );
 }
 
 /**
