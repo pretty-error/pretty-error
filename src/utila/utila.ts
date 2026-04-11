@@ -7,6 +7,4 @@ function isBareObject(o) {
   return false;
 }
 
-const object = { isBareObject };
-
-export { object, __hasProp };
+export { isBareObject, __hasProp };

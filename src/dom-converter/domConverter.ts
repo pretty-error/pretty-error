@@ -1,4 +1,4 @@
-import { object, __hasProp } from "#utila";
+import { isBareObject, __hasProp } from "#utila";
 
 // ---
 
@@ -126,7 +126,7 @@ function objectToSaneObjectSanitize(val) {
 
 function _toChildren(val) {
   let ref;
-  if (object.isBareObject(val)) {
+  if (isBareObject(val)) {
     return _objectToChildren(val);
   } else if (Array.isArray(val)) {
     return _arrayToChildren(val);
@@ -166,7 +166,7 @@ function _toNode(o) {
   let key, keys, obj, ref;
   if ((ref = typeof o) === "string" || ref === "number") {
     return String(o);
-  } else if (object.isBareObject(o)) {
+  } else if (isBareObject(o)) {
     keys = Object.keys(o);
     if (keys.length !== 1) {
       throw Error("a node must only have one key as tag name");
@@ -183,7 +183,7 @@ function _toNode(o) {
 
 function object2SaneObject(o) {
   if (!Array.isArray(o)) {
-    if (!object.isBareObject(o)) {
+    if (!isBareObject(o)) {
       throw Error("toDom() only accepts arrays and bare objects as input");
     }
   }
