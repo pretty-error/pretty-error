@@ -1,10 +1,7 @@
-import _Length from "./_Length";
+import { _classCallCheck } from "#renderkid/tools";
+import { p, sp } from "#utils";
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+import _Length from "./_Length";
 
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
@@ -13,10 +10,8 @@ function _inherits(subClass, superClass) {
   subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: { value: subClass, writable: true, configurable: true },
   });
-  if (superClass) _setPrototypeOf(subClass, superClass);
+  if (superClass) sp(subClass, superClass);
 }
-
-const _setPrototypeOf = Object.setPrototypeOf;
 
 function _createSuper(Derived) {
   const hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -62,8 +57,6 @@ function _isNativeReflectConstruct() {
     return false;
   }
 }
-
-import { p } from "#utils";
 
 const Width = /*#__PURE__*/ (function (_Length2) {
   _inherits(Width, _Length2);

@@ -1,10 +1,6 @@
-import _Length from "./_Length";
+import { _classCallCheck } from "#renderkid/tools";
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+import _Length from "./_Length";
 
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {

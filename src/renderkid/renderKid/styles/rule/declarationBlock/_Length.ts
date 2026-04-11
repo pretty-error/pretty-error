@@ -1,4 +1,5 @@
 import { _classCallCheck, _createClass } from "#renderkid/tools";
+import { p, sp } from "#utils";
 
 import _Declaration from "./_Declaration";
 
@@ -9,10 +10,8 @@ function _inherits(subClass, superClass) {
   subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: { value: subClass, writable: true, configurable: true },
   });
-  if (superClass) _setPrototypeOf(subClass, superClass);
+  if (superClass) sp(subClass, superClass);
 }
-
-const _setPrototypeOf = Object.setPrototypeOf;
 
 function _createSuper(Derived) {
   const hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -58,8 +57,6 @@ function _isNativeReflectConstruct() {
     return false;
   }
 }
-
-import { p } from "#utils";
 
 const _Length = /*#__PURE__*/ (function (_Declaration2) {
   _inherits(_Length, _Declaration2);
