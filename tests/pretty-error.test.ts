@@ -24,38 +24,15 @@ const getCaughtError = (what: string | (() => any)): Error => {
   throw new Error("bad argument for error");
 };
 
+function stripFilePaths(str: string) {
+  return str.replace(
+    /(?:[a-zA-Z]:)?[\\/].*[\\/](pretty-error\.test\.ts)/g,
+    "$1",
+  );
+}
+
 const sanitize = (str: string) => {
-  let res = str.replace(/(?:\w:)?\/.*?\/(pretty-error\.test\.ts)/g, "$1");
-
-  res = res
-    .split("\n")
-    .map((line) => {
-      const target = "pretty-error.test.ts";
-      const idx = line.indexOf(target);
-      if (idx === -1) return line;
-
-      const prefix = line.slice(0, idx + target.length);
-      const rest = line.slice(idx + target.length);
-
-      let numCount = 0;
-      const cleanRest = rest.replace(/\x1B\[[0-9;]*m|\d+/gi, (match) => {
-        if (match.toLowerCase().startsWith("\x1b")) return match;
-        numCount++;
-        if (numCount === 1) return "<line>";
-        if (numCount === 2) return "<col>";
-        return "";
-      });
-
-      const fixedRest = cleanRest
-        .replace(/(\s*:\s*)(<line>)/g, ":$2")
-        .replace(/(<line>)(\s*:\s*)/g, "$1:")
-        .replace(/(\s*:\s*)(<col>)/g, ":$2");
-
-      return prefix + fixedRest;
-    })
-    .join("\n");
-
-  return res.replace(/[ ]{2,}/g, " ").replace(/ +$/gm, "");
+  return stripFilePaths(str);
 };
 
 function snapshot(stack) {
