@@ -1,4 +1,4 @@
-import { __hasProp } from "#utila";
+const __hasProp = {}.hasOwnProperty;
 
 function isBareObject(o) {
   if (o != null && o.constructor === Object) {

@@ -1,5 +1,6 @@
 import { _classCallCheck, _createClass } from "#renderkid/tools";
-import { __hasProp } from "#utila";
+
+const __hasProp = {}.hasOwnProperty;
 
 import styles from "./ansiPainter/styles";
 import tags from "./ansiPainter/tags";
