@@ -60,7 +60,7 @@ const DeclarationBlock = function () {
           value: function set(prop, value) {
             let key, val;
 
-            if (_typeof(prop) === "object") {
+            if (typeof(prop) === "object") {
               for (key in prop) {
                 val = prop[key];
                 this.set(key, val);

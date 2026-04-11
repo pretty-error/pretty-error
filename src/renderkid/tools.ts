@@ -5,21 +5,6 @@ import { isPlainObject } from "#utils";
 import cloneDeep from "#utils/clone-deep";
 import merge from "#utils/merge";
 
-function repeatString(str, times) {
-  let i, j, output, ref;
-  output = "";
-
-  for (
-    i = j = 0, ref = times;
-    0 <= ref ? j < ref : j > ref;
-    i = 0 <= ref ? ++j : --j
-  ) {
-    output += str;
-  }
-
-  return output;
-}
-
 function cloneAndMergeDeep(base, toAppend) {
   return merge(cloneDeep(base), toAppend);
 }
@@ -34,7 +19,7 @@ function toDom(subject) {
   }
 }
 
-function stringToDom(string) {
+function stringToDom(string: string) {
   const handler = new htmlparser.DomHandler();
   const parser = new htmlparser.Parser(handler);
   parser.write(string);
@@ -111,12 +96,4 @@ function getCols() {
   }
 }
 
-export {
-  repeatString,
-  cloneAndMergeDeep,
-  toDom,
-  stringToDom,
-  objectToDom,
-  quote,
-  getCols,
-};
+export { cloneAndMergeDeep, toDom, stringToDom, objectToDom, quote, getCols };

@@ -23,10 +23,10 @@ const _setPrototypeOf = Object.setPrototypeOf;
 function _createSuper(Derived) {
   const hasNativeReflectConstruct = _isNativeReflectConstruct();
   return function _createSuperInternal() {
-    let Super = _getPrototypeOf(Derived),
+    let Super = p(Derived),
       result;
     if (hasNativeReflectConstruct) {
-      const NewTarget = _getPrototypeOf(this).constructor;
+      const NewTarget = p(this).constructor;
       result = Reflect.construct(Super, arguments, NewTarget);
     } else {
       result = Super.apply(this, arguments);
@@ -36,7 +36,7 @@ function _createSuper(Derived) {
 }
 
 function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+  if (call && (typeof(call) === "object" || typeof call === "function")) {
     return call;
   }
   return _assertThisInitialized(self);
@@ -65,7 +65,8 @@ function _isNativeReflectConstruct() {
   }
 }
 
-const _getPrototypeOf = Object.getPrototypeOf;
+import { p } from "#utils";
+const _getPrototypeOf = p;
 
 const MarginRight = /*#__PURE__*/ (function (_Length2) {
   _inherits(MarginRight, _Length2);

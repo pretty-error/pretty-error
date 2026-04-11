@@ -37,10 +37,10 @@ const _setPrototypeOf = Object.setPrototypeOf;
 function _createSuper(Derived) {
   const hasNativeReflectConstruct = _isNativeReflectConstruct();
   return function _createSuperInternal() {
-    let Super = _getPrototypeOf(Derived),
+    let Super = p(Derived),
       result;
     if (hasNativeReflectConstruct) {
-      const NewTarget = _getPrototypeOf(this).constructor;
+      const NewTarget = p(this).constructor;
       result = Reflect.construct(Super, arguments, NewTarget);
     } else {
       result = Super.apply(this, arguments);
@@ -50,7 +50,7 @@ function _createSuper(Derived) {
 }
 
 function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+  if (call && (typeof(call) === "object" || typeof call === "function")) {
     return call;
   }
   return _assertThisInitialized(self);
@@ -66,8 +66,6 @@ function _assertThisInitialized(self) {
 }
 
 function _isNativeReflectConstruct() {
-  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-  if (Reflect.construct.sham) return false;
   if (typeof Proxy === "function") return true;
   try {
     Boolean.prototype.valueOf.call(
@@ -79,9 +77,9 @@ function _isNativeReflectConstruct() {
   }
 }
 
-const _getPrototypeOf = Object.getPrototypeOf;
+import { p } from "#utils";
+const _getPrototypeOf = p;
 
-import * as tools from "../../../tools";
 import _LineAppendor from "./_LineAppendor";
 
 const DefaultLineAppendor = /*#__PURE__*/ (function (_require) {
@@ -99,7 +97,7 @@ const DefaultLineAppendor = /*#__PURE__*/ (function (_require) {
     {
       key: "_render",
       value: function _render(inherited, options) {
-        return inherited + tools.repeatString(" ", this._config.amount);
+        return inherited + " ".repeat(this._config.amount);
       },
     },
   ]);

@@ -5,4 +5,4 @@ const isPlainObject = (obj: unknown) =>
   typeof obj === "object" &&
   (p(obj) === null || p(obj) === Object.prototype);
 
-export { isPlainObject };
+export { isPlainObject, p };

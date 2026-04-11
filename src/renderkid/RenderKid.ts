@@ -29,7 +29,7 @@ import Layout from "./Layout";
 import blockStyleApplier from "./renderKid/styleApplier/block";
 import inlineStyleApplier from "./renderKid/styleApplier/inline";
 import Styles from "./renderKid/Styles";
-import { getCols, cloneAndMergeDeep } from "./tools";
+import { getCols, cloneAndMergeDeep, objectToDom, stringToDom } from "./tools";
 import * as tools from "./tools";
 
 const terminalWidth = getCols();
@@ -107,7 +107,7 @@ const RenderKid = function () {
             };
           }
 
-          return tools.objectToDom(o);
+          return objectToDom(o);
         },
       },
       {
@@ -134,7 +134,7 @@ const RenderKid = function () {
             string = "<body>" + string + "</body>";
           }
 
-          return tools.stringToDom(string);
+          return stringToDom(string);
         },
       },
       {

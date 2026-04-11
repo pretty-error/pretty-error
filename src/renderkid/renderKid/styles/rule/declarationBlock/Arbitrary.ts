@@ -36,7 +36,7 @@ function _createSuper(Derived) {
 }
 
 function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+  if (call && (typeof(call) === "object" || typeof call === "function")) {
     return call;
   }
   return _assertThisInitialized(self);
@@ -65,7 +65,8 @@ function _isNativeReflectConstruct() {
   }
 }
 
-const _getPrototypeOf = Object.getPrototypeOf;
+import { p } from "#utils";
+const _getPrototypeOf = p;
 
 const Arbitrary = /*#__PURE__*/ (function (_Declaration2) {
   _inherits(Arbitrary, _Declaration2);

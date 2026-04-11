@@ -52,7 +52,7 @@ function _createSuper(Derived) {
 }
 
 function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+  if (call && (typeof(call) === "object" || typeof call === "function")) {
     return call;
   }
   return _assertThisInitialized(self);
@@ -81,7 +81,8 @@ function _isNativeReflectConstruct() {
   }
 }
 
-const _getPrototypeOf = Object.getPrototypeOf;
+import { p } from "#utils";
+const _getPrototypeOf = p;
 
 const Bullet = function () {
   let self;
