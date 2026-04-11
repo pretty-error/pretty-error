@@ -1,11 +1,10 @@
-/** Used as the size to enable large array optimizations. */
-const LARGE_ARRAY_SIZE = 200;
-
-/** Used to stand-in for `undefined` hash values. */
-const HASH_UNDEFINED = "__lodash_hash_undefined__";
-
-/** Used as references for various `Number` constants. */
-const MAX_SAFE_INTEGER = 9007199254740991;
+import {
+  arrayProto,
+  funcProto,
+  HASH_UNDEFINED,
+  LARGE_ARRAY_SIZE,
+  objectProto,
+} from "./shared";
 
 /** `Object#toString` result references. */
 const argsTag = "[object Arguments]",
@@ -298,11 +297,6 @@ function setToArray(set) {
   });
   return result;
 }
-
-/** Used for built-in method references. */
-const arrayProto = Array.prototype,
-  funcProto = Function.prototype,
-  objectProto = Object.prototype;
 
 /** Used to detect overreaching core-js shims. */
 const coreJsData = root["__core-js_shared__"];
@@ -1367,11 +1361,11 @@ function initCloneByTag(object, tag, cloneFunc, isDeep) {
  *
  * @private
  * @param {*} value The value to check.
- * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @param {number} [length=Number.MAX_SAFE_INTEGER] The upper bounds of a valid index.
  * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
  */
 function isIndex(value, length) {
-  length = length == null ? MAX_SAFE_INTEGER : length;
+  length = length == null ? Number.MAX_SAFE_INTEGER : length;
   return (
     !!length &&
     (typeof value == "number" || reIsUint.test(value)) &&
@@ -1685,7 +1679,7 @@ function isLength(value) {
     typeof value == "number" &&
     value > -1 &&
     value % 1 == 0 &&
-    value <= MAX_SAFE_INTEGER
+    value <= Number.MAX_SAFE_INTEGER
   );
 }
 
