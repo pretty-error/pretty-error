@@ -46,7 +46,7 @@ function replaceLineCol(str: string) {
 }
 
 const sanitize = (str: string) => {
-  return replaceLineCol(
+  return (
     fixStupidGithubCI(
       fixStupidGithubCI(
         cleanupSpacing(
