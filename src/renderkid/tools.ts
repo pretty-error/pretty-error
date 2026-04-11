@@ -3,7 +3,7 @@ import tty from "node:tty";
 import htmlparser from "htmlparser2";
 
 import { objectToDom as _objectToDom } from "#dom-converter";
-import { isPlainObject } from "#utils";
+import { isPlainObject, sp } from "#utils";
 import cloneDeep from "#utils/clone-deep";
 import merge from "#utils/merge";
 
@@ -118,6 +118,16 @@ function _createClass(Constructor, protoProps, staticProps?) {
   return Constructor;
 }
 
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: { value: subClass, writable: true, configurable: true },
+  });
+  if (superClass) sp(subClass, superClass);
+}
+
 export {
   cloneAndMergeDeep,
   toDom,
@@ -130,4 +140,5 @@ export {
   _classCallCheck,
   _defineProperties,
   _createClass,
+  _inherits,
 };

@@ -1,17 +1,8 @@
 import { _classCallCheck } from "#renderkid/tools";
+import { _inherits } from "#renderkid/tools";
 import { p, sp } from "#utils";
 
 import _Length from "./_Length";
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: { value: subClass, writable: true, configurable: true },
-  });
-  if (superClass) sp(subClass, superClass);
-}
 
 function _createSuper(Derived) {
   const hasNativeReflectConstruct = _isNativeReflectConstruct();
