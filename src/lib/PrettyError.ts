@@ -63,9 +63,7 @@ const arrayUtils = {
 instance = null;
 
 const PrettyError = (function () {
-  let self;
-
-  self = PrettyError;
+  let self = PrettyError;
 
   PrettyError._filters = {
     "module.exports": function (item) {
