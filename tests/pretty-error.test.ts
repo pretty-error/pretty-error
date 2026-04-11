@@ -39,7 +39,7 @@ function fixStupidGithubCI(str: string) {
 
 const sanitize = (str: string) => {
   return fixStupidGithubCI(
-    fixStupidGithubCI(Bun.stripANSI(stripFilePaths(str))),
+    fixStupidGithubCI(fixStupidGithubCI(Bun.stripANSI(stripFilePaths(str)))),
   );
 };
 
