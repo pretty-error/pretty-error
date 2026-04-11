@@ -111,9 +111,7 @@ function baseUnary(func) {
   };
 }
 
-const propertyIsEnumerable = objectProto.propertyIsEnumerable,
-  splice = arrayProto.splice,
-  symToStringTag = Symbol.toStringTag;
+const symToStringTag = Symbol.toStringTag;
 
 const defineProperty = Object.defineProperty;
 
@@ -183,13 +181,6 @@ Hash.prototype.get = hashGet;
 Hash.prototype.has = hashHas;
 Hash.prototype.set = hashSet;
 
-/**
- * Creates an list cache object.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
 function ListCache(entries) {
   let index = -1,
     length = entries == null ? 0 : entries.length;
@@ -201,27 +192,11 @@ function ListCache(entries) {
   }
 }
 
-/**
- * Removes all key-value entries from the list cache.
- *
- * @private
- * @name clear
- * @memberOf ListCache
- */
 function listCacheClear() {
   this.__data__ = [];
   this.size = 0;
 }
 
-/**
- * Removes `key` and its value from the list cache.
- *
- * @private
- * @name delete
- * @memberOf ListCache
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
 function listCacheDelete(key) {
   const data = this.__data__,
     index = assocIndexOf(data, key);
@@ -233,7 +208,7 @@ function listCacheDelete(key) {
   if (index == lastIndex) {
     data.pop();
   } else {
-    splice.call(data, index, 1);
+    data.splice(index, 1);
   }
   --this.size;
   return true;
@@ -536,9 +511,7 @@ function baseGetTag(value) {
   if (value == null) {
     return value === undefined ? undefinedTag : nullTag;
   }
-  return symToStringTag && symToStringTag in Object(value)
-    ? getRawTag(value)
-    : objectToString(value);
+  return getRawTag(value);
 }
 
 function baseIsArguments(value) {
@@ -677,16 +650,14 @@ function baseRest(func, start) {
   return setToString(overRest(func, start, identity), func + "");
 }
 
-const baseSetToString = !defineProperty
-  ? identity
-  : function (func, string) {
-      return defineProperty(func, "toString", {
-        configurable: true,
-        enumerable: false,
-        value: constant(string),
-        writable: true,
-      });
-    };
+function baseSetToString(func, string) {
+  return defineProperty(func, "toString", {
+    configurable: true,
+    enumerable: false,
+    value: constant(string),
+    writable: true,
+  });
+}
 
 function cloneBuffer(buffer, isDeep) {
   if (isDeep) {
@@ -868,10 +839,6 @@ function isKeyable(value) {
     : value === null;
 }
 
-function isMasked(func) {
-  return !!"" && "" in func;
-}
-
 function isPrototype(value) {
   const Ctor = value && value.constructor,
     proto = (typeof Ctor == "function" && Ctor.prototype) || objectProto;
@@ -958,7 +925,7 @@ const isArguments = baseIsArguments(
       return (
         isObjectLike(value) &&
         hasOwnProperty.call(value, "callee") &&
-        !propertyIsEnumerable.call(value, "callee")
+        !objectProto.propertyIsEnumerable.call(value, "callee")
       );
     };
 

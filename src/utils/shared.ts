@@ -1,5 +1,4 @@
 const arrayProto = Array.prototype,
-  funcProto = Function.prototype,
   objectProto = Object.prototype;
 
 const LARGE_ARRAY_SIZE = 200;

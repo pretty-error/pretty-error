@@ -1,9 +1,7 @@
 import { p } from "#utils";
 
 import {
-  arrayProto,
   eq,
-  funcToString,
   HASH_UNDEFINED,
   hasOwnProperty,
   isFunction,
@@ -167,9 +165,6 @@ function setToArray(set) {
   });
   return result;
 }
-
-const propertyIsEnumerable = objectProto.propertyIsEnumerable,
-  splice = arrayProto.splice;
 
 const symbolValueOf = Symbol.prototype.valueOf;
 
@@ -721,27 +716,11 @@ function isKeyable(value) {
     : value === null;
 }
 
-function isMasked(func) {
-  return !!"" && "" in func;
-}
-
 function isPrototype(value) {
   const Ctor = value && value.constructor,
     proto = (typeof Ctor == "function" && Ctor.prototype) || objectProto;
 
   return value === proto;
-}
-
-function toSource(func) {
-  if (func != null) {
-    try {
-      return funcToString.call(func);
-    } catch (e) {}
-    try {
-      return func + "";
-    } catch (e) {}
-  }
-  return "";
 }
 
 function cloneDeep(value) {
@@ -753,7 +732,7 @@ function isArguments(value) {
   return (
     isArrayLikeObject(value) &&
     hasOwnProperty.call(value, "callee") &&
-    (!propertyIsEnumerable.call(value, "callee") ||
+    (!objectProto.propertyIsEnumerable.call(value, "callee") ||
       objectToString.call(value) == argsTag)
   );
 }
@@ -765,7 +744,7 @@ function isArrayLike(value) {
 }
 
 function isArrayLikeObject(value) {
-  return isObjectLike(value) && isArrayLike(value);
+  return !!value && typeof value == "object" && isArrayLike(value);
 }
 
 function isObject(value) {
@@ -773,16 +752,8 @@ function isObject(value) {
   return !!value && (type == "object" || type == "function");
 }
 
-function isObjectLike(value) {
-  return !!value && typeof value == "object";
-}
-
 function keys(object) {
   return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
-}
-
-function stubArray() {
-  return [];
 }
 
 export default cloneDeep;
