@@ -39,81 +39,63 @@ function clone(item, includePrototype) {
   if (includePrototype == null) {
     includePrototype = false;
   }
-  switch (common.typeOf(item)) {
+  switch (typeOf(item)) {
     case "array":
-      return common._cloneArray(item, includePrototype);
+      return _cloneArray(item, includePrototype);
     case "object":
-      return common._cloneObject(item, includePrototype);
+      return _cloneObject(item, includePrototype);
     default:
       return item;
   }
 }
 
-const common = {
-  /**
-  	Checks to see if o is an object, and it isn't an instance
-  	of some class.
-  */
-
-  isBareObject,
-  /**
-  	Returns type of an object, including:
-  	undefined, null, string, number, array,
-  	arguments, element, textnode, whitespace, and object
-  */
-
-  typeOf,
-
-  clone,
-  /**
-  	Deep clone of an object.
-  	From MooTools
-  */
-
-  _cloneObject: function _cloneObject(o, includePrototype) {
-    let clone, key;
-    if (includePrototype == null) {
-      includePrototype = false;
-    }
-    if (common.isBareObject(o)) {
-      clone = {};
-      for (key in o) {
-        clone[key] = common.clone(o[key], includePrototype);
-      }
-      return clone;
-    } else {
-      if (!includePrototype) {
-        return o;
-      }
-      if (o instanceof Function) {
-        return o;
-      }
-      clone = Object.create(o.constructor.prototype);
-      for (key in o) {
-        if (o.hasOwnProperty(key)) {
-          clone[key] = common.clone(o[key], includePrototype);
-        }
-      }
-      return clone;
-    }
-  },
-  /**
-  	Deep clone of an array.
-  	From MooTools
-  */
-
-  _cloneArray: function _cloneArray(a, includePrototype) {
-    let clone, i;
-    if (includePrototype == null) {
-      includePrototype = false;
-    }
-    i = a.length;
-    clone = new Array(i);
-    while (i--) {
-      clone[i] = common.clone(a[i], includePrototype);
+function _cloneObject(o, includePrototype) {
+  let clone, key;
+  if (includePrototype == null) {
+    includePrototype = false;
+  }
+  if (isBareObject(o)) {
+    clone = {};
+    for (key in o) {
+      clone[key] = clone(o[key], includePrototype);
     }
     return clone;
-  },
+  } else {
+    if (!includePrototype) {
+      return o;
+    }
+    if (o instanceof Function) {
+      return o;
+    }
+    clone = Object.create(o.constructor.prototype);
+    for (key in o) {
+      if (o.hasOwnProperty(key)) {
+        clone[key] = clone(o[key], includePrototype);
+      }
+    }
+    return clone;
+  }
+}
+
+function _cloneArray(a, includePrototype) {
+  let clone, i;
+  if (includePrototype == null) {
+    includePrototype = false;
+  }
+  i = a.length;
+  clone = new Array(i);
+  while (i--) {
+    clone[i] = clone(a[i], includePrototype);
+  }
+  return clone;
+}
+
+export default {
+  isBareObject,
+  typeOf,
+  clone,
+  _cloneObject,
+  _cloneArray,
 };
 
-export default common;
+export { isBareObject, typeOf, clone, _cloneObject, _cloneArray };
