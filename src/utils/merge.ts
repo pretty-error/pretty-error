@@ -126,15 +126,6 @@ function apply(func, thisArg, args) {
   return func.apply(thisArg, args);
 }
 
-/**
- * The base implementation of `_.times` without support for iteratee shorthands
- * or max array length checks.
- *
- * @private
- * @param {number} n The number of times to invoke `iteratee`.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the array of results.
- */
 function baseTimes(n, iteratee) {
   let index = -1,
     result = Array(n);
@@ -152,7 +143,7 @@ function baseUnary(func) {
 }
 
 const maskSrcKey = (function () {
-  var uid = /[^.]+$/.exec("");
+  const uid = null;
   return uid ? "Symbol(src)_1." + uid : "";
 })();
 
@@ -183,18 +174,8 @@ const defineProperty = (function () {
 
 const nativeMax = Math.max;
 
-/* Built-in method references that are verified to be native. */
-const Map = getNative(root, "Map"),
-  nativeCreate = getNative(Object, "create");
+const nativeCreate = Object.create;
 
-/**
- * The base implementation of `_.create` without support for assigning
- * properties to the created object.
- *
- * @private
- * @param {Object} proto The object to inherit from.
- * @returns {Object} Returns the new object.
- */
 const baseCreate = (function () {
   function object() {}
   return function (proto) {
@@ -211,13 +192,6 @@ const baseCreate = (function () {
   };
 })();
 
-/**
- * Creates a hash object.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
 function Hash(entries) {
   let index = -1,
     length = entries == null ? 0 : entries.length;
@@ -387,29 +361,10 @@ function listCacheGet(key) {
   return index < 0 ? undefined : data[index][1];
 }
 
-/**
- * Checks if a list cache value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf ListCache
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
 function listCacheHas(key) {
   return assocIndexOf(this.__data__, key) > -1;
 }
 
-/**
- * Sets the list cache `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf ListCache
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the list cache instance.
- */
 function listCacheSet(key, value) {
   const data = this.__data__,
     index = assocIndexOf(data, key);
@@ -430,13 +385,6 @@ ListCache.prototype.get = listCacheGet;
 ListCache.prototype.has = listCacheHas;
 ListCache.prototype.set = listCacheSet;
 
-/**
- * Creates a map cache object to store key-value pairs.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
 function MapCache(entries) {
   let index = -1,
     length = entries == null ? 0 : entries.length;
@@ -531,39 +479,16 @@ MapCache.prototype.get = mapCacheGet;
 MapCache.prototype.has = mapCacheHas;
 MapCache.prototype.set = mapCacheSet;
 
-/**
- * Creates a stack cache object to store key-value pairs.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
 function Stack(entries?) {
   const data = (this.__data__ = new ListCache(entries));
   this.size = data.size;
 }
 
-/**
- * Removes all key-value entries from the stack.
- *
- * @private
- * @name clear
- * @memberOf Stack
- */
 function stackClear() {
   this.__data__ = new ListCache();
   this.size = 0;
 }
 
-/**
- * Removes `key` and its value from the stack.
- *
- * @private
- * @name delete
- * @memberOf Stack
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
 function stackDelete(key) {
   const data = this.__data__,
     result = data["delete"](key);
@@ -572,28 +497,10 @@ function stackDelete(key) {
   return result;
 }
 
-/**
- * Gets the stack value for `key`.
- *
- * @private
- * @name get
- * @memberOf Stack
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
 function stackGet(key) {
   return this.__data__.get(key);
 }
 
-/**
- * Checks if a stack value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf Stack
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
 function stackHas(key) {
   return this.__data__.has(key);
 }
@@ -925,27 +832,12 @@ function cloneBuffer(buffer, isDeep) {
   return result;
 }
 
-/**
- * Creates a clone of `arrayBuffer`.
- *
- * @private
- * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
- * @returns {ArrayBuffer} Returns the cloned array buffer.
- */
 function cloneArrayBuffer(arrayBuffer) {
   const result = new arrayBuffer.constructor(arrayBuffer.byteLength);
   new Uint8Array(result).set(new Uint8Array(arrayBuffer));
   return result;
 }
 
-/**
- * Creates a clone of `typedArray`.
- *
- * @private
- * @param {Object} typedArray The typed array to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the cloned typed array.
- */
 function cloneTypedArray(typedArray, isDeep) {
   const buffer = isDeep
     ? cloneArrayBuffer(typedArray.buffer)
@@ -957,14 +849,6 @@ function cloneTypedArray(typedArray, isDeep) {
   );
 }
 
-/**
- * Copies the values of `source` to `array`.
- *
- * @private
- * @param {Array} source The array to copy values from.
- * @param {Array} [array=[]] The array to copy values to.
- * @returns {Array} Returns `array`.
- */
 function copyArray(source, array?) {
   let index = -1,
     length = source.length;
@@ -976,16 +860,6 @@ function copyArray(source, array?) {
   return array;
 }
 
-/**
- * Copies properties of `source` to `object`.
- *
- * @private
- * @param {Object} source The object to copy properties from.
- * @param {Array} props The property identifiers to copy.
- * @param {Object} [object={}] The object to copy properties to.
- * @param {Function} [customizer] The function to customize copied values.
- * @returns {Object} Returns `object`.
- */
 function copyObject(source, props, object, customizer) {
   const isNew = !object;
   object || (object = {});
@@ -1012,13 +886,6 @@ function copyObject(source, props, object, customizer) {
   return object;
 }
 
-/**
- * Creates a function like `_.assign`.
- *
- * @private
- * @param {Function} assigner The function to assign values.
- * @returns {Function} Returns the new assigner function.
- */
 function createAssigner(assigner) {
   return baseRest(function (object, sources) {
     let index = -1,
@@ -1046,12 +913,6 @@ function createAssigner(assigner) {
   });
 }
 
-/**
- * Creates a base function for methods like `_.forIn` and `_.forOwn`.
- *
- * @private
- * @returns {Function} Returns the new base function.
- */
 function createBaseFor() {
   return function (object, iteratee, keysFunc) {
     let index = -1,
@@ -1069,14 +930,6 @@ function createBaseFor() {
   };
 }
 
-/**
- * Gets the data for `map`.
- *
- * @private
- * @param {Object} map The map to query.
- * @param {string} key The reference key.
- * @returns {*} Returns the map data.
- */
 function getMapData(map, key) {
   const data = map.__data__;
   return isKeyable(key)
@@ -1084,26 +937,11 @@ function getMapData(map, key) {
     : data.map;
 }
 
-/**
- * Gets the native function at `key` of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {string} key The key of the method to get.
- * @returns {*} Returns the function if it's native, else `undefined`.
- */
 function getNative(object, key) {
   const value = object?.[key];
   return baseIsNative(value) ? value : undefined;
 }
 
-/**
- * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the raw `toStringTag`.
- */
 function getRawTag(value) {
   const isOwn = hasOwnProperty.call(value, symToStringTag),
     tag = value[symToStringTag];
@@ -1124,27 +962,12 @@ function getRawTag(value) {
   return result;
 }
 
-/**
- * Initializes an object clone.
- *
- * @private
- * @param {Object} object The object to clone.
- * @returns {Object} Returns the initialized clone.
- */
 function initCloneObject(object) {
   return typeof object.constructor == "function" && !isPrototype(object)
     ? baseCreate(p(object))
     : {};
 }
 
-/**
- * Checks if `value` is a valid array-like index.
- *
- * @private
- * @param {*} value The value to check.
- * @param {number} [length=Number.MAX_SAFE_INTEGER] The upper bounds of a valid index.
- * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
- */
 function isIndex(value, length) {
   const type = typeof value;
   length = length == null ? Number.MAX_SAFE_INTEGER : length;
@@ -1158,16 +981,6 @@ function isIndex(value, length) {
   );
 }
 
-/**
- * Checks if the given arguments are from an iteratee call.
- *
- * @private
- * @param {*} value The potential iteratee value argument.
- * @param {*} index The potential iteratee index or key argument.
- * @param {*} object The potential iteratee object argument.
- * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
- *  else `false`.
- */
 function isIterateeCall(value, index, object) {
   if (!isObject(object)) {
     return false;
@@ -1183,13 +996,6 @@ function isIterateeCall(value, index, object) {
   return false;
 }
 
-/**
- * Checks if `value` is suitable for use as unique object key.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
- */
 function isKeyable(value) {
   const type = typeof value;
   return type == "string" ||
@@ -1200,24 +1006,10 @@ function isKeyable(value) {
     : value === null;
 }
 
-/**
- * Checks if `func` has its source masked.
- *
- * @private
- * @param {Function} func The function to check.
- * @returns {boolean} Returns `true` if `func` is masked, else `false`.
- */
 function isMasked(func) {
   return !!maskSrcKey && maskSrcKey in func;
 }
 
-/**
- * Checks if `value` is likely a prototype object.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
- */
 function isPrototype(value) {
   const Ctor = value && value.constructor,
     proto = (typeof Ctor == "function" && Ctor.prototype) || objectProto;
@@ -1225,15 +1017,6 @@ function isPrototype(value) {
   return value === proto;
 }
 
-/**
- * This function is like
- * [`Object.keys`](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
- * except that it includes inherited enumerable properties.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- */
 function nativeKeysIn(object) {
   const result = [];
   if (object != null) {

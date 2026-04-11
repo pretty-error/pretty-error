@@ -24,7 +24,6 @@ const argsTag = "[object Arguments]",
   mapTag = "[object Map]",
   numberTag = "[object Number]",
   objectTag = "[object Object]",
-  promiseTag = "[object Promise]",
   regexpTag = "[object RegExp]",
   setTag = "[object Set]",
   stringTag = "[object String]",
@@ -193,7 +192,7 @@ function setToArray(set) {
 
 /** Used to detect methods masquerading as native. */
 const maskSrcKey = (function () {
-  const uid = /[^.]+$/.exec("");
+  const uid = null;
   return uid ? "Symbol(src)_1." + uid : "";
 })();
 
@@ -210,7 +209,6 @@ const reIsNative = RegExp(
     "$",
 );
 
-/** Built-in value references. */
 const objectCreate = Object.create,
   propertyIsEnumerable = objectProto.propertyIsEnumerable,
   splice = arrayProto.splice;
@@ -218,26 +216,11 @@ const objectCreate = Object.create,
 const nativeGetSymbols = Object.getOwnPropertySymbols,
   nativeKeys = overArg(Object.keys, Object);
 
-const nativeCreate = getNative(Object, "create");
+const nativeCreate = Object.create;
 
-/** Used to detect maps, sets, and weakmaps. */
-const dataViewCtorString = toSource(DataView),
-  mapCtorString = toSource(Map),
-  promiseCtorString = toSource(Promise),
-  setCtorString = toSource(Set),
-  weakMapCtorString = toSource(WeakMap);
+const symbolProto = Symbol.prototype,
+  symbolValueOf = symbolProto.valueOf;
 
-/** Used to convert symbols to primitives and strings. */
-const symbolProto = Symbol ? Symbol.prototype : undefined,
-  symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
-
-/**
- * Creates a hash object.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
 function Hash(entries) {
   let index = -1,
     length = entries ? entries.length : 0;
@@ -249,40 +232,14 @@ function Hash(entries) {
   }
 }
 
-/**
- * Removes all key-value entries from the hash.
- *
- * @private
- * @name clear
- * @memberOf Hash
- */
 function hashClear() {
   this.__data__ = nativeCreate ? nativeCreate(null) : {};
 }
 
-/**
- * Removes `key` and its value from the hash.
- *
- * @private
- * @name delete
- * @memberOf Hash
- * @param {Object} hash The hash to modify.
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
 function hashDelete(key) {
   return this.has(key) && delete this.__data__[key];
 }
 
-/**
- * Gets the hash value for `key`.
- *
- * @private
- * @name get
- * @memberOf Hash
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
 function hashGet(key) {
   const data = this.__data__;
   if (nativeCreate) {
@@ -887,38 +844,6 @@ const getSymbols = nativeGetSymbols
 
 let getTag = baseGetTag;
 
-// Fallback for data views, maps, sets, and weak maps in IE 11,
-// for data views in Edge < 14, and promises in Node.js.
-if (
-  (DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag) ||
-  (Map && getTag(new Map()) != mapTag) ||
-  (Promise && getTag(Promise.resolve()) != promiseTag) ||
-  (Set && getTag(new Set()) != setTag) ||
-  (WeakMap && getTag(new WeakMap()) != weakMapTag)
-) {
-  getTag = function (value) {
-    const result = objectToString.call(value),
-      Ctor = result == objectTag ? value.constructor : undefined,
-      ctorString = Ctor ? toSource(Ctor) : undefined;
-
-    if (ctorString) {
-      switch (ctorString) {
-        case dataViewCtorString:
-          return dataViewTag;
-        case mapCtorString:
-          return mapTag;
-        case promiseCtorString:
-          return promiseTag;
-        case setCtorString:
-          return setTag;
-        case weakMapCtorString:
-          return weakMapTag;
-      }
-    }
-    return result;
-  };
-}
-
 /**
  * Initializes an array clone.
  *
@@ -955,19 +880,6 @@ function initCloneObject(object) {
     : {};
 }
 
-/**
- * Initializes an object clone based on its `toStringTag`.
- *
- * **Note:** This function only supports cloning values with tags of
- * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
- *
- * @private
- * @param {Object} object The object to clone.
- * @param {string} tag The `toStringTag` of the object to clone.
- * @param {Function} cloneFunc The function to clone values.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the initialized clone.
- */
 function initCloneByTag(object, tag, cloneFunc, isDeep) {
   const Ctor = object.constructor;
   switch (tag) {
@@ -1010,14 +922,6 @@ function initCloneByTag(object, tag, cloneFunc, isDeep) {
   }
 }
 
-/**
- * Checks if `value` is a valid array-like index.
- *
- * @private
- * @param {*} value The value to check.
- * @param {number} [length=Number.MAX_SAFE_INTEGER] The upper bounds of a valid index.
- * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
- */
 function isIndex(value, length) {
   length = length == null ? Number.MAX_SAFE_INTEGER : length;
   return (
@@ -1029,13 +933,6 @@ function isIndex(value, length) {
   );
 }
 
-/**
- * Checks if `value` is suitable for use as unique object key.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
- */
 function isKeyable(value) {
   const type = typeof value;
   return type == "string" ||
@@ -1046,24 +943,10 @@ function isKeyable(value) {
     : value === null;
 }
 
-/**
- * Checks if `func` has its source masked.
- *
- * @private
- * @param {Function} func The function to check.
- * @returns {boolean} Returns `true` if `func` is masked, else `false`.
- */
 function isMasked(func) {
   return !!maskSrcKey && maskSrcKey in func;
 }
 
-/**
- * Checks if `value` is likely a prototype object.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
- */
 function isPrototype(value) {
   const Ctor = value && value.constructor,
     proto = (typeof Ctor == "function" && Ctor.prototype) || objectProto;
@@ -1071,13 +954,6 @@ function isPrototype(value) {
   return value === proto;
 }
 
-/**
- * Converts `func` to its source code.
- *
- * @private
- * @param {Function} func The function to process.
- * @returns {string} Returns the source code.
- */
 function toSource(func) {
   if (func != null) {
     try {
