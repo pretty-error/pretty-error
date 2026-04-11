@@ -1,7 +1,7 @@
 import { object } from "#utila";
 
 import * as objectToSaneObject from "./objectToSaneObject";
-import saneObjectToDom from "./saneObjectToDom";
+import * as saneObjectToDom from "./saneObjectToDom";
 
 function object2SaneObject(o) {
   if (!Array.isArray(o)) {
