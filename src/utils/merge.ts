@@ -53,9 +53,6 @@ const arrayBufferTag = "[object ArrayBuffer]",
  */
 const reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
 
-/** Used to detect host constructors (Safari). */
-const reIsHostCtor = /^\[object .+?Constructor\]$/;
-
 /** Used to detect unsigned integer values. */
 const reIsUint = /^(?:0|[1-9]\d*)$/;
 
@@ -88,30 +85,8 @@ typedArrayTags[argsTag] =
   typedArrayTags[weakMapTag] =
     false;
 
-/** Detect free variable `global` from Node.js. */
-const freeGlobal =
-  typeof global == "object" && global && global.Object === Object && global;
+const nodeIsTypedArray = nodeUtil.types.isTypedArray;
 
-/** Detect free variable `self`. */
-const freeSelf =
-  typeof self == "object" && self && self.Object === Object && self;
-
-/** Used as a reference to the global object. */
-const root = freeGlobal || freeSelf || Function("return this")();
-
-/* Node.js helper references. */
-const nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
-
-/**
- * A faster alternative to `Function#apply`, this function invokes `func`
- * with the `this` binding of `thisArg` and the arguments of `args`.
- *
- * @private
- * @param {Function} func The function to invoke.
- * @param {*} thisArg The `this` binding of `func`.
- * @param {Array} args The arguments to invoke `func` with.
- * @returns {*} Returns the result of `func`.
- */
 function apply(func, thisArg, args) {
   switch (args.length) {
     case 0:
@@ -159,17 +134,7 @@ const objectCreate = Object.create,
   splice = arrayProto.splice,
   symToStringTag = Symbol.toStringTag;
 
-const defineProperty = (function () {
-  try {
-    var func = getNative(Object, "defineProperty");
-    func({}, "", {});
-    return func;
-  } catch (e) {}
-})();
-
-const nativeMax = Math.max;
-
-const nativeCreate = Object.create;
+const defineProperty = Object.defineProperty;
 
 const baseCreate = (function () {
   function object() {}
@@ -198,66 +163,26 @@ function Hash(entries) {
   }
 }
 
-/**
- * Removes all key-value entries from the hash.
- *
- * @private
- * @name clear
- * @memberOf Hash
- */
 function hashClear() {
-  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+  this.__data__ = Object.create(null);
   this.size = 0;
 }
 
-/**
- * Removes `key` and its value from the hash.
- *
- * @private
- * @name delete
- * @memberOf Hash
- * @param {Object} hash The hash to modify.
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
 function hashDelete(key) {
   const result = this.has(key) && delete this.__data__[key];
   this.size -= result ? 1 : 0;
   return result;
 }
 
-/**
- * Gets the hash value for `key`.
- *
- * @private
- * @name get
- * @memberOf Hash
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
 function hashGet(key) {
   const data = this.__data__;
-  if (nativeCreate) {
-    const result = data[key];
-    return result === HASH_UNDEFINED ? undefined : result;
-  }
-  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+  const result = data[key];
+  return result === HASH_UNDEFINED ? undefined : result;
 }
 
-/**
- * Checks if a hash value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf Hash
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
 function hashHas(key) {
   const data = this.__data__;
-  return nativeCreate
-    ? data[key] !== undefined
-    : hasOwnProperty.call(data, key);
+  return data[key] !== undefined;
 }
 
 /**
@@ -273,7 +198,7 @@ function hashHas(key) {
 function hashSet(key, value) {
   const data = this.__data__;
   this.size += this.has(key) ? 0 : 1;
-  data[key] = nativeCreate && value === undefined ? HASH_UNDEFINED : value;
+  data[key] = value === undefined ? HASH_UNDEFINED : value;
   return this;
 }
 
@@ -646,14 +571,6 @@ function baseIsArguments(value) {
   return isObjectLike(value) && baseGetTag(value) == argsTag;
 }
 
-function baseIsNative(value) {
-  if (!isObject(value) || isMasked(value)) {
-    return false;
-  }
-  const pattern = isFunction(value) ? reIsNative : reIsHostCtor;
-  return pattern.test(toSource(value));
-}
-
 function baseIsTypedArray(value) {
   return (
     isObjectLike(value) &&
@@ -913,11 +830,6 @@ function getMapData(map, key) {
     : data.map;
 }
 
-function getNative(object, key) {
-  const value = object?.[key];
-  return baseIsNative(value) ? value : undefined;
-}
-
 function getRawTag(value) {
   const isOwn = hasOwnProperty.call(value, symToStringTag),
     tag = value[symToStringTag];
@@ -1008,11 +920,11 @@ function objectToString(value) {
 }
 
 function overRest(func, start, transform) {
-  start = nativeMax(start === undefined ? func.length - 1 : start, 0);
+  start = Math.max(start === undefined ? func.length - 1 : start, 0);
   return function () {
     let args = arguments,
       index = -1,
-      length = nativeMax(args.length - start, 0),
+      length = Math.max(args.length - start, 0),
       array = Array(length);
 
     while (++index < length) {

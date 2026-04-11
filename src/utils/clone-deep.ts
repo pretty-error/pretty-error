@@ -42,17 +42,8 @@ const arrayBufferTag = "[object ArrayBuffer]",
   uint16Tag = "[object Uint16Array]",
   uint32Tag = "[object Uint32Array]";
 
-/**
- * Used to match `RegExp`
- * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
- */
-const reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
-
 /** Used to match `RegExp` flags from their coerced string values. */
 const reFlags = /\w*$/;
-
-/** Used to detect host constructors (Safari). */
-const reIsHostCtor = /^\[object .+?Constructor\]$/;
 
 /** Used to detect unsigned integer values. */
 const reIsUint = /^(?:0|[1-9]\d*)$/;
@@ -174,12 +165,6 @@ function mapToArray(map) {
   return result;
 }
 
-function overArg(func, transform) {
-  return function (arg) {
-    return func(transform(arg));
-  };
-}
-
 function setToArray(set) {
   let index = -1,
     result = Array(set.size);
@@ -190,30 +175,10 @@ function setToArray(set) {
   return result;
 }
 
-/** Used to detect if a method is native. */
-const reIsNative = RegExp(
-  "^" +
-    funcToString
-      .call(hasOwnProperty)
-      .replace(reRegExpChar, "\\$&")
-      .replace(
-        /hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g,
-        "$1.*?",
-      ) +
-    "$",
-);
-
-const objectCreate = Object.create,
-  propertyIsEnumerable = objectProto.propertyIsEnumerable,
+const propertyIsEnumerable = objectProto.propertyIsEnumerable,
   splice = arrayProto.splice;
 
-const nativeGetSymbols = Object.getOwnPropertySymbols,
-  nativeKeys = overArg(Object.keys, Object);
-
-const nativeCreate = Object.create;
-
-const symbolProto = Symbol.prototype,
-  symbolValueOf = symbolProto.valueOf;
+const symbolValueOf = Symbol.prototype.valueOf;
 
 function Hash(entries) {
   let index = -1,
@@ -227,7 +192,7 @@ function Hash(entries) {
 }
 
 function hashClear() {
-  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+  this.__data__ = Object.create(null);
 }
 
 function hashDelete(key) {
@@ -236,23 +201,18 @@ function hashDelete(key) {
 
 function hashGet(key) {
   const data = this.__data__;
-  if (nativeCreate) {
-    const result = data[key];
-    return result === HASH_UNDEFINED ? undefined : result;
-  }
-  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+  const result = data[key];
+  return result === HASH_UNDEFINED ? undefined : result;
 }
 
 function hashHas(key) {
   const data = this.__data__;
-  return nativeCreate
-    ? data[key] !== undefined
-    : hasOwnProperty.call(data, key);
+  return data[key] !== undefined;
 }
 
 function hashSet(key, value) {
   const data = this.__data__;
-  data[key] = nativeCreate && value === undefined ? HASH_UNDEFINED : value;
+  data[key] = value === undefined ? HASH_UNDEFINED : value;
   return this;
 }
 
@@ -451,14 +411,6 @@ Stack.prototype.get = stackGet;
 Stack.prototype.has = stackHas;
 Stack.prototype.set = stackSet;
 
-/**
- * Creates an array of the enumerable property names of the array-like `value`.
- *
- * @private
- * @param {*} value The value to query.
- * @param {boolean} inherited Specify returning inherited property names.
- * @returns {Array} Returns the array of property names.
- */
 function arrayLikeKeys(value, inherited) {
   // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
   // Safari 9 makes `arguments.length` enumerable in strict mode.
@@ -503,20 +455,6 @@ function baseAssign(object, source) {
   return object && copyObject(source, keys(source), object);
 }
 
-/**
- * The base implementation of `_.clone` and `_.cloneDeep` which tracks
- * traversed objects.
- *
- * @private
- * @param {*} value The value to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @param {boolean} [isFull] Specify a clone including symbols.
- * @param {Function} [customizer] The function to customize cloning.
- * @param {string} [key] The key of `value`.
- * @param {Object} [object] The parent object of `value`.
- * @param {Object} [stack] Tracks traversed objects and their clone counterparts.
- * @returns {*} Returns the cloned value.
- */
 function baseClone(value, isDeep, isFull, customizer, key, object, stack) {
   let result;
   if (customizer) {
@@ -582,16 +520,8 @@ function baseClone(value, isDeep, isFull, customizer, key, object, stack) {
   return result;
 }
 
-/**
- * The base implementation of `_.create` without support for assigning
- * properties to the created object.
- *
- * @private
- * @param {Object} prototype The object to inherit from.
- * @returns {Object} Returns the new object.
- */
 function baseCreate(proto) {
-  return isObject(proto) ? objectCreate(proto) : {};
+  return isObject(proto) ? Object.create(proto) : {};
 }
 
 function baseGetAllKeys(object, keysFunc, symbolsFunc) {
@@ -603,18 +533,9 @@ function baseGetTag(value) {
   return objectToString.call(value);
 }
 
-function baseIsNative(value) {
-  if (!isObject(value) || isMasked(value)) {
-    return false;
-  }
-  const pattern =
-    isFunction(value) || isHostObject(value) ? reIsNative : reIsHostCtor;
-  return pattern.test(toSource(value));
-}
-
 function baseKeys(object) {
   if (!isPrototype(object)) {
-    return nativeKeys(object);
+    return Object.keys(object);
   }
   const result = [];
   for (const key in Object(object)) {
@@ -724,16 +645,9 @@ function getMapData(map, key) {
     : data.map;
 }
 
-function getNative(object, key) {
-  const value = object?.[key];
-  return baseIsNative(value) ? value : undefined;
-}
+const getSymbols = Object.getOwnPropertySymbols;
 
-const getSymbols = nativeGetSymbols
-  ? overArg(nativeGetSymbols, Object)
-  : stubArray;
-
-let getTag = baseGetTag;
+const getTag = baseGetTag;
 
 /**
  * Initializes an array clone.
