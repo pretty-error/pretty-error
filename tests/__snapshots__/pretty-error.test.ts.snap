@@ -8,14 +8,14 @@ exports[`PrettyError render() should work 1`] = `
     
     - toBe
     
-    - pretty-error.test.ts:87 <anonymous>
-      pretty-error.test.ts:87:21
+    - pretty-error.test.ts:<LINE> <anonymous>
+      pretty-error.test.ts:<LINE>:<COL>
     
-    - pretty-error.test.ts:19 getCaughtError
-      pretty-error.test.ts:19:7
+    - pretty-error.test.ts:<LINE> getCaughtError
+      pretty-error.test.ts:<LINE>:<COL>
     
-    - pretty-error.test.ts:86 <anonymous>
-      pretty-error.test.ts:86:18
+    - pretty-error.test.ts:<LINE> <anonymous>
+      pretty-error.test.ts:<LINE>:<COL>
     
 "
 `;
@@ -23,14 +23,14 @@ exports[`PrettyError render() should work 1`] = `
 exports[`PrettyError render() should work 2`] = `
 "    TypeError: Array.split is not a function. (In 'Array.split(Object)', 'Array.split' is undefined)
     
-    - pretty-error.test.ts:91 <anonymous>
-      pretty-error.test.ts:91:45
+    - pretty-error.test.ts:<LINE> <anonymous>
+      pretty-error.test.ts:<LINE>:<COL>
     
-    - pretty-error.test.ts:19 getCaughtError
-      pretty-error.test.ts:19:7
+    - pretty-error.test.ts:<LINE> getCaughtError
+      pretty-error.test.ts:<LINE>:<COL>
     
-    - pretty-error.test.ts:91 <anonymous>
-      pretty-error.test.ts:91:18
+    - pretty-error.test.ts:<LINE> <anonymous>
+      pretty-error.test.ts:<LINE>:<COL>
     
 "
 `;
@@ -53,14 +53,14 @@ exports[`PrettyError render() should work 5`] = `
 exports[`PrettyError render() should work 6`] = `
 "    TypeError: PrettyError.someNonExistingFuncion is not a function. (In 'PrettyError.someNonExistingFuncion()', 'PrettyError.someNonExistingFuncion' is undefined)
     
-    - pretty-error.test.ts:110 <anonymous>
-      pretty-error.test.ts:110:51
+    - pretty-error.test.ts:<LINE> <anonymous>
+      pretty-error.test.ts:<LINE>:<COL>
     
-    - pretty-error.test.ts:19 getCaughtError
-      pretty-error.test.ts:19:7
+    - pretty-error.test.ts:<LINE> getCaughtError
+      pretty-error.test.ts:<LINE>:<COL>
     
-    - pretty-error.test.ts:110 <anonymous>
-      pretty-error.test.ts:110:18
+    - pretty-error.test.ts:<LINE> <anonymous>
+      pretty-error.test.ts:<LINE>:<COL>
     
 "
 `;
@@ -68,14 +68,14 @@ exports[`PrettyError render() should work 6`] = `
 exports[`PrettyError render() should render without colors 1`] = `
 "  Error: no color
   
-  - pretty-error.test.ts:118 <anonymous>
-    pretty-error.test.ts:118:19
+  - pretty-error.test.ts:<LINE> <anonymous>
+    pretty-error.test.ts:<LINE>:<COL>
   
-  - pretty-error.test.ts:19 getCaughtError
-    pretty-error.test.ts:19:7
+  - pretty-error.test.ts:<LINE> getCaughtError
+    pretty-error.test.ts:<LINE>:<COL>
   
-  - pretty-error.test.ts:117 <anonymous>
-    pretty-error.test.ts:117:17
+  - pretty-error.test.ts:<LINE> <anonymous>
+    pretty-error.test.ts:<LINE>:<COL>
   
 "
 `;

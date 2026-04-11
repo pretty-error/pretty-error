@@ -33,16 +33,22 @@ function stripFilePaths(str: string) {
 
 function fixStupidGithubCI(str: string) {
   return str
-    .replace(/:(\d+)\s+(\d+)/, ":$1$2")
-    .replace(/(\d+):\s+(\d+)/, "$1:$2");
+    .replace(/:(\d+)\s+(\d+)/g, ":$1$2")
+    .replace(/(\d+):\s+(\d+)/g, "$1:$2");
+}
+
+function cleanupSpacing(str: string) {
+  return str.replace(/(\S) {4}(\S)/g, "$1$2").replace(/(\S) {5}(\S)/g, "$1 $2");
+}
+
+function replaceLineCol(str: string) {
+  return str.replace(/:\d+:\d+/g, ":<LINE>:<COL>").replace(/:\d+/g, ":<LINE>");
 }
 
 const sanitize = (str: string) => {
-  return fixStupidGithubCI(
-    fixStupidGithubCI(fixStupidGithubCI(Bun.stripANSI(stripFilePaths(str)))),
-  )
-    .replace(/(\S) {4}(\S)/g, "$1$2")
-    .replace(/(\S) {5}(\S)/g, "$1 $2");
+  return replaceLineCol(
+    cleanupSpacing(fixStupidGithubCI(Bun.stripANSI(stripFilePaths(str)))),
+  );
 };
 
 function snapshot(stack) {
