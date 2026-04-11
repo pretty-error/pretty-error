@@ -272,10 +272,7 @@ const defineProperty = (function () {
   } catch (e) {}
 })();
 
-/* Built-in method references for those with the same name as other `lodash` methods. */
-const nativeIsBuffer = Buffer.isBuffer,
-  nativeMax = Math.max,
-  nativeNow = Date.now;
+const nativeMax = Math.max;
 
 /* Built-in method references that are verified to be native. */
 const Map = getNative(root, "Map"),
@@ -1521,7 +1518,7 @@ function shortOut(func) {
     lastCalled = 0;
 
   return function () {
-    const stamp = nativeNow(),
+    const stamp = Date.now(),
       remaining = HOT_SPAN - (stamp - lastCalled);
 
     lastCalled = stamp;
@@ -1687,7 +1684,7 @@ function isArrayLikeObject(value) {
  * _.isBuffer(new Uint8Array(2));
  * // => false
  */
-const isBuffer = nativeIsBuffer;
+const isBuffer = Buffer.isBuffer;
 
 /**
  * Checks if `value` is classified as a `Function` object.

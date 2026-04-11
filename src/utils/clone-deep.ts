@@ -94,21 +94,6 @@ const freeSelf =
 /** Used as a reference to the global object. */
 const root = freeGlobal || freeSelf || Function("return this")();
 
-/** Detect free variable `exports`. */
-const freeExports =
-  typeof exports == "object" && exports && !exports.nodeType && exports;
-
-/** Detect free variable `module`. */
-const freeModule =
-  freeExports &&
-  typeof module == "object" &&
-  module &&
-  !module.nodeType &&
-  module;
-
-/** Detect the popular CommonJS extension `module.exports`. */
-const moduleExports = freeModule && freeModule.exports === freeExports;
-
 /**
  * Adds the key-value `pair` to `map`.
  *
@@ -345,7 +330,6 @@ const getPrototype = overArg(Object.getPrototypeOf, Object),
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 const nativeGetSymbols = Object.getOwnPropertySymbols,
-  nativeIsBuffer = Buffer.isBuffer,
   nativeKeys = overArg(Object.keys, Object);
 
 /* Built-in method references that are verified to be native. */
@@ -879,7 +863,7 @@ function baseClone(value, isDeep, isFull, customizer, key, object, stack) {
     const tag = getTag(value),
       isFunc = tag == funcTag || tag == genTag;
 
-    if (isBuffer(value)) {
+    if (Buffer.isBuffer(value)) {
       return cloneBuffer(value, isDeep);
     }
     if (tag == objectTag || tag == argsTag || (isFunc && !object)) {
@@ -898,7 +882,7 @@ function baseClone(value, isDeep, isFull, customizer, key, object, stack) {
     }
   }
   // Check for circular references and return its corresponding clone.
-  stack || (stack = new Stack());
+  stack ||= new Stack();
   const stacked = stack.get(value);
   if (stacked) {
     return stacked;
@@ -1488,29 +1472,6 @@ function isArguments(value) {
   );
 }
 
-/**
- * Checks if `value` is classified as an `Array` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an array, else `false`.
- * @example
- *
- * _.isArray([1, 2, 3]);
- * // => true
- *
- * _.isArray(document.body.children);
- * // => false
- *
- * _.isArray('abc');
- * // => false
- *
- * _.isArray(_.noop);
- * // => false
- */
 const isArray = Array.isArray;
 
 /**
@@ -1570,25 +1531,6 @@ function isArrayLike(value) {
 function isArrayLikeObject(value) {
   return isObjectLike(value) && isArrayLike(value);
 }
-
-/**
- * Checks if `value` is a buffer.
- *
- * @static
- * @memberOf _
- * @since 4.3.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
- * @example
- *
- * _.isBuffer(new Buffer(2));
- * // => true
- *
- * _.isBuffer(new Uint8Array(2));
- * // => false
- */
-const isBuffer = nativeIsBuffer;
 
 /**
  * Checks if `value` is classified as a `Function` object.
