@@ -1,7 +1,30 @@
 const __hasProp = {}.hasOwnProperty;
 
-import * as common from "./_common";
-import { isBareObject } from "./_common";
+import { isBareObject, typeOf, clone } from "./_common";
+
+function overrideOnto(base, newValues) {
+  let key, newVal, oldVal;
+  if (!isBareObject(newValues) || !isBareObject(base)) {
+    return base;
+  }
+  for (key in base) {
+    oldVal = base[key];
+    newVal = newValues[key];
+    if (newVal === void 0) {
+      continue;
+    }
+    if (typeof newVal !== "object" || this.isInstance(newVal)) {
+      base[key] = this.clone(newVal);
+    } else {
+      if (typeof oldVal !== "object" || this.isInstance(oldVal)) {
+        base[key] = this.clone(newVal);
+      } else {
+        this.overrideOnto(oldVal, newVal);
+      }
+    }
+  }
+  return base;
+}
 
 const object = {
   isBareObject,
@@ -10,9 +33,9 @@ const object = {
     return !isBareObject(what);
   },
 
-  typeOf: common.typeOf.bind(common),
+  typeOf,
 
-  clone: common.clone.bind(common),
+  clone,
 
   empty: function empty(o) {
     let prop;
@@ -32,29 +55,7 @@ const object = {
     return o;
   },
 
-  overrideOnto: function overrideOnto(base, newValues) {
-    let key, newVal, oldVal;
-    if (!isBareObject(newValues) || !isBareObject(base)) {
-      return base;
-    }
-    for (key in base) {
-      oldVal = base[key];
-      newVal = newValues[key];
-      if (newVal === void 0) {
-        continue;
-      }
-      if (typeof newVal !== "object" || this.isInstance(newVal)) {
-        base[key] = this.clone(newVal);
-      } else {
-        if (typeof oldVal !== "object" || this.isInstance(oldVal)) {
-          base[key] = this.clone(newVal);
-        } else {
-          this.overrideOnto(oldVal, newVal);
-        }
-      }
-    }
-    return base;
-  },
+  overrideOnto,
   /*
   	Takes a clone of 'base' and runs #overrideOnto on it
   */
