@@ -1,3 +1,4 @@
+// oxlint-disable no-useless-escape
 // oxlint-disable no-control-regex
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 
@@ -24,24 +25,49 @@ const getCaughtError = (what: string | (() => any)): Error => {
 };
 
 const sanitize = (str: string) => {
+  let res = str.replace(/(?:\w:)?\/.*?\/(pretty-error\.test\.ts)/g, "$1");
+
+  // Process the stack trace line by line
+  res = res
+    .split("\n")
+    .map((line) => {
+      const target = "pretty-error.test.ts";
+      const idx = line.indexOf(target);
+
+      // If the line doesn't contain our file, leave it completely alone
+      if (idx === -1) return line;
+
+      // Split the line into the filename and everything that comes after it
+      const prefix = line.slice(0, idx + target.length);
+      const rest = line.slice(idx + target.length);
+
+      let numCount = 0;
+
+      // Scan the rest of the line left-to-right
+      // This explicitly matches ANSI codes OR digits
+      const cleanRest = rest.replace(/\x1B\[[0-9;]*m|\d+/gi, (match) => {
+        // 1. If it's an ANSI color code, skip it entirely (preserves your colors)
+        if (match.toLowerCase().startsWith("\x1b")) return match;
+
+        // 2. If it's a digit, count it.
+        numCount++;
+        if (numCount === 1) return "<line>";
+        if (numCount === 2) return "<col>";
+
+        // 3. If we hit a 3rd or 4th number (like the "9" that CI broke off), NUKE IT.
+        return "";
+      });
+
+      return prefix + cleanRest;
+    })
+    .join("\n");
+
   return (
-    str
-      // 1. Normalize absolute paths
-      .replace(/(?:\w:)?\/.*?\/(pretty-error\.test\.ts)/g, "$1")
-
-      // 2. Target Line + Column with ANSI preservation
-      // This looks for :[ANSI]digits[ANSI]:[ANSI/Spaces]digits
-      .replace(
-        /:(\x1B\[[0-9;]*m)*\d+([\s\x1B\[[0-9;]*m]*):([\s\x1B\[[0-9;]*m]*)\d+/g,
-        ":$1<line>$2:$3<col>",
-      )
-
-      // 3. Target Single Line with ANSI preservation
-      .replace(/:(\x1B\[[0-9;]*m)*\d+/g, ":$1<line>")
-
-      // 4. Collapse the CI "Width Padding"
-      // This turns multiple spaces into one so the column doesn't jump around
-      .replace(/[ ]{2,}/g, "  ")
+    res
+      // Collapse CI's massive alignment spaces down to a single space
+      .replace(/[ ]{2,}/g, " ")
+      // Clean up any trailing spaces left behind by deleting the margin numbers
+      .replace(/ +$/gm, "")
   );
 };
 
