@@ -166,8 +166,6 @@ function setToArray(set) {
   return result;
 }
 
-const symbolValueOf = Symbol.prototype.valueOf;
-
 function Hash(entries) {
   let index = -1,
     length = entries ? entries.length : 0;
@@ -560,7 +558,7 @@ function cloneDataView(dataView, isDeep) {
 
 function cloneMap(map, isDeep, cloneFunc) {
   const array = isDeep ? cloneFunc(mapToArray(map), true) : mapToArray(map);
-  return arrayReduce(array, addMapEntry, new map.constructor());
+  return array.reduce(addMapEntry, new map.constructor());
 }
 
 function cloneRegExp(regexp) {
@@ -571,11 +569,11 @@ function cloneRegExp(regexp) {
 
 function cloneSet(set, isDeep, cloneFunc) {
   const array = isDeep ? cloneFunc(setToArray(set), true) : setToArray(set);
-  return arrayReduce(array, addSetEntry, new set.constructor());
+  return array.reduce(addSetEntry, new set.constructor());
 }
 
 function cloneSymbol(symbol) {
-  return symbolValueOf ? Object(symbolValueOf.call(symbol)) : {};
+  return Object(Symbol.prototype.valueOf.call(symbol));
 }
 
 function cloneTypedArray(typedArray, isDeep) {

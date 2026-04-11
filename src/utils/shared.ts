@@ -1,5 +1,4 @@
-const arrayProto = Array.prototype,
-  objectProto = Object.prototype;
+const objectProto = Object.prototype;
 
 const LARGE_ARRAY_SIZE = 200;
 
@@ -18,8 +17,6 @@ function eq(value, other) {
   return value === other || (value !== value && other !== other);
 }
 
-const funcToString = funcProto.toString;
-
 const hasOwnProperty = objectProto.hasOwnProperty;
 
 const objectToString = objectProto.toString;
@@ -29,14 +26,11 @@ function isFunction(value) {
 }
 
 export {
-  arrayProto,
-  funcProto,
   objectProto,
   LARGE_ARRAY_SIZE,
   HASH_UNDEFINED,
   isLength,
   eq,
-  funcToString,
   hasOwnProperty,
   objectToString,
   isFunction,

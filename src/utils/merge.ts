@@ -3,9 +3,7 @@ import * as nodeUtil from "node:util";
 import { isPlainObject, p } from "#utils";
 
 import {
-  arrayProto,
   eq,
-  funcToString,
   HASH_UNDEFINED,
   hasOwnProperty,
   isFunction,
@@ -157,16 +155,6 @@ function hashHas(key) {
   return data[key] !== undefined;
 }
 
-/**
- * Sets the hash `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf Hash
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the hash instance.
- */
 function hashSet(key, value) {
   const data = this.__data__;
   this.size += this.has(key) ? 0 : 1;
