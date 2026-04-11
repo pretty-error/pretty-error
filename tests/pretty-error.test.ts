@@ -33,8 +33,8 @@ function stripFilePaths(str: string) {
 
 function fixStupidGithubCI(str: string) {
   return str
-    .replace(/:(\d+)\s+(\d+)/g, ":$1$2")
-    .replace(/(\d+):\s+(\d+)/g, "$1:$2");
+    .replace(/:(\d+)\s+(\d+)/, ":$1$2")
+    .replace(/(\d+):\s+(\d+)/, "$1:$2");
 }
 
 function cleanupSpacing(str: string) {
@@ -46,19 +46,19 @@ function replaceLineCol(str: string) {
 }
 
 const sanitize = (str: string) => {
-  return (
-    fixStupidGithubCI(
-      fixStupidGithubCI(
-        cleanupSpacing(
-          fixStupidGithubCI(
-            fixStupidGithubCI(
-              fixStupidGithubCI(Bun.stripANSI(stripFilePaths(str))),
-            ),
-          ),
-        ),
-      ),
-    ),
-  );
+  let stripped = Bun.stripANSI(stripFilePaths(str));
+
+  while (stripped !== fixStupidGithubCI(stripped)) {
+    stripped = fixStupidGithubCI(stripped);
+  }
+
+  let cleanedup = cleanupSpacing(stripped);
+
+  while (cleanedup !== fixStupidGithubCI(cleanedup)) {
+    cleanedup = fixStupidGithubCI(cleanedup);
+  }
+
+  return replaceLineCol(cleanedup);
 };
 
 function snapshot(stack) {
