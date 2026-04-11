@@ -90,12 +90,4 @@ function _cloneArray(a, includePrototype) {
   return clone;
 }
 
-export default {
-  isBareObject,
-  typeOf,
-  clone,
-  _cloneObject,
-  _cloneArray,
-};
-
-export { isBareObject, typeOf, clone, _cloneObject, _cloneArray };
+export { isBareObject, typeOf, clone };

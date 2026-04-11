@@ -1,31 +1,20 @@
 const __hasProp = {}.hasOwnProperty;
 
-import common from "./_common";
+import * as common from "./_common";
+import { isBareObject } from "./_common";
 
 const object = {
-  isBareObject: common.isBareObject.bind(common),
-  /*
-  	if object is an instance of a class
-  */
+  isBareObject,
 
-  isInstance: function (what) {
-    return !this.isBareObject(what);
+  isInstance: function isInstance(what) {
+    return !isBareObject(what);
   },
-  /*
-  	Alias to _common.typeOf
-  */
 
   typeOf: common.typeOf.bind(common),
-  /*
-  	Alias to _common.clone
-  */
 
   clone: common.clone.bind(common),
-  /*
-  	Empties an object of its properties.
-  */
 
-  empty: function (o) {
+  empty: function empty(o) {
     let prop;
     for (prop in o) {
       if (o.hasOwnProperty(prop)) {
@@ -34,26 +23,18 @@ const object = {
     }
     return o;
   },
-  /*
-  	Empties an object. Doesn't check for hasOwnProperty, so it's a tiny
-  	bit faster. Use it for plain objects.
-  */
 
-  fastEmpty: function (o) {
+  fastEmpty: function fastEmpty(o) {
     let property;
     for (property in o) {
       delete o[property];
     }
     return o;
   },
-  /*
-  	Overrides values fomr `newValues` on `base`, as long as they
-  	already exist in base.
-  */
 
-  overrideOnto: function (base, newValues) {
+  overrideOnto: function overrideOnto(base, newValues) {
     let key, newVal, oldVal;
-    if (!this.isBareObject(newValues) || !this.isBareObject(base)) {
+    if (!isBareObject(newValues) || !isBareObject(base)) {
       return base;
     }
     for (key in base) {
@@ -86,7 +67,7 @@ const object = {
   },
   appendOnto: function (base, toAppend) {
     let key, newVal, oldVal;
-    if (!this.isBareObject(toAppend) || !this.isBareObject(base)) {
+    if (!isBareObject(toAppend) || !isBareObject(base)) {
       return base;
     }
     for (key in toAppend) {
@@ -108,7 +89,8 @@ const object = {
     }
     return base;
   },
-  groupProps: function (obj, groups) {
+
+  groupProps: function groupProps(obj, groups) {
     let def, defs, grouped, key, name, shouldAdd, val, _i, _len;
     grouped = {};
     for (name in groups) {
