@@ -32,7 +32,7 @@ function stripFilePaths(str: string) {
 }
 
 const sanitize = (str: string) => {
-  return Bun.stripANSI(stripFilePaths(str));
+  return Bun.stripANSI(stripFilePaths(str)).replace(/:(\d+)\s+(\d+)/, ":$1$2");
 };
 
 function snapshot(stack) {
