@@ -3,7 +3,6 @@ import { p } from "#utils";
 import {
   arrayProto,
   eq,
-  funcProto,
   funcToString,
   HASH_UNDEFINED,
   hasOwnProperty,
@@ -89,54 +88,18 @@ cloneableTags[errorTag] =
   cloneableTags[weakMapTag] =
     false;
 
-/** Detect free variable `global` from Node.js. */
-const freeGlobal =
-  typeof global == "object" && global && global.Object === Object && global;
-
-/** Detect free variable `self`. */
-const freeSelf =
-  typeof self == "object" && self && self.Object === Object && self;
-
-/** Used as a reference to the global object. */
-const root = freeGlobal || freeSelf || Function("return this")();
-
-/**
- * Adds the key-value `pair` to `map`.
- *
- * @private
- * @param {Object} map The map to modify.
- * @param {Array} pair The key-value pair to add.
- * @returns {Object} Returns `map`.
- */
 function addMapEntry(map, pair) {
   // Don't return `map.set` because it's not chainable in IE 11.
   map.set(pair[0], pair[1]);
   return map;
 }
 
-/**
- * Adds `value` to `set`.
- *
- * @private
- * @param {Object} set The set to modify.
- * @param {*} value The value to add.
- * @returns {Object} Returns `set`.
- */
 function addSetEntry(set, value) {
   // Don't return `set.add` because it's not chainable in IE 11.
   set.add(value);
   return set;
 }
 
-/**
- * A specialized version of `_.forEach` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns `array`.
- */
 function arrayEach(array, iteratee) {
   let index = -1,
     length = array ? array.length : 0;
@@ -149,14 +112,6 @@ function arrayEach(array, iteratee) {
   return array;
 }
 
-/**
- * Appends the elements of `values` to `array`.
- *
- * @private
- * @param {Array} array The array to modify.
- * @param {Array} values The values to append.
- * @returns {Array} Returns `array`.
- */
 function arrayPush(array, values) {
   let index = -1,
     length = values.length,
@@ -168,18 +123,6 @@ function arrayPush(array, values) {
   return array;
 }
 
-/**
- * A specialized version of `_.reduce` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @param {*} [accumulator] The initial value.
- * @param {boolean} [initAccum] Specify using the first element of `array` as
- *  the initial value.
- * @returns {*} Returns the accumulated value.
- */
 function arrayReduce(array, iteratee, accumulator, initAccum) {
   let index = -1,
     length = array ? array.length : 0;
@@ -193,15 +136,6 @@ function arrayReduce(array, iteratee, accumulator, initAccum) {
   return accumulator;
 }
 
-/**
- * The base implementation of `_.times` without support for iteratee shorthands
- * or max array length checks.
- *
- * @private
- * @param {number} n The number of times to invoke `iteratee`.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the array of results.
- */
 function baseTimes(n, iteratee) {
   let index = -1,
     result = Array(n);
@@ -212,25 +146,6 @@ function baseTimes(n, iteratee) {
   return result;
 }
 
-/**
- * Gets the value at `key` of `object`.
- *
- * @private
- * @param {Object} [object] The object to query.
- * @param {string} key The key of the property to get.
- * @returns {*} Returns the property value.
- */
-function getValue(object, key) {
-  return object == null ? undefined : object[key];
-}
-
-/**
- * Checks if `value` is a host object in IE < 9.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
- */
 function isHostObject(value) {
   // Many host objects are `Object` objects that can coerce to strings
   // despite having improperly defined `toString` methods.
@@ -291,14 +206,9 @@ function setToArray(set) {
   return result;
 }
 
-/** Used to detect overreaching core-js shims. */
-const coreJsData = root["__core-js_shared__"];
-
 /** Used to detect methods masquerading as native. */
 const maskSrcKey = (function () {
-  const uid = /[^.]+$/.exec(
-    (coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO) || "",
-  );
+  const uid = /[^.]+$/.exec("");
   return uid ? "Symbol(src)_1." + uid : "";
 })();
 
@@ -316,22 +226,14 @@ const reIsNative = RegExp(
 );
 
 /** Built-in value references. */
-const getPrototype = overArg(Object.getPrototypeOf, Object),
-  objectCreate = Object.create,
+const objectCreate = Object.create,
   propertyIsEnumerable = objectProto.propertyIsEnumerable,
   splice = arrayProto.splice;
 
-/* Built-in method references for those with the same name as other `lodash` methods. */
 const nativeGetSymbols = Object.getOwnPropertySymbols,
   nativeKeys = overArg(Object.keys, Object);
 
-/* Built-in method references that are verified to be native. */
-const DataView = getNative(root, "DataView"),
-  Map = getNative(root, "Map"),
-  Promise = getNative(root, "Promise"),
-  Set = getNative(root, "Set"),
-  WeakMap = getNative(root, "WeakMap"),
-  nativeCreate = getNative(Object, "create");
+const nativeCreate = getNative(Object, "create");
 
 /** Used to detect maps, sets, and weakmaps. */
 const dataViewCtorString = toSource(DataView),
@@ -1079,14 +981,6 @@ function getAllKeys(object) {
   return baseGetAllKeys(object, keys, getSymbols);
 }
 
-/**
- * Gets the data for `map`.
- *
- * @private
- * @param {Object} map The map to query.
- * @param {string} key The reference key.
- * @returns {*} Returns the map data.
- */
 function getMapData(map, key) {
   const data = map.__data__;
   return isKeyable(key)
@@ -1094,37 +988,15 @@ function getMapData(map, key) {
     : data.map;
 }
 
-/**
- * Gets the native function at `key` of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {string} key The key of the method to get.
- * @returns {*} Returns the function if it's native, else `undefined`.
- */
 function getNative(object, key) {
-  const value = getValue(object, key);
+  const value = object?.[key];
   return baseIsNative(value) ? value : undefined;
 }
 
-/**
- * Creates an array of the own enumerable symbol properties of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of symbols.
- */
 const getSymbols = nativeGetSymbols
   ? overArg(nativeGetSymbols, Object)
   : stubArray;
 
-/**
- * Gets the `toStringTag` of `value`.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the `toStringTag`.
- */
 let getTag = baseGetTag;
 
 // Fallback for data views, maps, sets, and weak maps in IE 11,

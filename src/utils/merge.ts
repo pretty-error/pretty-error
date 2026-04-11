@@ -21,17 +21,14 @@ const HOT_COUNT = 800,
 /** `Object#toString` result references. */
 const argsTag = "[object Arguments]",
   arrayTag = "[object Array]",
-  asyncTag = "[object AsyncFunction]",
   boolTag = "[object Boolean]",
   dateTag = "[object Date]",
   errorTag = "[object Error]",
   funcTag = "[object Function]",
-  genTag = "[object GeneratorFunction]",
   mapTag = "[object Map]",
   numberTag = "[object Number]",
   nullTag = "[object Null]",
   objectTag = "[object Object]",
-  proxyTag = "[object Proxy]",
   regexpTag = "[object RegExp]",
   setTag = "[object Set]",
   stringTag = "[object String]",
@@ -148,57 +145,17 @@ function baseTimes(n, iteratee) {
   return result;
 }
 
-/**
- * The base implementation of `_.unary` without support for storing metadata.
- *
- * @private
- * @param {Function} func The function to cap arguments for.
- * @returns {Function} Returns the new capped function.
- */
 function baseUnary(func) {
   return function (value) {
     return func(value);
   };
 }
 
-/**
- * Gets the value at `key` of `object`.
- *
- * @private
- * @param {Object} [object] The object to query.
- * @param {string} key The key of the property to get.
- * @returns {*} Returns the property value.
- */
-function getValue(object, key) {
-  return object == null ? undefined : object[key];
-}
-
-/**
- * Creates a unary function that invokes `func` with its argument transformed.
- *
- * @private
- * @param {Function} func The function to wrap.
- * @param {Function} transform The argument transform.
- * @returns {Function} Returns the new function.
- */
-function overArg(func, transform) {
-  return function (arg) {
-    return func(transform(arg));
-  };
-}
-
-/** Used to detect overreaching core-js shims. */
-const coreJsData = root["__core-js_shared__"];
-
-/** Used to detect methods masquerading as native. */
 const maskSrcKey = (function () {
-  var uid = /[^.]+$/.exec(
-    (coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO) || "",
-  );
+  var uid = /[^.]+$/.exec("");
   return uid ? "Symbol(src)_1." + uid : "";
 })();
 
-/** Used to detect if a method is native. */
 const reIsNative = RegExp(
   "^" +
     funcToString
@@ -211,13 +168,10 @@ const reIsNative = RegExp(
     "$",
 );
 
-/** Built-in value references. */
-const Symbol = root.Symbol,
-  Uint8Array = root.Uint8Array,
-  objectCreate = Object.create,
+const objectCreate = Object.create,
   propertyIsEnumerable = objectProto.propertyIsEnumerable,
   splice = arrayProto.splice,
-  symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+  symToStringTag = Symbol.toStringTag;
 
 const defineProperty = (function () {
   try {
@@ -1139,7 +1093,7 @@ function getMapData(map, key) {
  * @returns {*} Returns the function if it's native, else `undefined`.
  */
 function getNative(object, key) {
-  const value = getValue(object, key);
+  const value = object?.[key];
   return baseIsNative(value) ? value : undefined;
 }
 
