@@ -1,3 +1,5 @@
+import { p } from "#utils";
+
 import {
   arrayProto,
   eq,
@@ -296,17 +298,10 @@ const maskSrcKey = (function () {
   return uid ? "Symbol(src)_1." + uid : "";
 })();
 
-/** Used to resolve the decompiled source of functions. */
 const funcToString = funcProto.toString;
 
-/** Used to check objects for own properties. */
 const hasOwnProperty = objectProto.hasOwnProperty;
 
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
 const objectToString = objectProto.toString;
 
 /** Used to detect if a method is native. */
@@ -657,13 +652,6 @@ MapCache.prototype.get = mapCacheGet;
 MapCache.prototype.has = mapCacheHas;
 MapCache.prototype.set = mapCacheSet;
 
-/**
- * Creates a stack cache object to store key-value pairs.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
 function Stack(entries?) {
   this.__data__ = new ListCache(entries);
 }
@@ -1283,7 +1271,7 @@ function initCloneArray(array) {
  */
 function initCloneObject(object) {
   return typeof object.constructor == "function" && !isPrototype(object)
-    ? baseCreate(getPrototype(object))
+    ? baseCreate(p(object))
     : {};
 }
 

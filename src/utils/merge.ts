@@ -1,4 +1,6 @@
-import { isPlainObject } from "#utils";
+import * as nodeUtil from "node:util";
+
+import { isPlainObject, p } from "#utils";
 
 import {
   arrayProto,
@@ -97,40 +99,6 @@ const freeSelf =
 
 /** Used as a reference to the global object. */
 const root = freeGlobal || freeSelf || Function("return this")();
-
-/** Detect free variable `exports`. */
-const freeExports =
-  typeof exports == "object" && exports && !exports.nodeType && exports;
-
-/** Detect free variable `module`. */
-const freeModule =
-  freeExports &&
-  typeof module == "object" &&
-  module &&
-  !module.nodeType &&
-  module;
-
-/** Detect the popular CommonJS extension `module.exports`. */
-const moduleExports = freeModule && freeModule.exports === freeExports;
-
-/** Detect free variable `process` from Node.js. */
-const freeProcess = moduleExports && freeGlobal.process;
-
-/** Used to access faster Node.js helpers. */
-const nodeUtil = (function () {
-  try {
-    // Use `util.types` for Node.js 10+.
-    var types =
-      freeModule && freeModule.require && freeModule.require("util").types;
-
-    if (types) {
-      return types;
-    }
-
-    // Legacy `process.binding('util')` for Node.js < 10.
-    return freeProcess && freeProcess.binding && freeProcess.binding("util");
-  } catch (e) {}
-})();
 
 /* Node.js helper references. */
 const nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
@@ -234,13 +202,6 @@ const maskSrcKey = (function () {
   return uid ? "Symbol(src)_1." + uid : "";
 })();
 
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
-const nativeObjectToString = objectProto.toString;
-
 /** Used to detect if a method is native. */
 const reIsNative = RegExp(
   "^" +
@@ -257,8 +218,6 @@ const reIsNative = RegExp(
 /** Built-in value references. */
 const Symbol = root.Symbol,
   Uint8Array = root.Uint8Array,
-  allocUnsafe = Buffer.allocUnsafe,
-  getPrototype = overArg(Object.getPrototypeOf, Object),
   objectCreate = Object.create,
   propertyIsEnumerable = objectProto.propertyIsEnumerable,
   splice = arrayProto.splice,
@@ -1107,7 +1066,7 @@ function cloneBuffer(buffer, isDeep) {
     return buffer.slice();
   }
   const length = buffer.length,
-    result = allocUnsafe ? allocUnsafe(length) : new buffer.constructor(length);
+    result = Buffer.allocUnsafe(length);
 
   buffer.copy(result);
   return result;
@@ -1302,7 +1261,7 @@ function getRawTag(value) {
     var unmasked = true;
   } catch (e) {}
 
-  const result = nativeObjectToString.call(value);
+  const result = objectToString(value);
   if (unmasked) {
     if (isOwn) {
       value[symToStringTag] = tag;
@@ -1322,7 +1281,7 @@ function getRawTag(value) {
  */
 function initCloneObject(object) {
   return typeof object.constructor == "function" && !isPrototype(object)
-    ? baseCreate(getPrototype(object))
+    ? baseCreate(p(object))
     : {};
 }
 
@@ -1441,7 +1400,7 @@ function nativeKeysIn(object) {
  * @returns {string} Returns the converted string.
  */
 function objectToString(value) {
-  return nativeObjectToString.call(value);
+  return objectProto.toString.call(value);
 }
 
 /**
@@ -1771,78 +1730,14 @@ function isObjectLike(value) {
   return value != null && typeof value == "object";
 }
 
-/**
- * Checks if `value` is classified as a typed array.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
- * @example
- *
- * _.isTypedArray(new Uint8Array);
- * // => true
- *
- * _.isTypedArray([]);
- * // => false
- */
 const isTypedArray = nodeIsTypedArray
   ? baseUnary(nodeIsTypedArray)
   : baseIsTypedArray;
 
-/**
- * Converts `value` to a plain object flattening inherited enumerable string
- * keyed properties of `value` to own properties of the plain object.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {Object} Returns the converted plain object.
- * @example
- *
- * function Foo() {
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.assign({ 'a': 1 }, new Foo);
- * // => { 'a': 1, 'b': 2 }
- *
- * _.assign({ 'a': 1 }, _.toPlainObject(new Foo));
- * // => { 'a': 1, 'b': 2, 'c': 3 }
- */
 function toPlainObject(value) {
   return copyObject(value, keysIn(value));
 }
 
-/**
- * Creates an array of the own and inherited enumerable property names of `object`.
- *
- * **Note:** Non-object values are coerced to objects.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category Object
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.keysIn(new Foo);
- * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
- */
 function keysIn(object) {
   return isArrayLike(object) ? arrayLikeKeys(object, true) : baseKeysIn(object);
 }
