@@ -1,7 +1,5 @@
 import _Length from "./_Length";
 
-const _typeof = (obj) => typeof obj;
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");

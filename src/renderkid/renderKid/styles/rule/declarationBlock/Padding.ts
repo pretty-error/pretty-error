@@ -1,9 +1,7 @@
+import { _classCallCheck, _createClass } from "#renderkid/tools";
+
 import _Declaration from "./_Declaration";
 import PaddingTop from "./PaddingTop";
-
-const _typeof = (obj) => typeof obj;
-
-import { _classCallCheck, _createClass } from "#renderkid/tools";
 
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {

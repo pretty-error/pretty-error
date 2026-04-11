@@ -1,7 +1,5 @@
 import _Declaration from "./_Declaration";
 
-const _typeof = (obj) => typeof obj;
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
