@@ -34,6 +34,7 @@ function stripFilePaths(str: string) {
 function fixStupidGithubCI(str: string) {
   return str
     .replace(/:(\d+)\s+(\d+)/, ":$1$2")
+    .replace(/:(\d+)\s+:\s*(\d+)/g, ":$1:$2")
     .replace(/(\d+):\s+(\d+)/, "$1:$2");
 }
 
