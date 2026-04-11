@@ -31,10 +31,16 @@ function stripFilePaths(str: string) {
   );
 }
 
-const sanitize = (str: string) => {
-  return Bun.stripANSI(stripFilePaths(str))
+function fixStupidGithubCI(str: string) {
+  return str
     .replace(/:(\d+)\s+(\d+)/, ":$1$2")
     .replace(/(\d+):\s+(\d+)/, "$1:$2");
+}
+
+const sanitize = (str: string) => {
+  return fixStupidGithubCI(
+    fixStupidGithubCI(Bun.stripANSI(stripFilePaths(str))),
+  );
 };
 
 function snapshot(stack) {
