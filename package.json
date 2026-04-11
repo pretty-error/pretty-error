@@ -1,12 +1,35 @@
 {
-  "name": "",
+  "name": "@pretty-error/pretty-error",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pretty-error/pretty-error.git"
+  },
+  "files": [
+    "dist"
+  ],
   "type": "module",
+  "imports": {
+    "#dom-converter": "./src/dom-converter/domConverter.ts",
+    "#renderkid": "./src/renderkid/RenderKid.ts",
+    "#utila": "./src/utila/utila.ts",
+    "#utils": "./src/utils/index.ts",
+    "#utils/*": "./src/utils/*.ts"
+  },
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "test": "bun test",
     "lint": "oxlint",
     "format": "oxfmt",
     "build": "tsdown",
     "prepublishOnly": "bun run build"
+  },
+  "dependencies": {
+    "css-select": "4.3.0",
+    "htmlparser2": "6.1.0"
   },
   "devDependencies": {
     "@gameroman/config": "^0.0.6",

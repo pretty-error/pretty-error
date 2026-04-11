@@ -1,0 +1,41 @@
+import AnsiPainter from "../../AnsiPainter";
+
+function getStyleTagsFor(style) {
+  let i, len, ret, tag, tagName, tagsToAdd;
+  tagsToAdd = [];
+
+  if (style.color != null) {
+    tagName = "color-" + style.color;
+
+    if (AnsiPainter.tags[tagName] == null) {
+      throw Error("Unknown color `".concat(style.color, "`"));
+    }
+
+    tagsToAdd.push(tagName);
+  }
+
+  if (style.background != null) {
+    tagName = "bg-" + style.background;
+
+    if (AnsiPainter.tags[tagName] == null) {
+      throw Error("Unknown background `".concat(style.background, "`"));
+    }
+
+    tagsToAdd.push(tagName);
+  }
+
+  ret = {
+    before: "",
+    after: "",
+  };
+
+  for (i = 0, len = tagsToAdd.length; i < len; i++) {
+    tag = tagsToAdd[i];
+    ret.before = "<".concat(tag, ">") + ret.before;
+    ret.after = ret.after + "</".concat(tag, ">");
+  }
+
+  return ret;
+}
+
+export { getStyleTagsFor };

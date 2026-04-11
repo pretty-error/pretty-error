@@ -1,0 +1,95 @@
+import merge from "#utils/merge";
+
+import * as _common from "./_common";
+
+const self = {
+  applyTo: function applyTo(el, style) {
+    const ret = _common.getStyleTagsFor(style);
+    const config = {};
+    ret.blockConfig = config;
+
+    this._margins(style, config);
+
+    this._bullet(style, config);
+
+    this._dims(style, config);
+
+    return ret;
+  },
+  _margins: function _margins(style, config) {
+    if (style.marginLeft != null) {
+      merge(config, {
+        linePrependor: {
+          options: {
+            amount: parseInt(style.marginLeft),
+          },
+        },
+      });
+    }
+
+    if (style.marginRight != null) {
+      merge(config, {
+        lineAppendor: {
+          options: {
+            amount: parseInt(style.marginRight),
+          },
+        },
+      });
+    }
+
+    if (style.marginTop != null) {
+      merge(config, {
+        blockPrependor: {
+          options: {
+            amount: parseInt(style.marginTop),
+          },
+        },
+      });
+    }
+
+    if (style.marginBottom != null) {
+      merge(config, {
+        blockAppendor: {
+          options: {
+            amount: parseInt(style.marginBottom),
+          },
+        },
+      });
+    }
+  },
+  _bullet: function _bullet(style, config) {
+    let after, before, bullet, conf;
+
+    if (style.bullet != null && style.bullet.enabled) {
+      bullet = style.bullet;
+      conf = {};
+      conf.alignment = style.bullet.alignment;
+
+      const _common$getStyleTagsF = _common.getStyleTagsFor({
+        color: bullet.color,
+        background: bullet.background,
+      });
+
+      before = _common$getStyleTagsF.before;
+      after = _common$getStyleTagsF.after;
+      conf.char = before + bullet.char + after;
+      merge(config, {
+        linePrependor: {
+          options: {
+            bullet: conf,
+          },
+        },
+      });
+    }
+  },
+  _dims: function _dims(style, config) {
+    let w;
+
+    if (style.width != null) {
+      w = parseInt(style.width);
+      config.width = w;
+    }
+  },
+};
+
+export default self;

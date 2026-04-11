@@ -1,0 +1,130 @@
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (let i = 0; i < props.length; i++) {
+    const descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+import Rule from "./Rule";
+
+const StyleSheet = function () {
+  let self;
+
+  const StyleSheet = /*#__PURE__*/ (function () {
+    function StyleSheet() {
+      _classCallCheck(this, StyleSheet);
+
+      this._rulesBySelector = {};
+    }
+
+    _createClass(
+      StyleSheet,
+      [
+        {
+          key: "setRule",
+          value: function setRule(selector, styles) {
+            let key, val;
+
+            if (typeof selector === "string") {
+              this._setRule(selector, styles);
+            } else if (typeof selector === "object") {
+              for (key in selector) {
+                val = selector[key];
+
+                this._setRule(key, val);
+              }
+            }
+
+            return this;
+          },
+        },
+        {
+          key: "_setRule",
+          value: function _setRule(s, styles) {
+            let i, len, ref, selector;
+            ref = self.splitSelectors(s);
+
+            for (i = 0, len = ref.length; i < len; i++) {
+              selector = ref[i];
+
+              this._setSingleRule(selector, styles);
+            }
+
+            return this;
+          },
+        },
+        {
+          key: "_setSingleRule",
+          value: function _setSingleRule(s, styles) {
+            let rule, selector;
+            selector = self.normalizeSelector(s);
+
+            if (!(rule = this._rulesBySelector[selector])) {
+              rule = new Rule(selector);
+              this._rulesBySelector[selector] = rule;
+            }
+
+            rule.setStyles(styles);
+            return this;
+          },
+        },
+        {
+          key: "getRulesFor",
+          value: function getRulesFor(el) {
+            let ref, rule, rules, selector;
+            rules = [];
+            ref = this._rulesBySelector;
+
+            for (selector in ref) {
+              rule = ref[selector];
+
+              if (rule.selector.matches(el)) {
+                rules.push(rule);
+              }
+            }
+
+            return rules;
+          },
+        },
+      ],
+      [
+        {
+          key: "normalizeSelector",
+          value: function normalizeSelector(selector) {
+            return selector
+              .replace(/[\s]+/g, " ")
+              .replace(/[\s]*([>,+]{1})[\s]*/g, "$1")
+              .trim();
+          },
+        },
+        {
+          key: "splitSelectors",
+          value: function splitSelectors(s) {
+            return s.trim().split(",");
+          },
+        },
+      ],
+    );
+
+    return StyleSheet;
+  })();
+  self = StyleSheet;
+  return StyleSheet;
+}.call(void 0);
+
+export default StyleSheet;
