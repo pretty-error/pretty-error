@@ -16,8 +16,6 @@ import PaddingRight from "./declarationBlock/PaddingRight";
 import PaddingTop from "./declarationBlock/PaddingTop";
 import Width from "./declarationBlock/Width";
 
-const _typeof = (obj) => typeof obj;
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
