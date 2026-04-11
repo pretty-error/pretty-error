@@ -1,6 +1,10 @@
 {
   "name": "@pretty-error/pretty-error",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pretty-error/pretty-error.git"
+  },
   "files": [
     "dist"
   ],
