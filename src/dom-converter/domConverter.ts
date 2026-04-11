@@ -2,11 +2,7 @@ import { isBareObject, __hasProp } from "#utila";
 
 // ---
 
-function saneObjectToDomConvert(obj) {
-  return _arrayToChildren_saneObjectToDomConvert(obj);
-}
-
-function _arrayToChildren_saneObjectToDomConvert(a, parent?) {
+function saneObjectToDomConvert(a, parent?) {
   let children, j, len, node, prev, v;
   if (parent == null) {
     parent = null;
@@ -55,7 +51,7 @@ function _objectToNode(o) {
   if (typeof val === "string") {
     children = [_getTextNodeFor(val)];
   } else if (Array.isArray(val)) {
-    children = _arrayToChildren_saneObjectToDomConvert(val, node);
+    children = saneObjectToDomConvert(val, node);
   } else {
     throw Error(
       "_objectToNode()'s key's value must only be a string or an array",
@@ -121,10 +117,6 @@ function _parseTag(k) {
 // ---
 
 function objectToSaneObjectSanitize(val) {
-  return _toChildren(val);
-}
-
-function _toChildren(val) {
   let ref;
   if (isBareObject(val)) {
     return _objectToChildren(val);
@@ -173,7 +165,7 @@ function _toNode(o) {
     }
     key = keys[0];
     obj = {};
-    obj[key] = _toChildren(o[key]);
+    obj[key] = objectToSaneObjectSanitize(o[key]);
     return obj;
   } else {
     throw Error("not a valid node: `" + o + "`");
