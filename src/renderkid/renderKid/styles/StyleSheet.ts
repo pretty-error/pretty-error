@@ -1,5 +1,3 @@
-const _typeof = (obj) => typeof obj;
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -44,7 +42,7 @@ const StyleSheet = function () {
 
             if (typeof selector === "string") {
               this._setRule(selector, styles);
-            } else if (_typeof(selector) === "object") {
+            } else if (typeof selector === "object") {
               for (key in selector) {
                 val = selector[key];
 

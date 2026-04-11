@@ -1,6 +1,6 @@
 import merge from "#utils/merge";
 
-import _common from "./_common";
+import * as _common from "./_common";
 
 const self = {
   applyTo: function applyTo(el, style) {
