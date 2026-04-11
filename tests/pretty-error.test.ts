@@ -1,3 +1,4 @@
+// oxlint-disable no-control-regex
 import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 
 import defaultStyle from "../src/lib/defaultStyle";
@@ -24,16 +25,23 @@ const getCaughtError = (what: string | (() => any)): Error => {
 
 const sanitize = (str: string) => {
   return (
-    //
-    str.replace(/(?:\w:)?\/.*?\/(pretty-error\.test\.ts)/g, "$1")
-    // .replace(
-    //   // oxlint-disable-next-line no-control-regex
-    //   /:(\x1B\[[0-9;]*m)*\d+(\x1B\[[0-9;]*m)*:(\x1B\[[0-9;]*m)*\d+/g,
-    //   ":<line>:<col>",
-    // )
-    // // oxlint-disable-next-line no-control-regex
-    // .replace(/:(\x1B\[[0-9;]*m)*\d+/g, ":<line>")
-    // .replace(/<line>:\s+\d+/g, "<line>:<col>")
+    str
+      // 1. Normalize absolute paths
+      .replace(/(?:\w:)?\/.*?\/(pretty-error\.test\.ts)/g, "$1")
+
+      // 2. Target Line + Column with ANSI preservation
+      // This looks for :[ANSI]digits[ANSI]:[ANSI/Spaces]digits
+      .replace(
+        /:(\x1B\[[0-9;]*m)*\d+([\s\x1B\[[0-9;]*m]*):([\s\x1B\[[0-9;]*m]*)\d+/g,
+        ":$1<line>$2:$3<col>",
+      )
+
+      // 3. Target Single Line with ANSI preservation
+      .replace(/:(\x1B\[[0-9;]*m)*\d+/g, ":$1<line>")
+
+      // 4. Collapse the CI "Width Padding"
+      // This turns multiple spaces into one so the column doesn't jump around
+      .replace(/[ ]{2,}/g, "  ")
   );
 };
 
