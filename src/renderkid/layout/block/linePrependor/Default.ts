@@ -78,7 +78,6 @@ function _isNativeReflectConstruct() {
 }
 
 import { p } from "#utils";
-const _getPrototypeOf = p;
 
 import SpecialString from "../../SpecialString";
 import _LinePrependor from "./_LinePrependor";

@@ -83,7 +83,6 @@ function _isNativeReflectConstruct() {
 }
 
 import { p } from "#utils";
-const _getPrototypeOf = p;
 
 const Padding = function () {
   let self;

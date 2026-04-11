@@ -78,7 +78,6 @@ function _isNativeReflectConstruct() {
 }
 
 import { p } from "#utils";
-const _getPrototypeOf = p;
 
 import _BlockPrependor from "./_BlockPrependor";
 

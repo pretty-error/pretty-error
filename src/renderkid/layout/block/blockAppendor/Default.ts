@@ -80,7 +80,6 @@ function _isNativeReflectConstruct() {
 }
 
 import { p } from "#utils";
-const _getPrototypeOf = p;
 
 import _BlockAppendor from "./_BlockAppendor";
 

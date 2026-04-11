@@ -68,7 +68,6 @@ function _isNativeReflectConstruct() {
 }
 
 import { p } from "#utils";
-const _getPrototypeOf = p;
 
 const PaddingBottom = /*#__PURE__*/ (function (_Length2) {
   _inherits(PaddingBottom, _Length2);

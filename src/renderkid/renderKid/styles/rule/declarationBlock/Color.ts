@@ -66,7 +66,6 @@ function _isNativeReflectConstruct() {
 }
 
 import { p } from "#utils";
-const _getPrototypeOf = p;
 
 const Color = /*#__PURE__*/ (function (_Declaration2) {
   _inherits(Color, _Declaration2);

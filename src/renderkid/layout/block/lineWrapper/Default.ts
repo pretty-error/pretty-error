@@ -82,7 +82,6 @@ function _isNativeReflectConstruct() {
 }
 
 import { p } from "#utils";
-const _getPrototypeOf = p;
 
 const DefaultLineWrapper = /*#__PURE__*/ (function (_require) {
   _inherits(DefaultLineWrapper, _require);
