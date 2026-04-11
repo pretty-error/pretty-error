@@ -20,7 +20,7 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
-import CSSSelect from "css-select";
+import * as CSSSelect from "css-select";
 
 const Selector = function () {
   let self;

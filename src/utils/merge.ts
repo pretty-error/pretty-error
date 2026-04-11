@@ -259,10 +259,9 @@ const reIsNative = RegExp(
 );
 
 /** Built-in value references. */
-const Buffer = moduleExports ? root.Buffer : undefined,
-  Symbol = root.Symbol,
+const Symbol = root.Symbol,
   Uint8Array = root.Uint8Array,
-  allocUnsafe = Buffer ? Buffer.allocUnsafe : undefined,
+  allocUnsafe = Buffer.allocUnsafe,
   getPrototype = overArg(Object.getPrototypeOf, Object),
   objectCreate = Object.create,
   propertyIsEnumerable = objectProto.propertyIsEnumerable,
@@ -278,7 +277,7 @@ const defineProperty = (function () {
 })();
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
-const nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined,
+const nativeIsBuffer = Buffer.isBuffer,
   nativeMax = Math.max,
   nativeNow = Date.now;
 
