@@ -23,14 +23,18 @@ const getCaughtError = (what: string | (() => any)): Error => {
 };
 
 const sanitize = (str: string) => {
-  return str
-    .replace(/(?:\w:)?\/.*?\/(pretty-error\.test\.ts)/g, "$1")
-    .replace(
-      /:(\x1B\[[0-9;]*m)*\d+(\x1B\[[0-9;]*m)*:(\x1B\[[0-9;]*m)*\d+/g,
-      ":<line>:<col>",
-    )
-    .replace(/:(\x1B\[[0-9;]*m)*\d+/g, ":<line>")
-    .replace(/\s+\d+(\s*(?:\u001b\[\d+m)*)$/gm, " <num>$1");
+  return (
+    str
+      .replace(/(?:\w:)?\/.*?\/(pretty-error\.test\.ts)/g, "$1")
+      .replace(
+        // oxlint-disable-next-line no-control-regex
+        /:(\x1B\[[0-9;]*m)*\d+(\x1B\[[0-9;]*m)*:(\x1B\[[0-9;]*m)*\d+/g,
+        ":<line>:<col>",
+      )
+      // oxlint-disable-next-line no-control-regex
+      .replace(/:(\x1B\[[0-9;]*m)*\d+/g, ":<line>")
+      .replace(/<line>:\s+(\d+)/, "<line>:<num>")
+  );
 };
 
 function snapshot(stack) {
