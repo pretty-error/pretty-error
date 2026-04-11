@@ -45,16 +45,13 @@ const sanitize = (str: string) => {
         if (numCount === 2) return "<col>";
         return "";
       });
+      const combined = prefix + cleanRest.replace(/[:\s]+/g, ":");
 
-      return prefix + cleanRest;
+      return combined;
     })
     .join("\n");
 
-  return res
-    .replace(/[ ]{2,}/g, " ")
-    .replace(/(\x1B\[[0-9;]*m)*\s*:\s*(<line>|<col>)/g, "$1:$2")
-    .replace(/(<line>|<col>)\s*:\s*(\x1B\[[0-9;]*m)*/g, "$1:$2")
-    .replace(/ +$/gm, "");
+  return res.replace(/[ ]{2,}/g, " ").replace(/ +$/gm, "");
 };
 
 function snapshot(stack) {
