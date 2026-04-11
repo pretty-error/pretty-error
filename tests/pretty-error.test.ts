@@ -40,7 +40,9 @@ function fixStupidGithubCI(str: string) {
 const sanitize = (str: string) => {
   return fixStupidGithubCI(
     fixStupidGithubCI(fixStupidGithubCI(Bun.stripANSI(stripFilePaths(str)))),
-  ).replace(/(\S) {4}(\S)/g, "$1$2");
+  )
+    .replace(/(\S) {4}(\S)/g, "$1$2")
+    .replace(/(\S) {5}(\S)/g, "$1 $2");
 };
 
 function snapshot(stack) {
