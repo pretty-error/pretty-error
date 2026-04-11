@@ -4,7 +4,7 @@ const common = {
   	of some class.
   */
 
-  isBareObject: function (o) {
+  isBareObject: function isBareObject(o) {
     if (o != null && o.constructor === Object) {
       return true;
     }
@@ -16,7 +16,7 @@ const common = {
   	arguments, element, textnode, whitespace, and object
   */
 
-  typeOf: function (item) {
+  typeOf: function typeOf(item) {
     let _ref;
     if (item === null) {
       return "null";
@@ -45,7 +45,8 @@ const common = {
     }
     return typeof item;
   },
-  clone: function (item, includePrototype) {
+
+  clone: function clone(item, includePrototype) {
     if (includePrototype == null) {
       includePrototype = false;
     }
@@ -63,7 +64,7 @@ const common = {
   	From MooTools
   */
 
-  _cloneObject: function (o, includePrototype) {
+  _cloneObject: function _cloneObject(o, includePrototype) {
     let clone, key;
     if (includePrototype == null) {
       includePrototype = false;
@@ -95,7 +96,7 @@ const common = {
   	From MooTools
   */
 
-  _cloneArray: function (a, includePrototype) {
+  _cloneArray: function _cloneArray(a, includePrototype) {
     let clone, i;
     if (includePrototype == null) {
       includePrototype = false;

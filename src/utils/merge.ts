@@ -637,7 +637,7 @@ MapCache.prototype.set = mapCacheSet;
  * @constructor
  * @param {Array} [entries] The key-value pairs to cache.
  */
-function Stack(entries) {
+function Stack(entries?) {
   const data = (this.__data__ = new ListCache(entries));
   this.size = data.size;
 }
@@ -960,7 +960,7 @@ function baseMerge(object, source, srcIndex, customizer, stack) {
   baseFor(
     source,
     function (srcValue, key) {
-      stack || (stack = new Stack());
+      stack ||= new Stack();
       if (isObject(srcValue)) {
         baseMergeDeep(
           object,
@@ -1161,11 +1161,11 @@ function cloneTypedArray(typedArray, isDeep) {
  * @param {Array} [array=[]] The array to copy values to.
  * @returns {Array} Returns `array`.
  */
-function copyArray(source, array) {
+function copyArray(source, array?) {
   let index = -1,
     length = source.length;
 
-  array || (array = Array(length));
+  array ||= Array(length);
   while (++index < length) {
     array[index] = source[index];
   }
