@@ -47,12 +47,6 @@ const arrayBufferTag = "[object ArrayBuffer]",
   uint16Tag = "[object Uint16Array]",
   uint32Tag = "[object Uint32Array]";
 
-/**
- * Used to match `RegExp`
- * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
- */
-const reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
-
 /** Used to detect unsigned integer values. */
 const reIsUint = /^(?:0|[1-9]\d*)$/;
 
@@ -117,38 +111,18 @@ function baseUnary(func) {
   };
 }
 
-const reIsNative = RegExp(
-  "^" +
-    funcToString
-      .call(hasOwnProperty)
-      .replace(reRegExpChar, "\\$&")
-      .replace(
-        /hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g,
-        "$1.*?",
-      ) +
-    "$",
-);
-
-const objectCreate = Object.create,
-  propertyIsEnumerable = objectProto.propertyIsEnumerable,
+const propertyIsEnumerable = objectProto.propertyIsEnumerable,
   splice = arrayProto.splice,
   symToStringTag = Symbol.toStringTag;
 
 const defineProperty = Object.defineProperty;
 
 const baseCreate = (function () {
-  function object() {}
   return function (proto) {
     if (!isObject(proto)) {
       return {};
     }
-    if (objectCreate) {
-      return objectCreate(proto);
-    }
-    object.prototype = proto;
-    var result = new object();
-    object.prototype = undefined;
-    return result;
+    return Object.create(proto);
   };
 })();
 
@@ -755,7 +729,7 @@ function copyArray(source, array?) {
 
 function copyObject(source, props, object, customizer) {
   const isNew = !object;
-  object || (object = {});
+  object ||= {};
 
   let index = -1,
     length = props.length;
@@ -972,18 +946,6 @@ function shortOut(func) {
     }
     return func.apply(undefined, arguments);
   };
-}
-
-function toSource(func) {
-  if (func != null) {
-    try {
-      return funcToString.call(func);
-    } catch (e) {}
-    try {
-      return func + "";
-    } catch (e) {}
-  }
-  return "";
 }
 
 const isArguments = baseIsArguments(

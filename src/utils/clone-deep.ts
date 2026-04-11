@@ -148,13 +148,6 @@ function isHostObject(value) {
   return result;
 }
 
-/**
- * Converts `map` to its key-value pairs.
- *
- * @private
- * @param {Object} map The map to convert.
- * @returns {Array} Returns the key-value pairs.
- */
 function mapToArray(map) {
   let index = -1,
     result = Array(map.size);
@@ -239,7 +232,7 @@ function listCacheClear() {
 }
 
 function listCacheDelete(key) {
-  const data = this.__data__,
+  const data: unknown[] = this.__data__,
     index = assocIndexOf(data, key);
 
   if (index < 0) {
@@ -249,7 +242,7 @@ function listCacheDelete(key) {
   if (index == lastIndex) {
     data.pop();
   } else {
-    splice.call(data, index, 1);
+    data.splice(index, 1);
   }
   return true;
 }
@@ -473,7 +466,7 @@ function baseClone(value, isDeep, isFull, customizer, key, object, stack) {
       return copyArray(value, result);
     }
   } else {
-    const tag = getTag(value),
+    const tag = baseGetTag(value),
       isFunc = tag == funcTag || tag == genTag;
 
     if (Buffer.isBuffer(value)) {
@@ -612,7 +605,7 @@ function copyArray(source, array) {
   return array;
 }
 
-function copyObject(source, props, object, customizer) {
+function copyObject(source, props, object) {
   object ||= {};
 
   let index = -1,
@@ -621,11 +614,7 @@ function copyObject(source, props, object, customizer) {
   while (++index < length) {
     const key = props[index];
 
-    const newValue = customizer
-      ? customizer(object[key], source[key], key, object, source)
-      : undefined;
-
-    assignValue(object, key, newValue === undefined ? source[key] : newValue);
+    assignValue(object, key, source[key]);
   }
   return object;
 }
@@ -647,15 +636,6 @@ function getMapData(map, key) {
 
 const getSymbols = Object.getOwnPropertySymbols;
 
-const getTag = baseGetTag;
-
-/**
- * Initializes an array clone.
- *
- * @private
- * @param {Array} array The array to clone.
- * @returns {Array} Returns the initialized clone.
- */
 function initCloneArray(array) {
   const length = array.length,
     result = array.constructor(length);
@@ -672,13 +652,6 @@ function initCloneArray(array) {
   return result;
 }
 
-/**
- * Initializes an object clone.
- *
- * @private
- * @param {Object} object The object to clone.
- * @returns {Object} Returns the initialized clone.
- */
 function initCloneObject(object) {
   return typeof object.constructor == "function" && !isPrototype(object)
     ? baseCreate(p(object))
