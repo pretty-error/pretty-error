@@ -1,9 +1,9 @@
 const __hasProp = {}.hasOwnProperty;
 
-import _common from "./_common";
+import common from "./_common";
 
 const object = {
-  isBareObject: _common.isBareObject.bind(_common),
+  isBareObject: common.isBareObject.bind(common),
   /*
   	if object is an instance of a class
   */
@@ -15,12 +15,12 @@ const object = {
   	Alias to _common.typeOf
   */
 
-  typeOf: _common.typeOf.bind(_common),
+  typeOf: common.typeOf.bind(common),
   /*
   	Alias to _common.clone
   */
 
-  clone: _common.clone.bind(_common),
+  clone: common.clone.bind(common),
   /*
   	Empties an object of its properties.
   */
@@ -116,7 +116,6 @@ const object = {
       grouped[name] = {};
     }
     grouped["rest"] = {};
-    //;
     top: for (key in obj) {
       val = obj[key];
       shouldAdd = false;
@@ -157,4 +156,4 @@ const object = {
   },
 };
 
-export { object };
+export { object, __hasProp };

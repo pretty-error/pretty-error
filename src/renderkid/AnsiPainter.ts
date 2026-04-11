@@ -20,7 +20,7 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
-const hasProp = {}.hasOwnProperty;
+import { __hasProp } from "#utila";
 
 import styles from "./ansiPainter/styles";
 import tags from "./ansiPainter/tags";
@@ -87,7 +87,7 @@ const AnsiPainter = function () {
             ret = "";
 
             for (n in children) {
-              if (!hasProp.call(children, n)) continue;
+              if (!__hasProp.call(children, n)) continue;
               child = children[n];
               ret += this._renderNode(child, parentStyles);
             }
@@ -149,7 +149,7 @@ const AnsiPainter = function () {
               style = styles[i];
 
               for (key in style) {
-                if (!hasProp.call(style, key)) continue;
+                if (!__hasProp.call(style, key)) continue;
                 val = style[key];
 
                 if (final[key] == null || val !== "inherit") {

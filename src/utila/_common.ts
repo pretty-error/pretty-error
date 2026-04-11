@@ -35,6 +35,20 @@ function typeOf(item) {
   return typeof item;
 }
 
+function clone(item, includePrototype) {
+  if (includePrototype == null) {
+    includePrototype = false;
+  }
+  switch (common.typeOf(item)) {
+    case "array":
+      return common._cloneArray(item, includePrototype);
+    case "object":
+      return common._cloneObject(item, includePrototype);
+    default:
+      return item;
+  }
+}
+
 const common = {
   /**
   	Checks to see if o is an object, and it isn't an instance
@@ -50,19 +64,7 @@ const common = {
 
   typeOf,
 
-  clone: function clone(item, includePrototype) {
-    if (includePrototype == null) {
-      includePrototype = false;
-    }
-    switch (common.typeOf(item)) {
-      case "array":
-        return common._cloneArray(item, includePrototype);
-      case "object":
-        return common._cloneObject(item, includePrototype);
-      default:
-        return item;
-    }
-  },
+  clone,
   /**
   	Deep clone of an object.
   	From MooTools
