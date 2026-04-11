@@ -1,6 +1,11 @@
 const __hasProp = {}.hasOwnProperty;
 
-import { isBareObject } from "./_common";
+function isBareObject(o) {
+  if (o != null && o.constructor === Object) {
+    return true;
+  }
+  return false;
+}
 
 const object = { isBareObject };
 
