@@ -1,3 +1,5 @@
+import tty from "node:tty";
+
 import htmlparser from "htmlparser2";
 
 import { objectToDom as _objectToDom } from "#dom-converter";
@@ -78,8 +80,6 @@ function _quoteNodeText(text) {
     .replace(/\n/g, "&nl;");
 }
 
-import tty from "node:tty";
-
 function getCols() {
   const cols = (function () {
     try {
@@ -96,4 +96,38 @@ function getCols() {
   }
 }
 
-export { cloneAndMergeDeep, toDom, stringToDom, objectToDom, quote, getCols };
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (let i = 0; i < props.length; i++) {
+    const descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps?) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+export {
+  cloneAndMergeDeep,
+  toDom,
+  stringToDom,
+  objectToDom,
+  quote,
+  getCols,
+
+  // --------------
+  _classCallCheck,
+  _defineProperties,
+  _createClass,
+};

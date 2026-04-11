@@ -13,6 +13,7 @@
   "imports": {
     "#dom-converter": "./src/dom-converter/domConverter.ts",
     "#renderkid": "./src/renderkid/RenderKid.ts",
+    "#renderkid/tools": "./src/renderkid/tools.ts",
     "#utila": "./src/utila/utila.ts",
     "#utils": "./src/utils/index.ts",
     "#utils/*": "./src/utils/*.ts"
