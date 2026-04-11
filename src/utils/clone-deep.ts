@@ -175,27 +175,12 @@ function mapToArray(map) {
   return result;
 }
 
-/**
- * Creates a unary function that invokes `func` with its argument transformed.
- *
- * @private
- * @param {Function} func The function to wrap.
- * @param {Function} transform The argument transform.
- * @returns {Function} Returns the new function.
- */
 function overArg(func, transform) {
   return function (arg) {
     return func(transform(arg));
   };
 }
 
-/**
- * Converts `set` to an array of its values.
- *
- * @private
- * @param {Object} set The set to convert.
- * @returns {Array} Returns the values.
- */
 function setToArray(set) {
   let index = -1,
     result = Array(set.size);
@@ -729,41 +714,15 @@ function baseCreate(proto) {
   return isObject(proto) ? objectCreate(proto) : {};
 }
 
-/**
- * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
- * `keysFunc` and `symbolsFunc` to get the enumerable property names and
- * symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {Function} keysFunc The function to get the keys of `object`.
- * @param {Function} symbolsFunc The function to get the symbols of `object`.
- * @returns {Array} Returns the array of property names and symbols.
- */
 function baseGetAllKeys(object, keysFunc, symbolsFunc) {
   const result = keysFunc(object);
   return isArray(object) ? result : arrayPush(result, symbolsFunc(object));
 }
 
-/**
- * The base implementation of `getTag`.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the `toStringTag`.
- */
 function baseGetTag(value) {
   return objectToString.call(value);
 }
 
-/**
- * The base implementation of `_.isNative` without bad shim checks.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a native function,
- *  else `false`.
- */
 function baseIsNative(value) {
   if (!isObject(value) || isMasked(value)) {
     return false;
@@ -773,13 +732,6 @@ function baseIsNative(value) {
   return pattern.test(toSource(value));
 }
 
-/**
- * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- */
 function baseKeys(object) {
   if (!isPrototype(object)) {
     return nativeKeys(object);
@@ -854,52 +806,21 @@ function cloneMap(map, isDeep, cloneFunc) {
   return arrayReduce(array, addMapEntry, new map.constructor());
 }
 
-/**
- * Creates a clone of `regexp`.
- *
- * @private
- * @param {Object} regexp The regexp to clone.
- * @returns {Object} Returns the cloned regexp.
- */
 function cloneRegExp(regexp) {
   const result = new regexp.constructor(regexp.source, reFlags.exec(regexp));
   result.lastIndex = regexp.lastIndex;
   return result;
 }
 
-/**
- * Creates a clone of `set`.
- *
- * @private
- * @param {Object} set The set to clone.
- * @param {Function} cloneFunc The function to clone values.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the cloned set.
- */
 function cloneSet(set, isDeep, cloneFunc) {
   const array = isDeep ? cloneFunc(setToArray(set), true) : setToArray(set);
   return arrayReduce(array, addSetEntry, new set.constructor());
 }
 
-/**
- * Creates a clone of the `symbol` object.
- *
- * @private
- * @param {Object} symbol The symbol object to clone.
- * @returns {Object} Returns the cloned symbol object.
- */
 function cloneSymbol(symbol) {
   return symbolValueOf ? Object(symbolValueOf.call(symbol)) : {};
 }
 
-/**
- * Creates a clone of `typedArray`.
- *
- * @private
- * @param {Object} typedArray The typed array to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the cloned typed array.
- */
 function cloneTypedArray(typedArray, isDeep) {
   const buffer = isDeep
     ? cloneArrayBuffer(typedArray.buffer)
@@ -911,37 +832,19 @@ function cloneTypedArray(typedArray, isDeep) {
   );
 }
 
-/**
- * Copies the values of `source` to `array`.
- *
- * @private
- * @param {Array} source The array to copy values from.
- * @param {Array} [array=[]] The array to copy values to.
- * @returns {Array} Returns `array`.
- */
 function copyArray(source, array) {
   let index = -1,
     length = source.length;
 
-  array || (array = Array(length));
+  array ||= Array(length);
   while (++index < length) {
     array[index] = source[index];
   }
   return array;
 }
 
-/**
- * Copies properties of `source` to `object`.
- *
- * @private
- * @param {Object} source The object to copy properties from.
- * @param {Array} props The property identifiers to copy.
- * @param {Object} [object={}] The object to copy properties to.
- * @param {Function} [customizer] The function to customize copied values.
- * @returns {Object} Returns `object`.
- */
 function copyObject(source, props, object, customizer) {
-  object || (object = {});
+  object ||= {};
 
   let index = -1,
     length = props.length;
@@ -958,25 +861,10 @@ function copyObject(source, props, object, customizer) {
   return object;
 }
 
-/**
- * Copies own symbol properties of `source` to `object`.
- *
- * @private
- * @param {Object} source The object to copy symbols from.
- * @param {Object} [object={}] The object to copy symbols to.
- * @returns {Object} Returns `object`.
- */
 function copySymbols(source, object) {
   return copyObject(source, getSymbols(source), object);
 }
 
-/**
- * Creates an array of own enumerable property names and symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names and symbols.
- */
 function getAllKeys(object) {
   return baseGetAllKeys(object, keys, getSymbols);
 }
@@ -1202,46 +1090,10 @@ function toSource(func) {
   return "";
 }
 
-/**
- * This method is like `_.clone` except that it recursively clones `value`.
- *
- * @static
- * @memberOf _
- * @since 1.0.0
- * @category Lang
- * @param {*} value The value to recursively clone.
- * @returns {*} Returns the deep cloned value.
- * @see _.clone
- * @example
- *
- * var objects = [{ 'a': 1 }, { 'b': 2 }];
- *
- * var deep = _.cloneDeep(objects);
- * console.log(deep[0] === objects[0]);
- * // => false
- */
 function cloneDeep(value) {
   return baseClone(value, true, true);
 }
 
-/**
- * Checks if `value` is likely an `arguments` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an `arguments` object,
- *  else `false`.
- * @example
- *
- * _.isArguments(function() { return arguments; }());
- * // => true
- *
- * _.isArguments([1, 2, 3]);
- * // => false
- */
 function isArguments(value) {
   // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
   return (
