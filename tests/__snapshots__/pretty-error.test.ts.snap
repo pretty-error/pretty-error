@@ -8,13 +8,13 @@ exports[`PrettyError render() should work 1`] = `
 \x1B[0m    \x1B[0m
 \x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[37mtoBe\x1B[0m
 \x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m76\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
+\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:<line>\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
 \x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:<line>:<col>\x1B[0m
 \x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m17\x1B[0m\x1B[37m \x1B[0m\x1B[37mgetCaughtError\x1B[0m
+\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:<line>\x1B[0m\x1B[37m \x1B[0m\x1B[37mgetCaughtError\x1B[0m
 \x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:<line>:<col>\x1B[0m
 \x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m75\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
+\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:<line>\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
 \x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:<line>:<col>\x1B[0m
 \x1B[0m    \x1B[0m
 \x1B[0m"
@@ -23,13 +23,13 @@ exports[`PrettyError render() should work 1`] = `
 exports[`PrettyError render() should work 2`] = `
 "    \x1B[0m\x1B[97m\x1B[41mTypeError\x1B[0m\x1B[90m:\x1B[0m\x1B[37m \x1B[0m\x1B[97mArray.split is not a function. (In 'Array.split(Object)', 'Array.split' is undefined)\x1B[0m
 \x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m80\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
+\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:<line>\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
 \x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:<line>:<col>\x1B[0m
 \x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m17\x1B[0m\x1B[37m \x1B[0m\x1B[37mgetCaughtError\x1B[0m
+\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:<line>\x1B[0m\x1B[37m \x1B[0m\x1B[37mgetCaughtError\x1B[0m
 \x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:<line>:<col>\x1B[0m
 \x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m80\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
+\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:<line>\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
 \x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:<line>:<col>\x1B[0m
 \x1B[0m    \x1B[0m
 \x1B[0m"
@@ -53,13 +53,13 @@ exports[`PrettyError render() should work 5`] = `
 exports[`PrettyError render() should work 6`] = `
 "    \x1B[0m\x1B[97m\x1B[41mTypeError\x1B[0m\x1B[90m:\x1B[0m\x1B[37m \x1B[0m\x1B[97mPrettyError.someNonExistingFuncion is not a function. (In 'PrettyError.someNonExistingFuncion()', 'PrettyError.someNonExistingFuncion'\x1B[0m    \x1B[0m\x1B[97m is undefined)\x1B[0m
 \x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m99\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
+\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:<line>\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
 \x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:<line>:<col>\x1B[0m
 \x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m17\x1B[0m\x1B[37m \x1B[0m\x1B[37mgetCaughtError\x1B[0m
+\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:<line>\x1B[0m\x1B[37m \x1B[0m\x1B[37mgetCaughtError\x1B[0m
 \x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:<line>:<col>\x1B[0m
 \x1B[0m    \x1B[0m
-\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:\x1B[0m\x1B[93m99\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
+\x1B[0m    \x1B[0m\x1B[90m-\x1B[0m \x1B[0m\x1B[93mpretty-error.test.ts\x1B[0m\x1B[90m:<line>\x1B[0m\x1B[37m \x1B[0m\x1B[37m<anonymous>\x1B[0m
 \x1B[0m    \x1B[0m  \x1B[0m\x1B[90mpretty-error.test.ts:<line>:<col>\x1B[0m
 \x1B[0m    \x1B[0m
 \x1B[0m"

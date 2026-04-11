@@ -23,15 +23,14 @@ const getCaughtError = (what: string | (() => any)): Error => {
 };
 
 const sanitize = (str: string) => {
-  return (
-    str
-      // Remove absolute paths (handles Windows and POSIX)
-      .replace(/(?:\w:)?\/.*?\/(pretty-error\.test\.ts)/g, "$1")
-      // Remove line and column numbers
-      .replace(/:\d+:\d+/g, ":<line>:<col>")
-      // Remove line numbers only (if any exist without columns)
-      .replace(/:\d+/g, ":<line>")
-  );
+  return str
+    .replace(/(?:\w:)?\/.*?\/(pretty-error\.test\.ts)/g, "$1")
+    .replace(
+      /:(\x1B\[[0-9;]*m)*\d+(\x1B\[[0-9;]*m)*:(\x1B\[[0-9;]*m)*\d+/g,
+      ":<line>:<col>",
+    )
+    .replace(/:(\x1B\[[0-9;]*m)*\d+/g, ":<line>")
+    .replace(/ +(\d+)$/gm, " <num>");
 };
 
 function snapshot(stack) {
