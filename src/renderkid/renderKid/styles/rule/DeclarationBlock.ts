@@ -1,3 +1,5 @@
+import { _classCallCheck, _createClass } from "#renderkid/tools";
+
 import Arbitrary from "./declarationBlock/Arbitrary";
 import Background from "./declarationBlock/Background";
 import Bullet from "./declarationBlock/Bullet";
@@ -15,30 +17,6 @@ import PaddingLeft from "./declarationBlock/PaddingLeft";
 import PaddingRight from "./declarationBlock/PaddingRight";
 import PaddingTop from "./declarationBlock/PaddingTop";
 import Width from "./declarationBlock/Width";
-
-const _typeof = (obj) => typeof obj;
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (let i = 0; i < props.length; i++) {
-    const descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
 
 let declarationClasses;
 

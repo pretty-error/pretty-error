@@ -1,36 +1,5 @@
-const _typeof = (obj) => typeof obj;
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (let i = 0; i < props.length; i++) {
-    const descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: { value: subClass, writable: true, configurable: true },
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
+import { _classCallCheck, _createClass } from "#renderkid/tools";
+import { _inherits } from "#renderkid/tools";
 
 const _setPrototypeOf = Object.setPrototypeOf;
 
@@ -78,7 +47,6 @@ function _isNativeReflectConstruct() {
 }
 
 import { p } from "#utils";
-const _getPrototypeOf = p;
 
 import _LineAppendor from "./_LineAppendor";
 

@@ -1,26 +1,6 @@
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+import { _classCallCheck, _createClass } from "#renderkid/tools";
 
-function _defineProperties(target, props) {
-  for (let i = 0; i < props.length; i++) {
-    const descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-const hasProp = {}.hasOwnProperty;
+const __hasProp = {}.hasOwnProperty;
 
 import styles from "./ansiPainter/styles";
 import tags from "./ansiPainter/tags";
@@ -87,7 +67,7 @@ const AnsiPainter = function () {
             ret = "";
 
             for (n in children) {
-              if (!hasProp.call(children, n)) continue;
+              if (!__hasProp.call(children, n)) continue;
               child = children[n];
               ret += this._renderNode(child, parentStyles);
             }
@@ -149,7 +129,7 @@ const AnsiPainter = function () {
               style = styles[i];
 
               for (key in style) {
-                if (!hasProp.call(style, key)) continue;
+                if (!__hasProp.call(style, key)) continue;
                 val = style[key];
 
                 if (final[key] == null || val !== "inherit") {

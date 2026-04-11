@@ -1,6 +1,7 @@
 {
   "name": "@pretty-error/pretty-error",
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pretty-error/pretty-error.git"
@@ -12,7 +13,7 @@
   "imports": {
     "#dom-converter": "./src/dom-converter/domConverter.ts",
     "#renderkid": "./src/renderkid/RenderKid.ts",
-    "#utila": "./src/utila/utila.ts",
+    "#renderkid/tools": "./src/renderkid/tools.ts",
     "#utils": "./src/utils/index.ts",
     "#utils/*": "./src/utils/*.ts"
   },
@@ -32,7 +33,7 @@
     "htmlparser2": "6.1.0"
   },
   "devDependencies": {
-    "@gameroman/config": "^0.0.6",
+    "@gameroman/config": "^0.0.7",
     "oxfmt": "^0.44.0",
     "oxlint": "^1.59.0",
     "oxlint-tsgolint": "^0.20.0",

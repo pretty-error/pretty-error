@@ -1,2 +1,1 @@
-import PrettyError from "./lib/PrettyError";
-export default PrettyError;
+export { default } from "./lib/PrettyError";
