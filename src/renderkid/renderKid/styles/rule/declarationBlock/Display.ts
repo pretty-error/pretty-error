@@ -84,7 +84,7 @@ function _isNativeReflectConstruct() {
 import { p } from "#utils";
 const _getPrototypeOf = p;
 
-let indexOf = [].indexOf;
+const indexOf = [].indexOf;
 
 const Display = function () {
   let self;
