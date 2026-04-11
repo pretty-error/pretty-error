@@ -18,6 +18,10 @@ function isLength(value) {
   );
 }
 
+function eq(value, other) {
+  return value === other || (value !== value && other !== other);
+}
+
 export {
   arrayProto,
   funcProto,
@@ -25,4 +29,5 @@ export {
   LARGE_ARRAY_SIZE,
   HASH_UNDEFINED,
   isLength,
+  eq,
 };
